@@ -1,8 +1,13 @@
 'use client'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import styles from './Hero.module.css'
 
 function FloatingPaths({ position }: { position: number }) {
+  const [visible, setVisible] = useState(false)
+  useEffect(() => { if (window.innerWidth >= 768) setVisible(true) }, [])
+  if (!visible) return null
+
   const paths = Array.from({ length: 36 }, (_, i) => ({
     id: i,
     d: `M-${380 - i * 5 * position} -${189 + i * 6}C-${380 - i * 5 * position} -${189 + i * 6} -${312 - i * 5 * position} ${216 - i * 6} ${152 - i * 5 * position} ${343 - i * 6}C${616 - i * 5 * position} ${470 - i * 6} ${684 - i * 5 * position} ${875 - i * 6} ${684 - i * 5 * position} ${875 - i * 6}`,
@@ -53,6 +58,9 @@ const METRICS = [
 const TITLE_LINES = ['Markanızı', 'Dijitalde Büyütün.']
 
 export default function Hero() {
+  const [isMobile, setIsMobile] = useState(false)
+  useEffect(() => { setIsMobile(window.innerWidth < 768) }, [])
+
   return (
     <section id="hero" className={styles.hero} aria-labelledby="hero-h1">
       <FloatingPaths position={1} />
@@ -75,21 +83,37 @@ export default function Hero() {
         </motion.div>
 
         <h1 id="hero-h1" className={styles.title}>
-          {TITLE_LINES.map((line, li) => (
-            <span key={li} className={styles.titleLine}>
-              {line.split('').map((ch, ci) => (
-                <motion.span
-                  key={`${li}-${ci}`}
-                  className={li === 1 ? styles.titleLetterGrad : styles.titleLetter}
-                  initial={{ y: 80, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: li * 0.18 + ci * 0.028, type: 'spring', stiffness: 140, damping: 22 }}
-                >
-                  {ch === ' ' ? ' ' : ch}
-                </motion.span>
-              ))}
-            </span>
-          ))}
+          {TITLE_LINES.map((line, li) =>
+            isMobile ? (
+              <motion.span
+                key={li}
+                className={styles.titleLine}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.55, delay: li * 0.15 }}
+              >
+                {line.split('').map((ch, ci) => (
+                  <span key={ci} className={li === 1 ? styles.titleLetterGrad : styles.titleLetter}>
+                    {ch === ' ' ? ' ' : ch}
+                  </span>
+                ))}
+              </motion.span>
+            ) : (
+              <span key={li} className={styles.titleLine}>
+                {line.split('').map((ch, ci) => (
+                  <motion.span
+                    key={`${li}-${ci}`}
+                    className={li === 1 ? styles.titleLetterGrad : styles.titleLetter}
+                    initial={{ y: 80, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: li * 0.18 + ci * 0.028, type: 'spring', stiffness: 140, damping: 22 }}
+                  >
+                    {ch === ' ' ? ' ' : ch}
+                  </motion.span>
+                ))}
+              </span>
+            )
+          )}
         </h1>
 
         <motion.p

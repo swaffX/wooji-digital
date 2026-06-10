@@ -328,6 +328,11 @@
   .statsGrid { grid-template-columns: 1fr 1fr; }
 }
 
+@media (max-width: 768px) {
+  .cardPurple, .cardCyan { animation: none; }
+  .orb1, .orb2 { animation: none; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .orb1, .orb2, .cardPurple, .cardCyan { animation: none; }
 }
