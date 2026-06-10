@@ -170,9 +170,14 @@ export default function References() {
                 <motion.div
                   key={t.id}
                   custom={dir}
-                  initial={(d: number) => ({ opacity: 0, rotateY: d * -60, scale: 0.88, z: -60 })}
-                  animate={{ opacity: 1, rotateY: 0, scale: 1, z: 0 }}
-                  exit={(d: number) => ({ opacity: 0, rotateY: d * 60, scale: 0.88, z: -60 })}
+                  variants={{
+                    enter: (d: number) => ({ opacity: 0, rotateY: d * -60, scale: 0.88, z: -60 }),
+                    center: { opacity: 1, rotateY: 0, scale: 1, z: 0 },
+                    exit: (d: number) => ({ opacity: 0, rotateY: d * 60, scale: 0.88, z: -60 }),
+                  }}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
                   transition={{ duration: 0.46, ease: [0.4, 0, 0.2, 1] }}
                   className={styles.flipWrap}
                 >
