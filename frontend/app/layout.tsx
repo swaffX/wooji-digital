@@ -37,9 +37,12 @@ export const metadata: Metadata = {
   authors: [{ name: 'Wooji Digital' }],
   robots: 'index, follow',
   icons: {
-    icon: '/favicon.svg',
-    shortcut: '/favicon.svg',
-    apple: '/favicon.svg',
+    icon: [
+      { url: '/logo.jpg', type: 'image/jpeg', sizes: 'any' },
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+    ],
+    shortcut: '/logo.jpg',
+    apple: '/logo.jpg',
   },
   metadataBase: new URL('https://woojidigital.com'),
   alternates: { canonical: '/' },
