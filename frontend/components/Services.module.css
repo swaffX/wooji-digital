@@ -34,6 +34,7 @@
   mask-composite: exclude;
   opacity: 0;
   transition: opacity var(--t);
+  pointer-events: none;
 }
 
 .card::after {

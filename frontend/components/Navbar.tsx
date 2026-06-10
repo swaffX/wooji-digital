@@ -13,16 +13,26 @@ const TW_WORDS = [
 ]
 
 const navItems = [
-  { key: 'hizmetler',   label: 'Hizmetler' },
   { key: 'hakkimizda',  label: 'Hakkımızda' },
   { key: 'surec',       label: 'Süreç' },
   { key: 'referanslar', label: 'Referanslar' },
   { key: 'sss',         label: 'SSS' },
 ]
 
+const serviceLinks = [
+  { label: 'SEO & Organik Büyüme',     href: '/seo-hizmetleri' },
+  { label: 'Dijital Reklam Yönetimi',  href: '/dijital-reklam' },
+  { label: 'Web Tasarım & Geliştirme', href: '/web-tasarim' },
+  { label: 'Sosyal Medya Yönetimi',    href: '/sosyal-medya' },
+  { label: 'İçerik Pazarlaması',       href: '/icerik-pazarlamasi' },
+  { label: 'Analitik & Strateji',      href: '/analitik-strateji' },
+]
+
 export default function Navbar() {
-  const [isOpen, setIsOpen]        = useState(false)
-  const [activeSection, setActive] = useState('')
+  const [isOpen, setIsOpen]               = useState(false)
+  const [activeSection, setActive]        = useState('')
+  const [servicesOpen, setServicesOpen]   = useState(false)
+  const [mobServicesOpen, setMobServices] = useState(false)
   const pathname = usePathname()
   const isHome   = pathname === '/'
 
@@ -36,7 +46,7 @@ export default function Navbar() {
 
   useEffect(() => {
     if (!isHome) return
-    const ids = [...navItems.map((i) => i.key), 'iletisim']
+    const ids = ['hizmetler', ...navItems.map((i) => i.key), 'iletisim']
     const els = ids.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[]
     const obs = new IntersectionObserver(
       (entries) => {
@@ -48,12 +58,11 @@ export default function Navbar() {
     return () => obs.disconnect()
   }, [isHome])
 
-  const close = () => setIsOpen(false)
+  const close = () => { setIsOpen(false); setMobServices(false) }
 
   return (
     <>
       <div className={styles.wrapper}>
-        {/* Pill fades in as one unit — no per-item animations */}
         <motion.div
           className={styles.pill}
           initial={{ opacity: 0 }}
@@ -97,6 +106,58 @@ export default function Navbar() {
 
           {/* Desktop nav */}
           <nav className={styles.navLinks} aria-label="Ana navigasyon">
+            {/* Hizmetler dropdown */}
+            <div
+              className={styles.dropdownWrap}
+              onMouseEnter={() => setServicesOpen(true)}
+              onMouseLeave={() => setServicesOpen(false)}
+            >
+              <Link
+                href={href('hizmetler')}
+                onClick={close}
+                className={`${styles.dropdownTrigger}${activeSection === 'hizmetler' ? ` ${styles.activeLink}` : ''}`}
+              >
+                Hizmetler
+                <svg
+                  width="11"
+                  height="11"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  className={`${styles.chevron}${servicesOpen ? ` ${styles.chevronOpen}` : ''}`}
+                  aria-hidden="true"
+                >
+                  <polyline points="6 9 12 15 18 9"/>
+                </svg>
+              </Link>
+
+              <AnimatePresence>
+                {servicesOpen && (
+                  <motion.div
+                    className={styles.dropdown}
+                    initial={{ opacity: 0, y: -8, scale: 0.97 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -8, scale: 0.97 }}
+                    transition={{ duration: 0.18, ease: [0.4, 0, 0.2, 1] }}
+                    role="menu"
+                  >
+                    {serviceLinks.map((s) => (
+                      <Link
+                        key={s.href}
+                        href={s.href}
+                        className={styles.dropdownItem}
+                        onClick={close}
+                        role="menuitem"
+                      >
+                        {s.label}
+                      </Link>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
             {navItems.map((item) => (
               <div key={item.key}>
                 <Link
@@ -167,13 +228,58 @@ export default function Navbar() {
             </motion.button>
 
             <div className={styles.mobLinks}>
+              {/* Hizmetler accordion */}
+              <motion.div
+                initial={{ opacity: 0, x: 24 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 24 }}
+                transition={{ delay: 0.1 }}
+              >
+                <button
+                  className={styles.mobDropBtn}
+                  onClick={() => setMobServices((v) => !v)}
+                  aria-expanded={mobServicesOpen}
+                >
+                  Hizmetler
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    className={`${styles.mobChevron}${mobServicesOpen ? ` ${styles.chevronOpen}` : ''}`}
+                    aria-hidden="true"
+                  >
+                    <polyline points="6 9 12 15 18 9"/>
+                  </svg>
+                </button>
+                <AnimatePresence>
+                  {mobServicesOpen && (
+                    <motion.div
+                      className={styles.mobSubLinks}
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
+                    >
+                      {serviceLinks.map((s) => (
+                        <Link key={s.href} href={s.href} className={styles.mobSubLink} onClick={close}>
+                          {s.label}
+                        </Link>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+
               {navItems.map((item, i) => (
                 <motion.div
                   key={item.key}
                   initial={{ opacity: 0, x: 24 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: 24 }}
-                  transition={{ delay: i * 0.08 + 0.1 }}
+                  transition={{ delay: i * 0.08 + 0.18 }}
                 >
                   <Link href={href(item.key)} onClick={close}>{item.label}</Link>
                 </motion.div>
@@ -183,7 +289,7 @@ export default function Navbar() {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 16 }}
-                transition={{ delay: 0.48 }}
+                transition={{ delay: 0.55 }}
                 className={styles.mobCtaWrap}
               >
                 <Link href={contactHref} className={styles.mobCta} onClick={close}>
