@@ -68,7 +68,7 @@ export default function Contact() {
                 </div>
               </a>
 
-              <a href="mailto:info@woojidiital.com" className={styles.contactItem} aria-label="E-posta gönder">
+              <a href="mailto:info@woojidigital.com" className={styles.contactItem} aria-label="E-posta gönder">
                 <div className={styles.cIcon}>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
@@ -77,7 +77,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <div className={styles.cLabel}>E-posta</div>
-                  <div className={styles.cVal}>info@woojidiital.com</div>
+                  <div className={styles.cVal}>info@woojidigital.com</div>
                 </div>
               </a>
 
@@ -96,14 +96,14 @@ export default function Contact() {
             </div>
 
             <div className={styles.socials} aria-label="Sosyal medya hesaplarımız">
-              <a href="https://instagram.com/woojidiital" className={styles.socLink} aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+              <a href="https://instagram.com/woojidigital" className={styles.socLink} aria-label="Instagram" target="_blank" rel="noopener noreferrer">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                   <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
                   <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
                   <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
                 </svg>
               </a>
-              <a href="https://tiktok.com/@woojidiital" className={styles.socLink} aria-label="TikTok" target="_blank" rel="noopener noreferrer">
+              <a href="https://tiktok.com/@woojidigital" className={styles.socLink} aria-label="TikTok" target="_blank" rel="noopener noreferrer">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.28 6.28 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.02-.07z"/>
                 </svg>

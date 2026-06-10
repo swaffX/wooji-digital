@@ -29,16 +29,4 @@
 
 .top {
   background: var(--grad);
-  opacity: 0;
-  pointer-events: none;
-  transform: scale(0.7);
-  transition: opacity var(--t), transform var(--t), box-shadow var(--t);
 }
-
-.show {
-  opacity: 1;
-  pointer-events: all;
-  transform: scale(1);
-}
-
-.top:hover { box-shadow: 0 8px 32px var(--glow-p); }

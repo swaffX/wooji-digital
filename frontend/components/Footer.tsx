@@ -115,7 +115,7 @@ export default function Footer() {
             <h4 className={styles.colHead}>İletişim</h4>
             <address className={styles.address}>
               <a href="tel:+905XXXXXXXXX">+90 (XXX) XXX XX XX</a>
-              <a href="mailto:info@woojidiital.com">info@woojidiital.com</a>
+              <a href="mailto:info@woojidigital.com">info@woojidigital.com</a>
               <span>İstanbul, Türkiye</span>
               <a href="#iletisim" className={styles.consultLink}>Ücretsiz Danışmanlık →</a>
             </address>
@@ -123,7 +123,7 @@ export default function Footer() {
             <h4 className={`${styles.colHead} ${styles.colHeadSoc}`}>Bizi Takip Edin</h4>
             <div className={styles.socials} aria-label="Sosyal medya">
               <a
-                href="https://instagram.com/woojidiital"
+                href="https://instagram.com/woojidigital"
                 className={styles.socBtn}
                 aria-label="Instagram"
                 target="_blank"
@@ -136,7 +136,7 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="https://tiktok.com/@woojidiital"
+                href="https://tiktok.com/@woojidigital"
                 className={styles.socBtn}
                 aria-label="TikTok"
                 target="_blank"

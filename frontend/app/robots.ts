@@ -9,7 +9,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/api/'],
       },
     ],
-    sitemap: 'https://woojidiital.com/sitemap.xml',
-    host: 'https://woojidiital.com',
+    sitemap: 'https://woojidigital.com/sitemap.xml',
+    host: 'https://woojidigital.com',
   }
 }

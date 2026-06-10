@@ -127,17 +127,28 @@ export default function Hero() {
         </motion.div>
 
         <motion.div
-          className={styles.ratingBadge}
+          className={styles.socialProof}
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.95 }}
-          aria-label="Google değerlendirmesi: 5 üzerinden 5"
+          aria-label="50+ mutlu müşteri, Google 5.0 puan"
         >
-          <div className={styles.ratingStars}>
-            {Array.from({ length: 5 }).map((_, i) => <StarIcon key={i} />)}
+          <div className={styles.avatarStack} aria-hidden="true">
+            <span className={styles.av} style={{ background: '#7c3aed' }}>AY</span>
+            <span className={styles.av} style={{ background: '#0891b2' }}>FK</span>
+            <span className={styles.av} style={{ background: '#2563eb' }}>MÖ</span>
           </div>
-          <span className={styles.ratingText}>5.0</span>
-          <span className={styles.ratingCount}>· Google&apos;da değerlendirin</span>
+          <div className={styles.proofMeta}>
+            <span className={styles.proofCount}>50+</span>
+            <span className={styles.proofLabel}>mutlu müşteri</span>
+          </div>
+          <div className={styles.proofDivider} aria-hidden="true" />
+          <div className={styles.proofRating}>
+            <div className={styles.ratingStars} aria-hidden="true">
+              {Array.from({ length: 5 }).map((_, i) => <StarIcon key={i} />)}
+            </div>
+            <span className={styles.ratingScore}>5.0</span>
+          </div>
         </motion.div>
       </div>
 

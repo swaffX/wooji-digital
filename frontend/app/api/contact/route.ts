@@ -34,7 +34,7 @@ export async function POST(req: Request) {
 
   await transporter.sendMail({
     from: `"Wooji Digital Form" <${process.env.SMTP_USER}>`,
-    to: process.env.CONTACT_TO ?? 'info@woojidiital.com',
+    to: process.env.CONTACT_TO ?? 'info@woojidigital.com',
     replyTo: email,
     subject: `Yeni İletişim: ${name}`,
     html: `

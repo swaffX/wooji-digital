@@ -40,11 +40,11 @@ export const metadata: Metadata = {
     shortcut: '/favicon.svg',
     apple: '/favicon.svg',
   },
-  metadataBase: new URL('https://woojidiital.com'),
+  metadataBase: new URL('https://woojidigital.com'),
   alternates: { canonical: '/' },
   openGraph: {
     type: 'website',
-    url: 'https://woojidiital.com/',
+    url: 'https://woojidigital.com/',
     title: 'Wooji Digital | Dijital Pazarlama & Marka Büyütme Ajansı',
     description:
       'SEO, reklam yönetimi, web tasarım ve dijital strateji hizmetleriyle markanızı büyütüyoruz. Ücretsiz danışmanlık için iletişime geçin.',
@@ -54,8 +54,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    site: '@woojidiital',
-    creator: '@woojidiital',
+    site: '@woojidigital',
+    creator: '@woojidigital',
     title: 'Wooji Digital | Dijital Pazarlama Ajansı',
     description:
       'SEO, reklam yönetimi, web tasarım ve dijital strateji hizmetleriyle markanızı büyütüyoruz.',
@@ -69,13 +69,13 @@ const schemaOrg = {
   name: 'Wooji Digital',
   description:
     'Dijital pazarlama, marka büyütme ve çevrimiçi görünürlük çözümleri sunan modern bir dijital ajans.',
-  url: 'https://woojidiital.com/',
-  logo: 'https://woojidiital.com/logo.png',
-  image: 'https://woojidiital.com/og-image.jpg',
+  url: 'https://woojidigital.com/',
+  logo: 'https://woojidigital.com/logo.png',
+  image: 'https://woojidigital.com/og-image.jpg',
   priceRange: '$$',
   contactPoint: {
     '@type': 'ContactPoint',
-    email: 'info@woojidiital.com',
+    email: 'info@woojidigital.com',
     contactType: 'customer service',
     availableLanguage: 'Turkish',
     areaServed: 'TR',
@@ -86,8 +86,8 @@ const schemaOrg = {
     addressLocality: 'İstanbul',
   },
   sameAs: [
-    'https://instagram.com/woojidiital',
-    'https://tiktok.com/@woojidiital',
+    'https://instagram.com/woojidigital',
+    'https://tiktok.com/@woojidigital',
   ],
 }
 
