@@ -22,7 +22,7 @@ export function TypewriterEffect({ words }: Props) {
     if (isInView) {
       animate(
         'span[data-char]',
-        { display: 'inline-block', opacity: 1, width: 'fit-content' },
+        { opacity: 1 },
         { duration: 0.25, delay: stagger(0.06), ease: 'easeInOut' }
       )
     }
@@ -38,7 +38,7 @@ export function TypewriterEffect({ words }: Props) {
                 data-char
                 key={ci}
                 className={word.accent ? styles.charAccent : styles.char}
-                initial={{ opacity: 0, width: 0, display: 'none' }}
+                initial={{ opacity: 0 }}
               >
                 {ch}
               </motion.span>

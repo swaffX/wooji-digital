@@ -18,12 +18,14 @@
 }
 
 .char {
-  display: none;
+  display: inline-block;
+  opacity: 0;
   color: #374151;
 }
 
 .charAccent {
-  display: none;
+  display: inline-block;
+  opacity: 0;
   background: linear-gradient(125deg, #7c3aed 0%, #0891b2 100%);
   -webkit-background-clip: text;
   background-clip: text;
