@@ -28,8 +28,13 @@
 .track {
   display: flex;
   gap: 1.25rem;
-  animation: runLogos 28s linear infinite;
+  animation: runLogos 18s linear infinite;
   width: max-content;
+  will-change: transform;
+}
+
+.runner:hover .track {
+  animation-play-state: paused;
 }
 
 .pill {
@@ -47,7 +52,7 @@
   color: var(--text-3);
   letter-spacing: 0.04em;
   white-space: nowrap;
-  opacity: 0.55;
+  opacity: 0.7;
   transition: opacity var(--t);
 }
 
