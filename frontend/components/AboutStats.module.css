@@ -1,0 +1,85 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 2rem 0;
+  border-radius: var(--r);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+}
+
+.stat {
+  padding: 1.375rem 1.25rem;
+  position: relative;
+  transition: background 300ms ease;
+}
+
+.stat:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 18%;
+  bottom: 18%;
+  width: 1px;
+  background: var(--border);
+}
+
+.stat:hover {
+  background: var(--card-bg-hover);
+}
+
+/* colored top line per stat */
+.bar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  border-radius: 0;
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+.stat:hover .bar { opacity: 1; }
+
+.accent_purple .bar {
+  background: linear-gradient(90deg, var(--purple), var(--cyan));
+}
+
+.accent_cyan .bar {
+  background: linear-gradient(90deg, var(--cyan), var(--purple));
+}
+
+.number {
+  font-family: var(--font-d);
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin-bottom: 0.3rem;
+}
+
+.accent_purple .number { color: var(--purple-light); }
+.accent_cyan   .number { color: var(--cyan); }
+
+.suffix {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.label {
+  font-size: 0.775rem;
+  font-weight: 500;
+  color: var(--text-2);
+  line-height: 1.35;
+}
+
+@media (max-width: 560px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .stat:nth-child(2)::after  { display: none; }
+  .stat:nth-child(1),
+  .stat:nth-child(2) {
+    border-bottom: 1px solid var(--border);
+  }
+}

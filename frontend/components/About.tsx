@@ -1,6 +1,8 @@
+import AboutCard3D, { type Pillar } from './AboutCard3D'
+import AboutStats from './AboutStats'
 import styles from './About.module.css'
 
-const pillars = [
+const pillars: Pillar[] = [
   {
     num: '01',
     icon: (
@@ -47,63 +49,103 @@ const pillars = [
   },
 ]
 
+const differentiators = [
+  {
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+    ),
+    text: 'Her markaya özel strateji — şablon yok, kopya yok',
+  },
+  {
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+    ),
+    text: 'Gerçek zamanlı raporlama ve tam şeffaflık',
+  },
+  {
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+    ),
+    text: 'Küçük işletmeden kurumsal firmaya, her ölçekte deneyim',
+  },
+  {
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+    ),
+    text: 'Yaratıcılık + veri + uygulama mükemmeliyeti bir arada',
+  },
+]
+
 export default function About() {
   return (
     <section id="hakkimizda" className={styles.section} aria-labelledby="hakkimizda-h">
       <div className="wrap">
         <div className={styles.grid}>
+
+          {/* ── Left: 3D card ── */}
           <div className="reveal">
-            <div className={styles.box}>
-              <div className="s-tag">Neden Wooji?</div>
-              <p className={styles.boxIntro}>
-                Dijital dünyada sadece görünür olmak yetmez — doğru kişiye, doğru zamanda,
-                doğru mesajla ulaşmak gerekir.
-              </p>
-              <div className={styles.pillars}>
-                {pillars.map((p) => (
-                  <div key={p.title} className={styles.pillar}>
-                    <div className={styles.pillarNum}>{p.num}</div>
-                    <span className={styles.pillarIcon}>{p.icon}</span>
-                    <h4>{p.title}</h4>
-                    <p>{p.desc}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <AboutCard3D
+              tag="Neden Wooji?"
+              introText="Dijital dünyada sadece görünür olmak yetmez — doğru kişiye, doğru zamanda, doğru mesajla ulaşmak gerekir."
+              pillars={pillars}
+            />
           </div>
 
+          {/* ── Right: content ── */}
           <div className={`${styles.text} reveal d2`}>
             <div className="s-tag">Hakkımızda</div>
             <h2 className="s-title" id="hakkimizda-h">
               Dijitalde Fark Yaratan<br />
               <span className="gt">Ekibiniz</span>
             </h2>
-            <p>
-              Wooji Digital, markaların dijital dünyada güçlü, tutarlı ve büyüyen bir varlık
+
+            <p className={styles.lead}>
+              Wooji Digital, markaların dijital dünyada güçlü ve büyüyen bir varlık
               oluşturmasına yardımcı olan modern bir dijital pazarlama ajansıdır.
             </p>
-            <p>
-              Küçük işletmelerden kurumsal firmalara, e-ticaret markalarından kişisel markalara
-              kadar her ölçekte müşterimizin ihtiyacına özel stratejiler geliştiriyoruz.
-              Yaratıcılığı veriyle, stratejiyi uygulama mükemmeliyetiyle buluşturuyoruz.
-            </p>
+
+            {/* Differentiators */}
+            <ul className={styles.diffList} aria-label="Neden bizi seçmelisiniz">
+              {differentiators.map((d, i) => (
+                <li key={i} className={styles.diffItem}>
+                  <span className={styles.diffIcon}>{d.icon}</span>
+                  <span>{d.text}</span>
+                </li>
+              ))}
+            </ul>
+
+            {/* Stats */}
+            <AboutStats />
+
+            {/* Mission / Vision */}
             <div className={styles.mvPair}>
-              <div className={`${styles.mv} ${styles.mvMission}`}>
-                <h4>Misyonumuz</h4>
+              <div className={styles.mv}>
+                <div className={`${styles.mvBar} ${styles.mvBarPurple}`} />
+                <h4 className={styles.mvHead}>Misyon</h4>
                 <p>
-                  Her markayı dijital dünyada en güçlü versiyonuyla var etmek için strateji,
-                  yaratıcılık ve veriyi bir araya getirmek.
+                  Her markayı dijital dünyada en güçlü versiyonuyla var etmek için
+                  strateji, yaratıcılık ve veriyi bir araya getirmek.
                 </p>
               </div>
-              <div className={`${styles.mv} ${styles.mvVision}`}>
-                <h4>Vizyonumuz</h4>
+              <div className={styles.mv}>
+                <div className={`${styles.mvBar} ${styles.mvBarCyan}`} />
+                <h4 className={styles.mvHead}>Vizyon</h4>
                 <p>
-                  Türkiye&apos;nin en güvenilen ve yenilikçi dijital ajansı olarak markalarla
+                  Türkiye&apos;nin en güvenilen dijital ajansı olarak markalarla
                   birlikte büyümek ve küresel standartlarda hizmet sunmak.
                 </p>
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </section>

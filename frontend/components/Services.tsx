@@ -124,11 +124,21 @@ export default function Services() {
                 className={cls}
               >
                 <span className={styles.badge} aria-hidden="true">{s.num}</span>
+                {s.featured && (
+                  <span className={styles.featuredTag} aria-label="Öne çıkan hizmet">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                    </svg>
+                    Öne Çıkan
+                  </span>
+                )}
 
-                <div className={styles.icon}>{s.icon}</div>
+                <div className={styles.iconWrap}>
+                  <div className={styles.icon}>{s.icon}</div>
+                </div>
 
                 <div className={styles.cardMid}>
-                  <h3 id={s.id}>{s.title}</h3>
+                  <h3 id={s.id} className={s.featured ? styles.featuredTitle : undefined}>{s.title}</h3>
                   <p>{s.desc}</p>
                   <ul className={styles.bullets} aria-label={`${s.title} kapsamı`}>
                     {s.bullets.map((b) => (

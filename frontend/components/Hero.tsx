@@ -7,38 +7,30 @@ function FloatingPaths({ position }: { position: number }) {
     id: i,
     d: `M-${380 - i * 5 * position} -${189 + i * 6}C-${380 - i * 5 * position} -${189 + i * 6} -${312 - i * 5 * position} ${216 - i * 6} ${152 - i * 5 * position} ${343 - i * 6}C${616 - i * 5 * position} ${470 - i * 6} ${684 - i * 5 * position} ${875 - i * 6} ${684 - i * 5 * position} ${875 - i * 6}`,
     width: 0.5 + i * 0.03,
-    opacity: 0.06 + i * 0.016,
+    opacity: 0.07 + i * 0.018,
     duration: 20 + (i % 6) * 3,
   }))
-
+  const gradId = `pg${position > 0 ? 'a' : 'b'}`
   return (
     <div className={styles.pathsWrap} aria-hidden="true">
       <svg className={styles.pathsSvg} viewBox="0 0 696 316" fill="none" preserveAspectRatio="xMidYMid slice">
         <defs>
-          <linearGradient id={`pg${position > 0 ? 'a' : 'b'}`} x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient id={gradId} x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%"   stopColor="#7c3aed" />
             <stop offset="50%"  stopColor="#2563eb" />
             <stop offset="100%" stopColor="#0891b2" />
           </linearGradient>
         </defs>
-        {paths.map((path) => (
+        {paths.map(p => (
           <motion.path
-            key={path.id}
-            d={path.d}
-            stroke={`url(#pg${position > 0 ? 'a' : 'b'})`}
-            strokeWidth={path.width}
-            strokeOpacity={path.opacity}
+            key={p.id}
+            d={p.d}
+            stroke={`url(#${gradId})`}
+            strokeWidth={p.width}
+            strokeOpacity={p.opacity}
             initial={{ pathLength: 0.3, opacity: 0.6 }}
-            animate={{
-              pathLength: 1,
-              opacity: [0.3, 0.6, 0.3],
-              pathOffset: [0, 1, 0],
-            }}
-            transition={{
-              duration: path.duration,
-              repeat: Infinity,
-              ease: 'linear',
-            }}
+            animate={{ pathLength: 1, opacity: [0.3, 0.6, 0.3], pathOffset: [0, 1, 0] }}
+            transition={{ duration: p.duration, repeat: Infinity, ease: 'linear' }}
           />
         ))}
       </svg>
@@ -52,6 +44,12 @@ const StarIcon = () => (
   </svg>
 )
 
+const METRICS = [
+  { value: '+340%', label: 'Organik Trafik' },
+  { value: '3.8x',  label: 'Ort. ROAS'      },
+  { value: '50+',   label: 'Büyütülen Marka' },
+]
+
 const TITLE_LINES = ['Markanızı', 'Dijitalde Büyütün.']
 
 export default function Hero() {
@@ -60,12 +58,16 @@ export default function Hero() {
       <FloatingPaths position={1} />
       <FloatingPaths position={-1} />
 
+      <div className={styles.orb1} aria-hidden="true" />
+      <div className={styles.orb2} aria-hidden="true" />
+      <div className={styles.gridOverlay} aria-hidden="true" />
+
       <div className={styles.content}>
         <motion.div
           className={styles.badge}
-          initial={{ opacity: 0, y: -12 }}
+          initial={{ opacity: 0, y: -14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.55 }}
           role="text"
         >
           <span className={styles.badgeDot} aria-hidden="true" />
@@ -73,22 +75,17 @@ export default function Hero() {
         </motion.div>
 
         <h1 id="hero-h1" className={styles.title}>
-          {TITLE_LINES.map((line, lineIdx) => (
-            <span key={lineIdx} className={styles.titleLine}>
-              {line.split('').map((letter, lIdx) => (
+          {TITLE_LINES.map((line, li) => (
+            <span key={li} className={styles.titleLine}>
+              {line.split('').map((ch, ci) => (
                 <motion.span
-                  key={`${lineIdx}-${lIdx}`}
-                  className={lineIdx === 1 ? styles.titleLetterGrad : styles.titleLetter}
+                  key={`${li}-${ci}`}
+                  className={li === 1 ? styles.titleLetterGrad : styles.titleLetter}
                   initial={{ y: 80, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
-                  transition={{
-                    delay: lineIdx * 0.18 + lIdx * 0.028,
-                    type: 'spring',
-                    stiffness: 140,
-                    damping: 22,
-                  }}
+                  transition={{ delay: li * 0.18 + ci * 0.028, type: 'spring', stiffness: 140, damping: 22 }}
                 >
-                  {letter === ' ' ? ' ' : letter}
+                  {ch === ' ' ? ' ' : ch}
                 </motion.span>
               ))}
             </span>
@@ -101,8 +98,9 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.65 }}
         >
-          Wooji Digital; SEO, reklam yönetimi, web tasarım ve dijital strateji hizmetleriyle
-          markanızı büyütür. Veriye dayalı yaklaşım, yaratıcı stratejiler, ölçülebilir sonuçlar.
+          Wooji Digital; SEO, reklam yönetimi, web tasarım ve dijital strateji
+          hizmetleriyle markanızı büyütür. Veriye dayalı yaklaşım, yaratıcı stratejiler,
+          ölçülebilir sonuçlar.
         </motion.p>
 
         <motion.div
@@ -126,11 +124,28 @@ export default function Hero() {
           </a>
         </motion.div>
 
+        {/* Metrics strip */}
+        <motion.div
+          className={styles.metricsRow}
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.92 }}
+          aria-label="Sonuçlarımız"
+        >
+          {METRICS.map((m, i) => (
+            <div key={m.label} className={styles.metric}>
+              <span className={styles.metricVal}>{m.value}</span>
+              <span className={styles.metricLabel}>{m.label}</span>
+              {i < METRICS.length - 1 && <span className={styles.metricDivider} aria-hidden="true" />}
+            </div>
+          ))}
+        </motion.div>
+
         <motion.div
           className={styles.socialProof}
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.95 }}
+          transition={{ duration: 0.6, delay: 1.05 }}
           aria-label="50+ mutlu müşteri, Google 5.0 puan"
         >
           <div className={styles.avatarStack} aria-hidden="true">

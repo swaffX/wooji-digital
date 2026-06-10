@@ -8,7 +8,7 @@ import References from '@/components/References'
 import Faq from '@/components/Faq'
 import Contact from '@/components/Contact'
 import Footer from '@/components/Footer'
-import Fab from '@/components/Fab'
+import AiChat from '@/components/AiChat'
 import RevealObserver from '@/components/RevealObserver'
 
 export default function Home() {
@@ -26,7 +26,7 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
-      <Fab />
+      <AiChat />
       <RevealObserver />
     </>
   )

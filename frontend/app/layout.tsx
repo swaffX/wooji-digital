@@ -5,7 +5,7 @@ import CookieBanner from '@/components/CookieBanner'
 import { WebVitals } from '@/components/WebVitals'
 import './globals.css'
 
-const GA_ID = 'G-XXXXXXXXXX' // TODO: replace with real GA4 measurement ID
+const GA_ID = 'G-LLEW829CCH'
 
 const syneVar = Syne({
   subsets: ['latin'],
@@ -67,51 +67,84 @@ export const metadata: Metadata = {
   },
 }
 
-const schemaOrg = {
+const schemaGraph = {
   '@context': 'https://schema.org',
-  '@type': 'LocalBusiness',
-  '@id': 'https://woojidigital.com/#business',
-  name: 'Wooji Digital',
-  description: 'Dijital pazarlama, marka büyütme ve çevrimiçi görünürlük çözümleri sunan modern bir dijital ajans.',
-  url: 'https://woojidigital.com/',
-  logo: 'https://woojidigital.com/logo.png',
-  image: 'https://woojidigital.com/og-image.jpg',
-  priceRange: '$$',
-  telephone: '+90-XXX-XXX-XX-XX', // TODO: real number
-  email: 'info@woojidigital.com',
-  foundingDate: '2023',
-  areaServed: {
-    '@type': 'Country',
-    name: 'Turkey',
-  },
-  hasOfferCatalog: {
-    '@type': 'OfferCatalog',
-    name: 'Dijital Pazarlama Hizmetleri',
-    itemListElement: [
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'SEO & Organik Büyüme' } },
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Dijital Reklam Yönetimi' } },
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Web Tasarım & Geliştirme' } },
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Sosyal Medya Yönetimi' } },
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'İçerik Pazarlaması' } },
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Analitik & Strateji' } },
-    ],
-  },
-  contactPoint: {
-    '@type': 'ContactPoint',
-    email: 'info@woojidigital.com',
-    contactType: 'customer service',
-    availableLanguage: 'Turkish',
-    areaServed: 'TR',
-  },
-  address: {
-    '@type': 'PostalAddress',
-    addressCountry: 'TR',
-    addressLocality: 'İstanbul',
-    addressRegion: 'İstanbul',
-  },
-  sameAs: [
-    'https://instagram.com/woojidigital',
-    'https://tiktok.com/@woojidigital',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': 'https://woojidigital.com/#organization',
+      name: 'Wooji Digital',
+      url: 'https://woojidigital.com/',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://woojidigital.com/logo.jpg',
+        width: 200,
+        height: 60,
+      },
+      image: 'https://woojidigital.com/og-image.jpg',
+      description: 'Dijital pazarlama, SEO, reklam yönetimi, web tasarım ve marka büyütme hizmetleri sunan modern dijital ajans.',
+      email: 'info@woojidigital.com',
+      foundingDate: '2023',
+      areaServed: { '@type': 'Country', name: 'Turkey' },
+      sameAs: [
+        'https://www.instagram.com/woojidigital',
+        'https://www.tiktok.com/@woojidigital',
+        'https://www.linkedin.com/company/woojidigital',
+        'https://twitter.com/woojidigital',
+        'https://www.facebook.com/woojidigital',
+      ],
+      contactPoint: {
+        '@type': 'ContactPoint',
+        email: 'info@woojidigital.com',
+        contactType: 'customer service',
+        availableLanguage: 'Turkish',
+        areaServed: 'TR',
+      },
+    },
+    {
+      '@type': 'LocalBusiness',
+      '@id': 'https://woojidigital.com/#business',
+      name: 'Wooji Digital',
+      url: 'https://woojidigital.com/',
+      image: 'https://woojidigital.com/og-image.jpg',
+      priceRange: '$$',
+      email: 'info@woojidigital.com',
+      address: {
+        '@type': 'PostalAddress',
+        addressCountry: 'TR',
+        addressLocality: 'İstanbul',
+        addressRegion: 'İstanbul',
+      },
+      hasOfferCatalog: {
+        '@type': 'OfferCatalog',
+        name: 'Dijital Pazarlama Hizmetleri',
+        itemListElement: [
+          { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'SEO & Organik Büyüme' } },
+          { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Dijital Reklam Yönetimi' } },
+          { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Web Tasarım & Geliştirme' } },
+          { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Sosyal Medya Yönetimi' } },
+          { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'İçerik Pazarlaması' } },
+          { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Analitik & Strateji' } },
+        ],
+      },
+    },
+    {
+      '@type': 'WebSite',
+      '@id': 'https://woojidigital.com/#website',
+      url: 'https://woojidigital.com/',
+      name: 'Wooji Digital',
+      description: 'Dijital pazarlama, SEO ve marka büyütme ajansı',
+      publisher: { '@id': 'https://woojidigital.com/#organization' },
+      inLanguage: 'tr-TR',
+      potentialAction: {
+        '@type': 'SearchAction',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: 'https://woojidigital.com/?q={search_term_string}',
+        },
+        'query-input': 'required name=search_term_string',
+      },
+    },
   ],
 }
 
@@ -124,7 +157,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaOrg) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaGraph) }}
         />
       </head>
       <body>

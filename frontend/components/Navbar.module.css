@@ -210,6 +210,8 @@
 /* ── Dropdown ── */
 .dropdownWrap {
   position: relative;
+  padding-bottom: 12px;  /* extends hover zone to cover gap between trigger and panel */
+  margin-bottom: -12px;
 }
 
 .dropdownTrigger {
@@ -241,9 +243,9 @@
 
 .dropdown {
   position: absolute;
-  top: calc(100% + 10px);
+  top: calc(100% + 2px);   /* gap already provided by dropdownWrap padding-bottom */
   left: 50%;
-  transform: translateX(-50%);
+  /* transform handled entirely by Framer Motion via x:'-50%' */
   background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 16px;
