@@ -1,0 +1,187 @@
+.section { position: relative; }
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 3.5rem;
+  align-items: start;
+}
+
+.info h2 {
+  font-family: var(--font-d);
+  font-size: clamp(1.5rem, 2vw, 1.875rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.875rem;
+  line-height: 1.2;
+}
+
+.info > p {
+  color: var(--text-2);
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+
+.contactList {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 1.75rem;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+
+.contactItem {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  text-decoration: none;
+  color: inherit;
+  transition: background var(--t);
+  border-bottom: 1px solid var(--border);
+}
+
+.contactItem:last-child { border-bottom: none; }
+
+.contactItem:hover { background: rgba(124,58,237,0.05); }
+
+.cIcon {
+  width: 36px; height: 36px;
+  border-radius: 9px;
+  background: rgba(124,58,237,0.12);
+  border: 1px solid rgba(124,58,237,0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--purple-light);
+  flex-shrink: 0;
+  transition: background var(--t);
+}
+
+.contactItem:hover .cIcon {
+  background: rgba(124,58,237,0.22);
+}
+
+.cLabel {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 0.15rem;
+}
+
+.cVal { font-size: 0.875rem; font-weight: 500; }
+
+.socials { display: flex; gap: 0.75rem; margin-bottom: 1.5rem; }
+
+.socLink {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-2);
+  text-decoration: none;
+  transition: background var(--t), border-color var(--t), color var(--t), transform var(--t);
+}
+
+.socLink:hover {
+  background: rgba(124,58,237,0.15);
+  border-color: rgba(124,58,237,0.4);
+  color: var(--text);
+  transform: translateY(-2px);
+}
+
+.mapWrap {
+  margin-top: 1.5rem;
+  height: 180px;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.mapFrame {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  filter: invert(90%) hue-rotate(180deg) saturate(0.7) brightness(0.85);
+}
+
+.form {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  border-radius: var(--r-xl);
+  padding: 2.5rem;
+}
+
+.fRow { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+.fGroup { margin-bottom: 1.25rem; }
+
+.fGroup label {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-2);
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.02em;
+}
+
+.fGroup input,
+.fGroup textarea,
+.fGroup select {
+  width: 100%;
+  background: var(--bg-2);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 0.78rem 1rem;
+  color: var(--text);
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color var(--t), background var(--t), box-shadow var(--t);
+  -webkit-appearance: none;
+}
+
+.fGroup input:focus,
+.fGroup textarea:focus,
+.fGroup select:focus {
+  border-color: rgba(6,182,212,0.6);
+  background: rgba(6,182,212,0.04);
+  box-shadow: 0 0 0 3px rgba(6,182,212,0.12);
+}
+
+.fGroup input::placeholder,
+.fGroup textarea::placeholder { color: var(--text-3); }
+
+.fGroup textarea { min-height: 120px; resize: vertical; }
+
+.fGroup select option { background: #0c0c1e; }
+
+.submitBtn {
+  width: 100%;
+  justify-content: center;
+  font-size: 1rem;
+  padding: 1rem;
+  background-size: 200% auto !important;
+  transition: background-position 0.4s ease, transform var(--t), box-shadow var(--t) !important;
+}
+
+.submitBtn:hover:not(:disabled) {
+  background-position: right center !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(124,58,237,0.45) !important;
+}
+
+.success { background: linear-gradient(135deg,#10b981,#059669) !important; }
+.error   { background: linear-gradient(135deg,#ef4444,#dc2626) !important; }
+
+@media (max-width: 1100px) { .grid { grid-template-columns: 1fr; gap: 3rem; } }
+@media (max-width: 768px)  { .fRow { grid-template-columns: 1fr; } }

@@ -1,0 +1,33 @@
+import ScrollBar from '@/components/ScrollBar'
+import Navbar from '@/components/Navbar'
+import Hero from '@/components/Hero'
+import Services from '@/components/Services'
+import About from '@/components/About'
+import Process from '@/components/Process'
+import References from '@/components/References'
+import Faq from '@/components/Faq'
+import Contact from '@/components/Contact'
+import Footer from '@/components/Footer'
+import Fab from '@/components/Fab'
+import RevealObserver from '@/components/RevealObserver'
+
+export default function Home() {
+  return (
+    <>
+      <ScrollBar />
+      <Navbar />
+      <main>
+        <Hero />
+        <Services />
+        <About />
+        <Process />
+        <References />
+        <Faq />
+        <Contact />
+      </main>
+      <Footer />
+      <Fab />
+      <RevealObserver />
+    </>
+  )
+}

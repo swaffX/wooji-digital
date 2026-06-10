@@ -1,0 +1,178 @@
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 140px clamp(1.25rem, 4vw, 4rem) 100px;
+  background: var(--bg);
+}
+
+/* ── Floating paths background ── */
+.pathsWrap {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.pathsSvg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Content ── */
+.content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ── Badge ── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 1rem;
+  border-radius: 50px;
+  border: 1.5px solid rgba(124, 58, 237, 0.2);
+  background: rgba(124, 58, 237, 0.06);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--purple);
+  margin-bottom: 2rem;
+}
+
+.badgeDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cyan-light);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* ── Title ── */
+.title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1em;
+  font-family: var(--font-d);
+  font-size: clamp(2.6rem, 6vw, 4.5rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.032em;
+  margin-bottom: 1.75rem;
+  overflow: visible;
+}
+
+.titleLine {
+  display: block;
+  overflow: visible;
+}
+
+.titleLetter {
+  display: inline-block;
+  color: #0d1117;
+}
+
+.titleLetterGrad {
+  display: inline-block;
+  background: linear-gradient(125deg, #7c3aed 0%, #2563eb 50%, #0891b2 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ── Description ── */
+.desc {
+  font-size: clamp(1rem, 1.8vw, 1.15rem);
+  color: var(--text-2);
+  max-width: 520px;
+  margin: 0 auto 2.75rem;
+  line-height: 1.75;
+}
+
+/* ── CTAs ── */
+.ctas {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+}
+
+/* ── Google rating badge ── */
+.ratingBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.5rem 1.125rem;
+  border: 1.5px solid var(--border);
+  border-radius: 50px;
+  background: var(--card-bg);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.ratingStars {
+  display: flex;
+  gap: 2px;
+  color: #f59e0b;
+}
+
+.ratingText {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.ratingCount {
+  font-size: 0.8125rem;
+  color: var(--text-3);
+}
+
+/* ── Scroll hint ── */
+.scrollHint {
+  position: absolute;
+  bottom: 2.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-3);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  animation: fadeUp 1s var(--ease) 1.2s both;
+}
+
+.scrollLine {
+  width: 1px;
+  height: 44px;
+  position: relative;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.scrollLine::after {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent, var(--purple));
+  animation: scrollDrop 2.2s ease-in-out infinite;
+}
+
+@media (max-width: 540px) {
+  .ctas { flex-direction: column; }
+  .ctas :global(.btn) { width: 100%; justify-content: center; }
+}

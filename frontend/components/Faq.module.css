@@ -1,0 +1,130 @@
+.section {
+  background: linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.intro {
+  color: var(--text-2);
+  margin-top: 1rem;
+  line-height: 1.8;
+  font-size: 0.9rem;
+}
+
+.trustBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.75rem;
+  padding: 0.5rem 1rem;
+  background: rgba(6,182,212,0.07);
+  border: 1px solid rgba(6,182,212,0.2);
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--cyan);
+}
+
+.trustDot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--cyan);
+  animation: pulse 2s ease infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.8); }
+}
+
+.ctaBtn { display: inline-flex; }
+
+.list { display: flex; flex-direction: column; gap: 0.75rem; }
+
+.item {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  overflow: hidden;
+  transition: border-color var(--t), background var(--t);
+}
+
+.open {
+  border-color: rgba(124,58,237,0.4);
+  background: rgba(124,58,237,0.04);
+}
+
+.question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.questionLeft {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.qNum {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--purple-light);
+  opacity: 0.6;
+  flex-shrink: 0;
+  font-family: var(--font-d);
+}
+
+.open .qNum { opacity: 1; }
+
+.question h3 {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.ico {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  border: 1px solid rgba(124,58,237,0.25);
+  background: rgba(124,58,237,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background var(--t), border-color var(--t), transform 0.3s var(--ease);
+}
+
+.open .ico {
+  background: var(--purple);
+  border-color: var(--purple);
+  transform: rotate(45deg);
+}
+
+.answer {
+  overflow: hidden;
+  transition: max-height 0.42s var(--ease);
+}
+
+.answerInner {
+  padding: 0 1.5rem 1.25rem 3.25rem;
+  color: var(--text-2);
+  font-size: 0.9rem;
+  line-height: 1.8;
+}
+
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; gap: 3rem; }
+  .answerInner { padding-left: 1.5rem; }
+}
