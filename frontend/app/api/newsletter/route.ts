@@ -1,12 +1,18 @@
 import { NextResponse } from 'next/server'
 import { z } from 'zod'
 import nodemailer from 'nodemailer'
+import { rateLimit, getClientIp } from '@/lib/rateLimit'
 
 const schema = z.object({
   email: z.string().email(),
 })
 
 export async function POST(req: Request) {
+  const ip = getClientIp(req)
+  if (!rateLimit(ip, 3, 60_000)) {
+    return NextResponse.json({ error: 'Çok fazla istek.' }, { status: 429 })
+  }
+
   const body = await req.json()
   const parsed = schema.safeParse(body)
 

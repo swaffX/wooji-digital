@@ -1,0 +1,344 @@
+/* ── Hero ── */
+.hero {
+  position: relative;
+  padding: 160px clamp(1.25rem, 5vw, 4rem) 80px;
+  overflow: hidden;
+  text-align: center;
+}
+
+.heroBg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 55% at 50% -10%, rgba(124, 58, 237, 0.09) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.heroGrid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(124, 58, 237, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(124, 58, 237, 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 75%);
+  pointer-events: none;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 1rem;
+}
+
+.tag::before {
+  content: '';
+  width: 18px;
+  height: 1px;
+  background: var(--cyan);
+  flex-shrink: 0;
+}
+
+.heroTitle {
+  font-family: var(--font-d);
+  font-size: clamp(2rem, 4.5vw, 3.25rem);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  margin-bottom: 1rem;
+}
+
+.heroHighlight {
+  background: var(--grad-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.heroDesc {
+  font-size: 1rem;
+  color: var(--text-2);
+  max-width: 500px;
+  margin: 0 auto 1.5rem;
+  line-height: 1.75;
+}
+
+.heroBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  color: var(--text-3);
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: 9999px;
+  padding: 0.375rem 1rem;
+}
+
+.heroBadgeDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #10b981;
+  flex-shrink: 0;
+}
+
+/* ── Body layout ── */
+.body {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 3.5rem;
+  max-width: 1020px;
+  margin: 0 auto;
+  padding: 2.5rem clamp(1.25rem, 4vw, 3rem) 7rem;
+  align-items: start;
+}
+
+/* ── TOC ── */
+.toc {
+  position: sticky;
+  top: 96px;
+}
+
+.tocInner {
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.125rem;
+}
+
+.tocTitle {
+  font-size: 0.67rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.tocLink {
+  display: block;
+  font-size: 0.8125rem;
+  color: var(--text-2);
+  text-decoration: none;
+  padding: 0.35rem 0.5rem;
+  border-radius: 6px;
+  transition:
+    color var(--t),
+    background var(--t),
+    padding-left var(--t),
+    border-color var(--t);
+  line-height: 1.45;
+  margin-bottom: 0.1rem;
+  border-left: 2px solid transparent;
+}
+
+.tocLink:hover {
+  color: var(--text);
+  background: var(--bg-3);
+}
+
+/* ── Article content ── */
+.content {
+  min-width: 0;
+}
+
+.section {
+  padding-bottom: 3rem;
+  margin-bottom: 3rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.section:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+.sectionHead {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+  margin-bottom: 1.5rem;
+}
+
+.sectionNum {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(124, 58, 237, 0.08);
+  border: 1px solid rgba(124, 58, 237, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--purple);
+  margin-top: 0.2rem;
+}
+
+.sectionTitle {
+  font-family: var(--font-d);
+  font-size: clamp(1.15rem, 2vw, 1.45rem);
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+.sectionBody {
+  font-size: 0.9375rem;
+  color: var(--text-2);
+  line-height: 1.82;
+  padding-left: 2.75rem;
+}
+
+.sectionBody p {
+  margin-bottom: 0.875rem;
+}
+
+.sectionBody p:last-child {
+  margin-bottom: 0;
+}
+
+.sectionBody ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.sectionBody ul li {
+  padding-left: 1.25rem;
+  position: relative;
+}
+
+.sectionBody ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--purple);
+  opacity: 0.5;
+}
+
+.sectionBody ol {
+  padding-left: 1.25rem;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.sectionBody ol li {
+  line-height: 1.7;
+  padding-left: 0.25rem;
+}
+
+.sectionBody strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.sectionBody a {
+  color: var(--purple);
+  text-underline-offset: 3px;
+}
+
+.sectionBody a:hover {
+  color: var(--purple-light);
+}
+
+.sectionBody h3 {
+  font-family: var(--font-d);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.01em;
+  margin: 1.25rem 0 0.5rem;
+}
+
+.infoBox {
+  background: rgba(8, 145, 178, 0.05);
+  border: 1px solid rgba(8, 145, 178, 0.2);
+  border-radius: var(--r);
+  padding: 1rem 1.25rem;
+  margin: 1.25rem 0;
+  font-size: 0.875rem;
+  color: var(--text-2);
+  line-height: 1.7;
+}
+
+.infoBox p {
+  margin-bottom: 0 !important;
+}
+
+.infoBox strong {
+  color: var(--cyan) !important;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .body {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 2rem 1.25rem 4rem;
+  }
+
+  .toc {
+    position: static;
+  }
+
+  .tocInner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+    padding: 1rem;
+    align-items: center;
+  }
+
+  .tocTitle {
+    width: 100%;
+    margin-bottom: 0.375rem;
+    padding-bottom: 0.375rem;
+  }
+
+  .tocLink {
+    display: inline-block;
+    background: var(--bg-3);
+    border: 1px solid var(--border);
+    border-left: 2px solid transparent;
+    border-radius: 9999px;
+    padding: 0.275rem 0.75rem;
+    font-size: 0.75rem;
+    margin-bottom: 0;
+  }
+
+  .sectionBody {
+    padding-left: 0;
+  }
+}
+
+@media (max-width: 540px) {
+  .hero { padding: 120px 1.25rem 60px; }
+  .sectionTitle { font-size: 1.1rem; }
+}

@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import SocialFeed from './SocialFeed'
 import styles from './Footer.module.css'
 
 const quickLinks = [
@@ -13,12 +14,12 @@ const quickLinks = [
 ]
 
 const services = [
-  'SEO & Organik Büyüme',
-  'Dijital Reklam Yönetimi',
-  'Web Tasarım & Geliştirme',
-  'Sosyal Medya Yönetimi',
-  'İçerik Pazarlaması',
-  'Analitik & Strateji',
+  { label: 'SEO & Organik Büyüme',      href: '/seo-hizmetleri'      },
+  { label: 'Dijital Reklam Yönetimi',   href: '/dijital-reklam'      },
+  { label: 'Web Tasarım & Geliştirme',  href: '/web-tasarim'         },
+  { label: 'Sosyal Medya Yönetimi',     href: '/sosyal-medya'        },
+  { label: 'İçerik Pazarlaması',        href: '/icerik-pazarlamasi'  },
+  { label: 'Analitik & Strateji',       href: '/analitik-strateji'   },
 ]
 
 export default function Footer() {
@@ -45,6 +46,7 @@ export default function Footer() {
 
   return (
     <footer className={styles.footer} role="contentinfo">
+      <SocialFeed />
       <div className={styles.inner}>
         <div className={styles.grid}>
 
@@ -95,7 +97,7 @@ export default function Footer() {
             <h4 className={styles.colHead}>Hizmetler</h4>
             <ul className={styles.colList}>
               {services.map((s) => (
-                <li key={s}><a href="#hizmetler">{s}</a></li>
+                <li key={s.label}><a href={s.href}>{s.label}</a></li>
               ))}
             </ul>
           </div>
@@ -154,9 +156,8 @@ export default function Footer() {
         <div className={styles.bottom}>
           <p>© {new Date().getFullYear()} Wooji Digital. Tüm hakları saklıdır.</p>
           <nav className={styles.legalLinks} aria-label="Yasal bağlantılar">
-            <a href="#">Gizlilik Politikası</a>
-            <a href="#">Kullanım Koşulları</a>
-            <a href="#">KVKK</a>
+            <a href="/gizlilik-politikasi">Gizlilik Politikası</a>
+            <a href="/kvkk">KVKK</a>
           </nav>
         </div>
       </div>

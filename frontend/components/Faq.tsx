@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import styles from './Faq.module.css'
 
-const faqs = [
+export const faqs = [
   {
     q: 'Hizmetleriniz kimler için uygun?',
     a: 'Wooji Digital hizmetleri; küçük ve orta ölçekli işletmeler, e-ticaret markaları, girişimciler, kişisel markalar ve kurumsal firmalar dahil her ölçekten işletme için uygundur. Her projeye özgün bir strateji geliştiriyoruz.',
@@ -25,6 +25,16 @@ const faqs = [
   },
 ]
 
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+}
+
 export default function Faq() {
   const [openIdx, setOpenIdx] = useState<number | null>(null)
 
@@ -32,6 +42,10 @@ export default function Faq() {
 
   return (
     <section id="sss" className={styles.section} aria-labelledby="sss-h">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <div className="wrap">
         <div className={styles.layout}>
           <div className="reveal">

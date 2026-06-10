@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import type { FormEvent } from 'react'
+import { useRouter } from 'next/navigation'
 import styles from './Contact.module.css'
 
 interface FormState {
@@ -10,6 +11,7 @@ interface FormState {
 const serviceOptions = ['SEO & Organik Büyüme','Dijital Reklam Yönetimi','Web Tasarım & Geliştirme','Sosyal Medya Yönetimi','İçerik Pazarlaması','Analitik & Strateji','Tüm Hizmetler / Paket']
 
 export default function Contact() {
+  const router = useRouter()
   const [form, setForm] = useState<FormState>({ name:'', phone:'', email:'', service:'', message:'' })
   const [status, setStatus] = useState<'idle'|'loading'|'success'|'error'>('idle')
 
@@ -28,7 +30,7 @@ export default function Contact() {
       if (!res.ok) throw new Error()
       setStatus('success')
       setForm({ name:'', phone:'', email:'', service:'', message:'' })
-      setTimeout(() => setStatus('idle'), 4000)
+      router.push('/tesekkurler')
     } catch {
       setStatus('error')
       setTimeout(() => setStatus('idle'), 4000)

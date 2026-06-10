@@ -1,0 +1,130 @@
+.section {
+  background: var(--bg-2);
+  border-top: 1px solid var(--border);
+  padding: 3.5rem clamp(1.5rem, 5vw, 4rem);
+}
+
+.inner {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 1.75rem;
+  flex-wrap: wrap;
+}
+
+.meta {}
+
+.handle {
+  display: block;
+  font-family: var(--font-d);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.025em;
+  margin-bottom: 0.25rem;
+}
+
+.tagline {
+  font-size: 0.875rem;
+  color: var(--text-2);
+}
+
+.socBtns {
+  display: flex;
+  gap: 0.625rem;
+  flex-shrink: 0;
+}
+
+.socBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 9999px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-2);
+  text-decoration: none;
+  transition:
+    background var(--t),
+    border-color var(--t),
+    color var(--t),
+    transform var(--t);
+}
+
+.socBtn:hover {
+  background: var(--text);
+  border-color: var(--text);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.625rem;
+}
+
+.post {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: var(--r);
+  overflow: hidden;
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+}
+
+.postBg {
+  position: absolute;
+  inset: 0;
+  transition: transform 400ms var(--ease);
+}
+
+.post:hover .postBg { transform: scale(1.06); }
+
+.postOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  opacity: 0;
+  transition: opacity 300ms var(--ease);
+}
+
+.post:hover .postOverlay { opacity: 1; }
+
+.postLabel {
+  position: absolute;
+  bottom: 0.5rem;
+  left: 0.625rem;
+  right: 0.625rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: 0.03em;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 768px) {
+  .grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 400px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+  .head { flex-direction: column; }
+}

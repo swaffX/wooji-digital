@@ -223,4 +223,6 @@
 @media (max-width: 540px) {
   .ctas { flex-direction: column; }
   .ctas :global(.btn) { width: 100%; justify-content: center; }
+  .socialProof { flex-wrap: wrap; gap: 0.5rem; padding: 0.5rem 0.75rem; }
+  .proofDivider { display: none; }
 }
