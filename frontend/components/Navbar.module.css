@@ -7,25 +7,21 @@
   z-index: 1000;
   display: flex;
   justify-content: center;
-  padding: 1.125rem 1rem;
   pointer-events: none;
+  /* padding controlled by Framer Motion scroll state */
 }
 
 /* ── Pill container ── */
+/* border-radius, max-width, box-shadow, padding-left/right controlled by Framer Motion */
 .pill {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 0.5rem 0.75rem 0.5rem 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   background: rgba(255, 255, 255, 0.96);
-  border-radius: 9999px;
-  box-shadow:
-    0 4px 24px rgba(0, 0, 0, 0.09),
-    0 1px 6px rgba(0, 0, 0, 0.05),
-    0 0 0 1px rgba(0, 0, 0, 0.06);
   width: 100%;
-  max-width: 1060px;
   pointer-events: all;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
