@@ -87,27 +87,20 @@
 }
 
 .featured .icon {
-  background: rgba(124,58,237,0.18);
-  border-color: rgba(124,58,237,0.35);
+  color: var(--purple-light);
 }
 
 .icon {
-  width: 54px; height: 54px;
-  border-radius: 13px;
-  background: rgba(124,58,237,0.12);
-  border: 1px solid rgba(124,58,237,0.2);
   display: flex;
   align-items: center;
-  justify-content: center;
   color: var(--purple-light);
   margin-bottom: 1.375rem;
-  transition: background var(--t), transform var(--t), box-shadow var(--t);
+  transition: opacity var(--t), color var(--t);
+  opacity: 0.85;
 }
 
 .card:hover .icon {
-  background: rgba(124,58,237,0.25);
-  transform: scale(1.08) rotate(-3deg);
-  box-shadow: 0 4px 20px rgba(124,58,237,0.3);
+  opacity: 1;
 }
 
 .card h3 {
