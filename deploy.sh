@@ -9,6 +9,9 @@ npm install --production=false
 # Stop server before build to free RAM
 pm2 stop wooji || true
 
+# Clear stale build cache to prevent .next corruption errors
+rm -rf .next
+
 NODE_OPTIONS="--max-old-space-size=4096" npm run build
 
 pm2 start wooji 2>/dev/null || pm2 restart wooji
