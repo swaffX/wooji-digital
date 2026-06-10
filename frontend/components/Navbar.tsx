@@ -103,10 +103,9 @@ export default function Navbar() {
             {navItems.map((item, i) => (
               <motion.div
                 key={item.key}
-                initial={{ opacity: 0, y: -8 }}
+                initial={{ opacity: 0, y: -5 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: i * 0.05 }}
-                whileHover={{ scale: 1.04 }}
+                transition={{ duration: 0.45, delay: i * 0.06, ease: [0.4, 0, 0.2, 1] }}
               >
                 <Link
                   href={href(item.key)}
@@ -121,9 +120,9 @@ export default function Navbar() {
 
           {/* Desktop CTA */}
           <motion.div
-            initial={{ opacity: 0, x: 16 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.3, delay: 0.25 }}
+            initial={{ opacity: 0, y: -5 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, delay: 0.3, ease: [0.4, 0, 0.2, 1] }}
             className={styles.ctaWrap}
           >
             <TypewriterEffect words={TW_WORDS} />
