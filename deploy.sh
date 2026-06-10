@@ -10,7 +10,7 @@ npm install --production=false
 rm -rf .next
 
 # Build first, then swap
-NODE_OPTIONS="--max-old-space-size=3072" npm run build
+NODE_OPTIONS="--max-old-space-size=4096" npm run build
 
 # Stop only after successful build
 pm2 stop wooji || true
