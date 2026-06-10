@@ -188,7 +188,7 @@
 
 /* ── Body ── */
 .body {
-  background: #f4f7fb;
+  background: var(--chat-body-bg);
   flex: 1;
   max-height: 380px;
   overflow-y: auto;

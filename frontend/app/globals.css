@@ -36,6 +36,44 @@
   --ease: cubic-bezier(0.4,0,0.2,1);
   --t: 0.3s var(--ease);
   --shadow: 0 4px 24px rgba(0,0,0,0.08);
+
+  /* Component-specific tokens */
+  --pill-bg:       rgba(255, 255, 255, 0.96);
+  --pill-shadow:   0 4px 24px rgba(0,0,0,0.09), 0 1px 6px rgba(0,0,0,0.05), 0 0 0 1px rgba(0,0,0,0.06);
+  --nav-link:      #374151;
+  --mob-menu-bg:   #ffffff;
+  --input-bg:      #f8fafc;
+  --input-border:  #e2e8f0;
+  --chat-body-bg:  #f4f7fb;
+}
+
+/* =====================================================
+   DARK THEME
+===================================================== */
+[data-theme="dark"] {
+  --bg:           #0c0f18;
+  --bg-2:         #111520;
+  --bg-3:         #161c2a;
+  --card-bg:      #141926;
+  --card-bg-hover:#1a2032;
+
+  --text:         #e8edf5;
+  --text-2:       #94a3b8;
+  --text-3:       #64748b;
+  --border:       #1e2638;
+  --border-accent:rgba(124,58,237,0.45);
+
+  --glow-p: rgba(124,58,237,0.3);
+  --glow-c: rgba(8,145,178,0.2);
+  --shadow: 0 4px 24px rgba(0,0,0,0.45);
+
+  --pill-bg:      rgba(14, 17, 26, 0.96);
+  --pill-shadow:  0 4px 24px rgba(0,0,0,0.4), 0 1px 6px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.06);
+  --nav-link:     #94a3b8;
+  --mob-menu-bg:  #0c0f18;
+  --input-bg:     #111520;
+  --input-border: #1e2638;
+  --chat-body-bg: #111520;
 }
 
 /* =====================================================

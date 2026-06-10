@@ -158,6 +158,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${syneVar.variable} ${outfitVar.variable} ${dmSansVar.variable}`}
     >
       <head>
+        {/* Prevent dark mode flash on load */}
+        <script dangerouslySetInnerHTML={{ __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();` }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaGraph) }}

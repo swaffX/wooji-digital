@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { TypewriterEffect } from './TypewriterEffect'
 import { ShinyButton } from './ui/ShinyButton'
+import ThemeToggle from './ui/ThemeToggle'
 import styles from './Navbar.module.css'
 
 const TW_WORDS = [
@@ -174,6 +175,7 @@ export default function Navbar() {
           {/* Desktop CTA */}
           <div className={styles.ctaWrap}>
             <TypewriterEffect words={TW_WORDS} />
+            <ThemeToggle />
             <ShinyButton href={contactHref} onClick={close}>
               İletişim
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
