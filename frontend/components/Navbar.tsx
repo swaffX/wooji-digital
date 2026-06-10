@@ -33,7 +33,6 @@ export default function Navbar() {
   const [activeSection, setActive]        = useState('')
   const [servicesOpen, setServicesOpen]   = useState(false)
   const [mobServicesOpen, setMobServices] = useState(false)
-  const [scrolled, setScrolled]           = useState(false)
   const pathname = usePathname()
   const isHome   = pathname === '/'
 
@@ -44,12 +43,6 @@ export default function Navbar() {
     document.body.style.overflow = isOpen ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
   }, [isOpen])
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60)
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
 
   useEffect(() => {
     if (!isHome) return
@@ -69,37 +62,12 @@ export default function Navbar() {
 
   return (
     <>
-      <motion.div
-        className={styles.wrapper}
-        animate={{
-          paddingTop:    scrolled ? 0 : '1.125rem',
-          paddingBottom: scrolled ? 0 : '1.125rem',
-          paddingLeft:   scrolled ? 0 : '1rem',
-          paddingRight:  scrolled ? 0 : '1rem',
-        }}
-        transition={{ duration: 0.42, ease: [0.4, 0, 0.2, 1] }}
-      >
+      <div className={styles.wrapper}>
         <motion.div
           className={styles.pill}
-          initial={{ opacity: 0, borderRadius: '9999px' }}
-          animate={{
-            opacity: 1,
-            borderRadius: scrolled ? '0px' : '9999px',
-            maxWidth:     scrolled ? '100%' : '1060px',
-            boxShadow:    scrolled
-              ? '0 1px 0 rgba(0,0,0,0.08)'
-              : '0 4px 24px rgba(0,0,0,0.09), 0 1px 6px rgba(0,0,0,0.05), 0 0 0 1px rgba(0,0,0,0.06)',
-            paddingLeft:  scrolled ? '1.75rem' : '1rem',
-            paddingRight: scrolled ? '1.75rem' : '0.75rem',
-          }}
-          transition={{
-            opacity:      { duration: 0.5,  ease: [0.4, 0, 0.2, 1] },
-            borderRadius: { duration: 0.42, ease: [0.4, 0, 0.2, 1] },
-            maxWidth:     { duration: 0.42, ease: [0.4, 0, 0.2, 1] },
-            boxShadow:    { duration: 0.42, ease: [0.4, 0, 0.2, 1] },
-            paddingLeft:  { duration: 0.42, ease: [0.4, 0, 0.2, 1] },
-            paddingRight: { duration: 0.42, ease: [0.4, 0, 0.2, 1] },
-          }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
         >
           {/* Logo */}
           <Link href="/" className={styles.logo} aria-label="Wooji Digital anasayfa" onClick={close}>
@@ -229,7 +197,7 @@ export default function Navbar() {
             </svg>
           </motion.button>
         </motion.div>
-      </motion.div>
+      </div>
 
       {/* Mobile overlay */}
       <AnimatePresence>

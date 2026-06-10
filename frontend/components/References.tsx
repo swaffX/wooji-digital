@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect, useCallback, useRef } from 'react'
-import { motion, AnimatePresence, useMotionValue, useSpring, useInView } from 'framer-motion'
+import { motion, AnimatePresence, useMotionValue, useSpring, useInView, animate } from 'framer-motion'
 import styles from './References.module.css'
 
 const testimonials = [
@@ -46,11 +46,37 @@ const COUNT = testimonials.length
 const INTERVAL = 6000
 
 const bigStats = [
-  { value: '50+',  label: 'Mutlu Marka',      accent: 'purple' },
-  { value: '%98',  label: 'Memnuniyet',        accent: 'cyan'   },
-  { value: '4.9★', label: 'Ortalama Puan',     accent: 'purple' },
-  { value: '3×',   label: 'Büyüme Ortalaması', accent: 'cyan'   },
+  { prefix: '',  num: 50,  dec: 0, suffix: '+', label: 'Büyüyen\nMarka',        icon: '◈' },
+  { prefix: '%', num: 98,  dec: 0, suffix: '',  label: 'Müşteri\nMemnuniyeti',  icon: '◉' },
+  { prefix: '',  num: 4.9, dec: 1, suffix: '★', label: 'Ortalama\nPuan',        icon: '◆' },
+  { prefix: '',  num: 3,   dec: 0, suffix: '×', label: 'Büyüme\nOrtalaması',    icon: '◇' },
 ]
+
+function AnimatedCounter({
+  num, dec, prefix, suffix,
+}: { num: number; dec: number; prefix: string; suffix: string }) {
+  const ref = useRef<HTMLSpanElement>(null)
+  const inView = useInView(ref, { once: true, amount: 0.6 })
+  const [display, setDisplay] = useState('0')
+
+  useEffect(() => {
+    if (!inView) return
+    const ctrl = animate(0, num, {
+      duration: 1.6,
+      ease: [0.16, 1, 0.3, 1],
+      onUpdate: (v) => setDisplay(dec > 0 ? v.toFixed(dec) : Math.round(v).toString()),
+    })
+    return ctrl.stop
+  }, [inView, num, dec])
+
+  return (
+    <span ref={ref}>
+      {prefix}
+      <span>{display}</span>
+      {suffix}
+    </span>
+  )
+}
 
 function StarIcon() {
   return (
@@ -131,23 +157,31 @@ export default function References() {
               Sonuçlar kendisi konuşuyor.
             </p>
 
-            {/* Stats grid */}
-            <div className={styles.statsGrid} aria-label="Başarı istatistikleri">
-              {bigStats.map((s, i) => (
-                <motion.div
-                  key={i}
-                  className={`${styles.statBox} ${s.accent === 'cyan' ? styles.statBoxCyan : styles.statBoxPurple}`}
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={inView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1], delay: 0.15 + i * 0.08 }}
-                >
-                  <span className={`${styles.statVal} ${s.accent === 'cyan' ? styles.statValCyan : styles.statValPurple}`}>
-                    {s.value}
-                  </span>
-                  <span className={styles.statLbl}>{s.label}</span>
-                </motion.div>
-              ))}
-            </div>
+            {/* Stats card */}
+            <motion.div
+              className={styles.statsCard}
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1], delay: 0.12 }}
+              aria-label="Başarı istatistikleri"
+            >
+              <div className={styles.statsGrid}>
+                {bigStats.map((s, i) => (
+                  <motion.div
+                    key={i}
+                    className={styles.statItem}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={inView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.45, ease: [0.4, 0, 0.2, 1], delay: 0.22 + i * 0.09 }}
+                  >
+                    <span className={styles.statNum}>
+                      <AnimatedCounter num={s.num} dec={s.dec} prefix={s.prefix} suffix={s.suffix} />
+                    </span>
+                    <span className={styles.statLbl}>{s.label.replace('\\n', '\n')}</span>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
 
             {/* Divider + trust note */}
             <p className={styles.trustNote}>

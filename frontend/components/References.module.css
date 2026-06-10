@@ -78,65 +78,80 @@
   margin-bottom: 2.25rem;
 }
 
-/* Stats 2×2 grid */
+/* Stats dark glass card */
+.statsCard {
+  background: linear-gradient(145deg, #0d1117 0%, #131628 55%, #0d1a22 100%);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  margin-bottom: 1.875rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25), 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.statsCard::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 80% at 15% 50%, rgba(124, 58, 237, 0.14) 0%, transparent 65%),
+    radial-gradient(ellipse 60% 70% at 90% 40%, rgba(8, 145, 178, 0.1) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.statsCard::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+}
+
 .statsGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0.875rem;
-  margin-bottom: 1.875rem;
+  position: relative;
+  z-index: 1;
 }
 
-.statBox {
-  border-radius: var(--r);
-  padding: 1.125rem 1.25rem;
-  border: 1px solid;
-  transition: transform 250ms ease, box-shadow 250ms ease;
+.statItem {
+  padding: 1.5rem 1.625rem;
+  position: relative;
 }
 
-.statBox:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+.statItem:nth-child(1),
+.statItem:nth-child(2) {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.statBoxPurple {
-  background: rgba(124,58,237,0.05);
-  border-color: rgba(124,58,237,0.15);
+.statItem:nth-child(odd) {
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.statBoxCyan {
-  background: rgba(8,145,178,0.05);
-  border-color: rgba(8,145,178,0.15);
-}
-
-.statVal {
+.statNum {
   display: block;
   font-family: var(--font-d);
-  font-size: 2rem;
+  font-size: 2.25rem;
   font-weight: 800;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.045em;
   line-height: 1;
-  margin-bottom: 0.3rem;
-}
-
-.statValPurple {
-  background: linear-gradient(135deg, var(--purple), var(--cyan));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.statValCyan {
-  background: linear-gradient(135deg, var(--cyan), var(--purple));
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #f1f5f9 0%, #c4b5fd 60%, #7dd3fc 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
 .statLbl {
-  font-size: 0.78rem;
+  font-size: 0.73rem;
   font-weight: 500;
-  color: var(--text-3);
-  letter-spacing: 0.01em;
+  color: rgba(241, 245, 249, 0.4);
+  letter-spacing: 0.02em;
+  line-height: 1.45;
+  white-space: pre-line;
 }
 
 .trustNote {

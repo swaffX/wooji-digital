@@ -43,16 +43,10 @@ function FloatingPaths({ position }: { position: number }) {
   )
 }
 
-const StarIcon = () => (
-  <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-  </svg>
-)
-
-const METRICS = [
-  { value: '+340%', label: 'Organik Trafik' },
-  { value: '3.8x',  label: 'Ort. ROAS'      },
-  { value: '50+',   label: 'Büyütülen Marka' },
+const TICKER_ITEMS = [
+  'Google Ads', 'Meta Ads', 'SEO & Organik', 'TikTok Ads',
+  'Web Tasarım', 'LinkedIn Ads', 'E-ticaret', 'Marka Stratejisi',
+  'İçerik Pazarlaması', 'Veri & Analitik',
 ]
 
 const TITLE_LINES = ['Markanızı', 'Dijitalde Büyütün.']
@@ -148,53 +142,33 @@ export default function Hero() {
           </a>
         </motion.div>
 
-        {/* Metrics strip */}
+        {/* Platform ticker */}
         <motion.div
-          className={styles.metricsRow}
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.92 }}
-          aria-label="Sonuçlarımız"
+          className={styles.ticker}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.95 }}
+          aria-hidden="true"
         >
-          {METRICS.map((m, i) => (
-            <div key={m.label} className={styles.metric}>
-              <span className={styles.metricVal}>{m.value}</span>
-              <span className={styles.metricLabel}>{m.label}</span>
-              {i < METRICS.length - 1 && <span className={styles.metricDivider} aria-hidden="true" />}
-            </div>
-          ))}
-        </motion.div>
-
-        <motion.div
-          className={styles.socialProof}
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.05 }}
-          aria-label="50+ mutlu müşteri, Google 5.0 puan"
-        >
-          <div className={styles.avatarStack} aria-hidden="true">
-            <span className={styles.av} style={{ background: '#7c3aed' }}>AY</span>
-            <span className={styles.av} style={{ background: '#0891b2' }}>FK</span>
-            <span className={styles.av} style={{ background: '#2563eb' }}>MÖ</span>
-          </div>
-          <div className={styles.proofMeta}>
-            <span className={styles.proofCount}>50+</span>
-            <span className={styles.proofLabel}>mutlu müşteri</span>
-          </div>
-          <div className={styles.proofDivider} aria-hidden="true" />
-          <div className={styles.proofRating}>
-            <div className={styles.ratingStars} aria-hidden="true">
-              {Array.from({ length: 5 }).map((_, i) => <StarIcon key={i} />)}
-            </div>
-            <span className={styles.ratingScore}>5.0</span>
+          <div className={styles.tickerTrack}>
+            {[...TICKER_ITEMS, ...TICKER_ITEMS].map((item, i) => (
+              <span key={i} className={styles.tickerItem}>
+                <span className={styles.tickerDot} />
+                {item}
+              </span>
+            ))}
           </div>
         </motion.div>
       </div>
 
-      <div className={styles.scrollHint} aria-hidden="true">
-        <div className={styles.scrollLine} />
-        Keşfet
-      </div>
+      <a href="#hizmetler" className={styles.scrollHint} aria-label="Aşağı kaydır">
+        <div className={styles.scrollGlow} aria-hidden="true" />
+        <div className={styles.scrollLineWrap} aria-hidden="true">
+          <div className={styles.scrollLine} />
+          <div className={styles.scrollPulse} />
+        </div>
+        <span className={styles.scrollLabel}>Keşfet</span>
+      </a>
     </section>
   )
 }
