@@ -34,3 +34,8 @@ Thumbs.db
 # TypeScript
 *.tsbuildinfo
 next-env.d.ts
+
+# Claude Code / skill tool files — dev-only, not for deployment
+.agents/
+.claude/
+skills-lock.json
