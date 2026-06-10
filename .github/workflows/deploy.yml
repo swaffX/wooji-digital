@@ -15,4 +15,13 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           password: ${{ secrets.VPS_PASSWORD }}
-          script: bash /root/deploy.sh
+          script: |
+            cd /root/wooji-digital
+            git pull origin main
+            cd frontend
+            npm install --production=false
+            pm2 stop wooji || true
+            NODE_OPTIONS="--max-old-space-size=4096" npm run build
+            pm2 start wooji 2>/dev/null || pm2 restart wooji
+            echo "Deploy tamamlandi: $(date)"
+          command_timeout: 15m
