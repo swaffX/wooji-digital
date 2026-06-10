@@ -42,10 +42,8 @@ export function ShinyButton({ children, className, href, onClick }: ShinyButtonP
     <motion.button
       style={{ '--x': x } as React.CSSProperties}
       className={`${styles.button}${className ? ` ${className}` : ''}`}
-      initial={{ opacity: 0, y: -4 }}
-      animate={{ opacity: 1, y: 0 }}
       whileTap={{ scale: 0.96 }}
-      transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
+      transition={{ duration: 0.2 }}
       onClick={handleClick}
     >
       <span className={styles.text}>{children}</span>

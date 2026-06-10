@@ -21,8 +21,8 @@ const navItems = [
 ]
 
 export default function Navbar() {
-  const [isOpen, setIsOpen]           = useState(false)
-  const [activeSection, setActive]    = useState('')
+  const [isOpen, setIsOpen]        = useState(false)
+  const [activeSection, setActive] = useState('')
   const pathname = usePathname()
   const isHome   = pathname === '/'
 
@@ -53,20 +53,17 @@ export default function Navbar() {
   return (
     <>
       <div className={styles.wrapper}>
-        <div className={styles.pill}>
-
+        {/* Pill fades in as one unit — no per-item animations */}
+        <motion.div
+          className={styles.pill}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+        >
           {/* Logo */}
           <Link href="/" className={styles.logo} aria-label="Wooji Digital anasayfa" onClick={close}>
             <div className={styles.logoWrap}>
-              <motion.span
-                className={styles.logoText}
-                initial={{ y: -10, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.6 }}
-                whileHover={{ scale: 1.02 }}
-              >
-                Wooji Digital
-              </motion.span>
+              <span className={styles.logoText}>Wooji Digital</span>
               <motion.svg
                 width="100%"
                 height="14"
@@ -82,7 +79,7 @@ export default function Navbar() {
                   strokeLinecap="round"
                   initial={{ pathLength: 0, opacity: 0 }}
                   animate={{ pathLength: 1, opacity: 1 }}
-                  transition={{ duration: 1.6, ease: 'easeInOut', delay: 0.3 }}
+                  transition={{ duration: 1.6, ease: 'easeInOut', delay: 0.5 }}
                   whileHover={{
                     d: 'M 0,10 Q 75,20 150,10 Q 225,0 300,10',
                     transition: { duration: 0.7 },
@@ -100,13 +97,8 @@ export default function Navbar() {
 
           {/* Desktop nav */}
           <nav className={styles.navLinks} aria-label="Ana navigasyon">
-            {navItems.map((item, i) => (
-              <motion.div
-                key={item.key}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.35, delay: i * 0.07 + 0.1 }}
-              >
+            {navItems.map((item) => (
+              <div key={item.key}>
                 <Link
                   href={href(item.key)}
                   onClick={close}
@@ -114,17 +106,12 @@ export default function Navbar() {
                 >
                   {item.label}
                 </Link>
-              </motion.div>
+              </div>
             ))}
           </nav>
 
           {/* Desktop CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: -5 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, delay: 0.3, ease: [0.4, 0, 0.2, 1] }}
-            className={styles.ctaWrap}
-          >
+          <div className={styles.ctaWrap}>
             <TypewriterEffect words={TW_WORDS} />
             <ShinyButton href={contactHref} onClick={close}>
               İletişim
@@ -132,7 +119,7 @@ export default function Navbar() {
                 <path d="M5 12h14M12 5l7 7-7 7"/>
               </svg>
             </ShinyButton>
-          </motion.div>
+          </div>
 
           {/* Hamburger */}
           <motion.button
@@ -148,7 +135,7 @@ export default function Navbar() {
               <line x1="3" y1="18" x2="21" y2="18"/>
             </svg>
           </motion.button>
-        </div>
+        </motion.div>
       </div>
 
       {/* Mobile overlay */}
