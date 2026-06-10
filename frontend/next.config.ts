@@ -33,6 +33,20 @@ try {
 }
 
 const nextConfig: NextConfig = {
+  experimental: {
+    turbotrace: {
+      logLevel: 'error',
+    },
+    outputFileTracingExcludes: {
+      '*': [
+        'node_modules/@swc/core-linux-x64-gnu',
+        'node_modules/@swc/core-linux-x64-musl',
+        'node_modules/@esbuild/linux-x64',
+        'node_modules/typescript',
+        'node_modules/prettier',
+      ],
+    },
+  },
   async headers() {
     return [
       {
