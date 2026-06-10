@@ -103,9 +103,9 @@ export default function Navbar() {
             {navItems.map((item, i) => (
               <motion.div
                 key={item.key}
-                initial={{ opacity: 0, y: -5 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.45, delay: i * 0.06, ease: [0.4, 0, 0.2, 1] }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.35, delay: i * 0.07 + 0.1 }}
               >
                 <Link
                   href={href(item.key)}
@@ -128,6 +128,9 @@ export default function Navbar() {
             <TypewriterEffect words={TW_WORDS} />
             <ShinyButton href={contactHref} onClick={close}>
               İletişim
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
             </ShinyButton>
           </motion.div>
 
