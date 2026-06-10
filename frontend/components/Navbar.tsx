@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { TypewriterEffect } from './TypewriterEffect'
+import { ShinyButton } from './ui/ShinyButton'
 import styles from './Navbar.module.css'
 
 const TW_WORDS = [
@@ -126,14 +127,9 @@ export default function Navbar() {
             className={styles.ctaWrap}
           >
             <TypewriterEffect words={TW_WORDS} />
-            <motion.div whileHover={{ scale: 1.04 }}>
-              <Link href={contactHref} className={styles.ctaBtn} onClick={close}>
-                İletişim
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
-                  <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
-              </Link>
-            </motion.div>
+            <ShinyButton href={contactHref} onClick={close}>
+              İletişim
+            </ShinyButton>
           </motion.div>
 
           {/* Hamburger */}
