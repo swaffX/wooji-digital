@@ -37,7 +37,7 @@ export async function POST(req: Request) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      from: 'Wooji Digital Form <onboarding@resend.dev>',
+      from: 'Wooji Digital <info@woojidigital.com>',
       to: [process.env.CONTACT_TO ?? 'info@woojidigital.com'],
       reply_to: email,
       subject: `Yeni İletişim: ${name}`,
