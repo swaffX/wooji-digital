@@ -84,11 +84,11 @@
   flex-direction: column;
   gap: 0;
   border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  background: linear-gradient(145deg, #0d1117 0%, #111827 100%);
+  border: 1px solid rgba(124, 58, 237, 0.12);
+  background: var(--card-bg);
   overflow: hidden;
   margin-bottom: 1.875rem;
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
 }
 
 .valueRow {
@@ -101,7 +101,7 @@
 }
 
 .valueRow + .valueRow {
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-top: 1px solid var(--border);
 }
 
 .valueRow::before {
@@ -112,13 +112,13 @@
   bottom: 0;
   width: 3px;
   border-radius: 0 2px 2px 0;
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
 .valueRowPurple::before { background: #7c3aed; }
 .valueRowCyan::before   { background: #0891b2; }
 
-.valueRow:hover { background: rgba(255,255,255,0.025); }
+.valueRow:hover { background: rgba(124, 58, 237, 0.03); }
 
 .valueIcon {
   display: flex;
@@ -131,15 +131,15 @@
 }
 
 .valueIconPurple {
-  background: rgba(124, 58, 237, 0.1);
-  border: 1px solid rgba(124, 58, 237, 0.18);
-  color: #a78bfa;
+  background: rgba(124, 58, 237, 0.08);
+  border: 1px solid rgba(124, 58, 237, 0.15);
+  color: #7c3aed;
 }
 
 .valueIconCyan {
-  background: rgba(8, 145, 178, 0.1);
-  border: 1px solid rgba(8, 145, 178, 0.18);
-  color: #22d3ee;
+  background: rgba(8, 145, 178, 0.08);
+  border: 1px solid rgba(8, 145, 178, 0.15);
+  color: #0891b2;
 }
 
 .valueText {
@@ -158,7 +158,7 @@
 
 .valueDesc {
   font-size: 0.775rem;
-  color: var(--text-3);
+  color: var(--text-2);
   line-height: 1.5;
 }
 
