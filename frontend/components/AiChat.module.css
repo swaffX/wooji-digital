@@ -397,17 +397,29 @@
 }
 
 /* ── Responsive ── */
+@media (max-width: 800px) {
+  .trigger {
+    right: auto;
+    left: 1rem;
+    bottom: 6rem;
+  }
+  .panel {
+    bottom: 10rem;
+  }
+}
+
 @media (max-width: 500px) {
   .panel {
     right: 0.75rem;
     left: 0.75rem;
     width: auto;
-    bottom: 5rem;
+    bottom: 5.5rem;
     border-radius: 20px;
   }
   .trigger {
-    right: 1rem;
-    bottom: 1rem;
+    right: auto;
+    left: 1rem;
+    bottom: 6rem;
   }
 }
 

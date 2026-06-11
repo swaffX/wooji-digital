@@ -30,3 +30,9 @@
 .top {
   background: var(--grad);
 }
+
+@media (max-width: 800px) {
+  .wrap {
+    bottom: 6rem;
+  }
+}
