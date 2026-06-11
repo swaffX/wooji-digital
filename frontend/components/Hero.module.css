@@ -348,7 +348,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   .badgeDot { animation: none; }
-  .pathsSvg path { animation: none !important; }
   .scrollPulse { animation: none; }
   .tickerTrack { animation: none; }
 }
