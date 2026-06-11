@@ -25,7 +25,7 @@ function FloatingPaths({ position }: { position: number }) {
 
   return (
     <div className={styles.pathsWrap} aria-hidden="true">
-      <svg className={styles.pathsSvg} viewBox="0 0 696 316" fill="none" preserveAspectRatio="xMidYMid slice">
+      <svg className={styles.pathsSvg} viewBox="-400 -200 1500 900" fill="none" preserveAspectRatio="xMidYMid slice">
         <defs>
           <linearGradient id={gradId} x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%"   stopColor="#7c3aed" />
