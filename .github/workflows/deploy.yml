@@ -20,14 +20,6 @@ jobs:
           password: ${{ secrets.VPS_PASSWORD }}
           envs: RESEND_API_KEY,CONTACT_TO
           script: |
-            cd /root/wooji-digital
-            git pull origin main
-            cd frontend
-            npm install --production=false
-            printf "RESEND_API_KEY=%s\nCONTACT_TO=%s\n" "$RESEND_API_KEY" "$CONTACT_TO" > .env.local
-            rm -rf .next
-            NODE_OPTIONS="--max-old-space-size=4096" npm run build
-            pm2 stop wooji || true
-            pm2 start wooji 2>/dev/null || pm2 restart wooji
-            echo "Deploy tamamlandi: $(date)"
+            printf "RESEND_API_KEY=%s\nCONTACT_TO=%s\n" "$RESEND_API_KEY" "$CONTACT_TO" > /root/wooji-digital/frontend/.env.local
+            bash /root/wooji-digital/deploy.sh
           command_timeout: 20m
