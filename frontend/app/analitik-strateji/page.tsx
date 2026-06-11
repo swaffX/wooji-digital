@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import SiteLayout from '@/components/SiteLayout'
 import ServiceFaqSection from '@/components/ServiceFaqSection'
+import AnimatedStat from '@/components/AnimatedStat'
 import styles from './page.module.css'
 
 export const metadata: Metadata = {
@@ -147,7 +148,13 @@ export default function AnalitikStratejPage() {
             ].map((st) => (
               <div key={st.k} className={styles.statTerm}>
                 <span className={styles.statKey}>{st.k}</span>
-                <span className={styles.statVal} style={{ color: st.c }}>{st.v}</span>
+                <AnimatedStat
+                  value={st.v}
+                  label=""
+                  valClassName={styles.statVal}
+                  labelClassName=""
+                  color={st.c}
+                />
               </div>
             ))}
           </div>

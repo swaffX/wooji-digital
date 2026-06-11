@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import SiteLayout from '@/components/SiteLayout'
 import ServiceFaqSection from '@/components/ServiceFaqSection'
+import ServiceCard3D from '@/components/ServiceCard3D'
 import styles from './page.module.css'
 
 export const metadata: Metadata = {
@@ -124,14 +125,14 @@ export default function DijitalReklamPage() {
                 { icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>, title: 'Reklam Metni & Kreatif', desc: 'Tıklanma oranını artıran başlıklar, görseller ve video içerikler üretiyoruz.' },
                 { icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>, title: 'A/B Testi', desc: 'Farklı başlık, görsel ve hedefleme kombinasyonlarını test ederek en iyi performansı belirliyoruz.' },
               ].map((f, i) => (
-                <div key={f.title} className={`${styles.featCard} ${i % 2 === 1 ? styles.featOffset : ''} reveal${i > 0 ? ` d${Math.min(i, 5)}` : ''}`}>
+                <ServiceCard3D key={f.title} className={`${styles.featCard} ${i % 2 === 1 ? styles.featOffset : ''} reveal${i > 0 ? ` d${Math.min(i, 5)}` : ''}`}>
                   <div className={styles.featIcon}>{f.icon}</div>
                   <h3 className={styles.featTitle}>{f.title}</h3>
                   <p className={styles.featDesc}>{f.desc}</p>
                   <div className={styles.featArrow} aria-hidden="true">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                   </div>
-                </div>
+                </ServiceCard3D>
               ))}
             </div>
           </div>

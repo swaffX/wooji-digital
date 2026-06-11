@@ -476,3 +476,69 @@
   .cursor { animation: none; opacity: 1; }
   .sc1, .sc2, .sc3 { animation: none; opacity: 1; }
 }
+
+/* ── UPGRADES ── */
+
+/* btn-line fix: dark hero bg */
+.heroCtas .btn-line {
+  color: rgba(232, 237, 245, 0.82);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+.heroCtas .btn-line:hover {
+  color: #fff;
+  border-color: rgba(109, 63, 212, 0.55);
+  background: rgba(109, 63, 212, 0.1);
+}
+
+/* Hero: extra depth layer + SERP card float */
+.serpWrap {
+  animation: serpFloat 8s ease-in-out infinite;
+}
+@keyframes serpFloat {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+/* Feat big card: stronger presence */
+.featBig {
+  box-shadow: 0 8px 40px rgba(109, 63, 212, 0.08);
+  transition: border-color 0.4s ease, box-shadow 0.4s ease !important;
+}
+.featBig:hover {
+  box-shadow: 0 16px 60px rgba(109, 63, 212, 0.14) !important;
+}
+
+/* Feat small cards: enhanced hover */
+.featCard {
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.4s ease,
+              box-shadow 0.4s ease !important;
+}
+.featCard:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: 0 20px 52px rgba(109, 63, 212, 0.12), 0 4px 16px rgba(0, 0, 0, 0.1) !important;
+}
+.featCard:hover .featIcon,
+.featBig:hover .featIcon {
+  transform: scale(1.1);
+  box-shadow: 0 0 24px rgba(109, 63, 212, 0.3);
+}
+.featIcon { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+
+/* Timeline: step number glow */
+.timelineNum { transition: box-shadow 0.3s ease; }
+.timelineStep:hover .timelineNum {
+  box-shadow: 0 0 28px rgba(109, 63, 212, 0.5);
+}
+
+/* CTA: pulsing glow */
+.ctaGlow { animation: ctaPulse 4.5s ease-in-out infinite; }
+@keyframes ctaPulse {
+  0%, 100% { opacity: 0.75; transform: translateX(-50%) scale(1); }
+  50%       { opacity: 1;    transform: translateX(-50%) scale(1.18); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .serpWrap { animation: none; }
+  .ctaGlow  { animation: none; }
+}

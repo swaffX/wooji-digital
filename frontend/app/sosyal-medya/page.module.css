@@ -507,3 +507,67 @@
   .feedImg { animation: none; opacity: 1; }
   .engBubble { animation: none; }
 }
+
+/* ── UPGRADES ── */
+
+/* btn-line fix: dark hero bg */
+.heroCtas .btn-line {
+  color: rgba(240, 232, 255, 0.82);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+.heroCtas .btn-line:hover {
+  color: #fff;
+  border-color: rgba(192, 32, 104, 0.5);
+  background: rgba(192, 32, 104, 0.08);
+}
+
+/* Phone: stronger glow */
+.phone {
+  box-shadow:
+    0 40px 100px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(255, 255, 255, 0.05),
+    0 0 60px rgba(192, 32, 104, 0.2) !important;
+}
+
+/* Feat cards: enhanced hover */
+.featCard {
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.4s ease,
+              box-shadow 0.4s ease !important;
+}
+.featCard:hover {
+  transform: translateY(-6px) !important;
+  box-shadow: 0 20px 56px rgba(192, 32, 104, 0.12), 0 4px 16px rgba(0, 0, 0, 0.15) !important;
+}
+.featIconWrap { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.featCard:hover .featIconWrap {
+  transform: scale(1.1);
+  box-shadow: 0 0 24px rgba(192, 32, 104, 0.3);
+}
+
+/* Stat cards: stronger hover */
+.statCard {
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
+}
+.statCard:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 12px 36px color-mix(in srgb, var(--sc) 15%, transparent) !important;
+}
+
+/* Flow steps: hover glow */
+.flowStep { transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease !important; }
+.flowStep:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 32px rgba(192, 32, 104, 0.1) !important;
+}
+
+/* CTA: pulsing glow */
+.ctaGlow { animation: ctaPulse 4.5s ease-in-out infinite; }
+@keyframes ctaPulse {
+  0%, 100% { opacity: 0.8; transform: translateX(-50%) scale(1); }
+  50%       { opacity: 1;   transform: translateX(-50%) scale(1.15); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ctaGlow { animation: none; }
+}

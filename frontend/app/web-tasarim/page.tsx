@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import SiteLayout from '@/components/SiteLayout'
 import ServiceFaqSection from '@/components/ServiceFaqSection'
+import ServiceCard3D from '@/components/ServiceCard3D'
 import styles from './page.module.css'
 
 export const metadata: Metadata = {
@@ -119,13 +120,13 @@ export default function WebTasarimPage() {
                 { icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>, title: 'Güvenlik & Performans', desc: 'SSL sertifikası, güvenli sunucu yapılandırması ve Core Web Vitals optimizasyonu.', accent: '#dc2626' },
                 { icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden="true"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>, title: 'İçerik Yönetimi', desc: 'Teknik bilgi gerektirmeden kolayca düzenleyebileceğiniz CMS entegrasyonu (Sanity, Contentful).', accent: '#d97706' },
               ].map((f, i) => (
-                <div key={f.title} className={`${styles.featCard} reveal${i > 0 ? ` d${Math.min(i, 5)}` : ''}`}
+                <ServiceCard3D key={f.title} className={`${styles.featCard} reveal${i > 0 ? ` d${Math.min(i, 5)}` : ''}`}
                   style={{ '--fc': f.accent } as React.CSSProperties}>
                   <div className={styles.featAccentLine} aria-hidden="true" />
                   <div className={styles.featIcon}>{f.icon}</div>
                   <h3 className={styles.featTitle}>{f.title}</h3>
                   <p className={styles.featDesc}>{f.desc}</p>
-                </div>
+                </ServiceCard3D>
               ))}
             </div>
           </div>

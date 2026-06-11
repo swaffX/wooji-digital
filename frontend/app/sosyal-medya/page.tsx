@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import SiteLayout from '@/components/SiteLayout'
 import ServiceFaqSection from '@/components/ServiceFaqSection'
+import ServiceCard3D from '@/components/ServiceCard3D'
 import styles from './page.module.css'
 
 export const metadata: Metadata = {
@@ -129,12 +130,12 @@ export default function SosyalMedyaPage() {
                 { icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>, title: 'Analiz & Raporlama', desc: 'Erişim, etkileşim, takipçi büyümesi ve dönüşüm verilerini aylık raporlarla sunuyoruz.', grad: 'linear-gradient(135deg, #059669, #0891b2)' },
                 { icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden="true"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>, title: 'Sosyal Medya Reklamları', desc: 'Organik büyümeyi hızlandıran, hedefli sosyal medya reklam kampanyaları yönetiyoruz.', grad: 'linear-gradient(135deg, #d97706, #dc2626)' },
               ].map((f, i) => (
-                <div key={f.title} className={`${styles.featCard} reveal${i > 0 ? ` d${Math.min(i, 5)}` : ''}`}
+                <ServiceCard3D key={f.title} className={`${styles.featCard} reveal${i > 0 ? ` d${Math.min(i, 5)}` : ''}`}
                   style={{ '--fg': f.grad } as React.CSSProperties}>
                   <div className={styles.featIconWrap}>{f.icon}</div>
                   <h3 className={styles.featTitle}>{f.title}</h3>
                   <p className={styles.featDesc}>{f.desc}</p>
-                </div>
+                </ServiceCard3D>
               ))}
             </div>
           </div>

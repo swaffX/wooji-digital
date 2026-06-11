@@ -538,3 +538,71 @@
   .termBlink, .ctaBlink { animation: none; opacity: 1; }
   .ganttBar::after { animation: none; width: var(--gw, 0%); }
 }
+
+/* ── UPGRADES ── */
+
+/* btn-line fix: dark hero bg */
+.heroCtas .btn-line {
+  color: rgba(212, 241, 228, 0.82);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+.heroCtas .btn-line:hover {
+  color: #fff;
+  border-color: rgba(13, 140, 77, 0.55);
+  background: rgba(13, 140, 77, 0.1);
+}
+
+/* Terminal: stronger shadow + float */
+.terminal {
+  box-shadow:
+    0 40px 100px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(13, 140, 77, 0.12),
+    0 0 60px rgba(13, 140, 77, 0.07) !important;
+  animation: termFloat 9s ease-in-out infinite;
+}
+@keyframes termFloat {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+/* Data table rows: enhanced hover */
+.dataRow {
+  transition: background 0.25s ease, padding-left 0.25s ease !important;
+}
+.dataRow:hover {
+  background: rgba(13, 140, 77, 0.06) !important;
+  padding-left: 2.125rem !important;
+}
+.dataIcon { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.dataRow:hover .dataIcon {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(13, 140, 77, 0.3);
+}
+
+/* Gantt rows: hover lift */
+.ganttRow { transition: opacity 0.3s ease; }
+.ganttRow:hover .ganttBar::after {
+  box-shadow: 0 0 14px rgba(20, 160, 91, 0.7);
+}
+
+/* Stat term boxes: hover */
+.statTerm {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+.statTerm:hover {
+  border-color: rgba(13, 140, 77, 0.35);
+  box-shadow: 0 8px 28px rgba(13, 140, 77, 0.1);
+  transform: translateY(-3px);
+}
+
+/* CTA: pulsing glow */
+.ctaGlow { animation: ctaPulse 4.5s ease-in-out infinite; }
+@keyframes ctaPulse {
+  0%, 100% { opacity: 0.75; transform: translateX(-50%) scale(1); }
+  50%       { opacity: 1;    transform: translateX(-50%) scale(1.15); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .terminal { animation: none; }
+  .ctaGlow  { animation: none; }
+}

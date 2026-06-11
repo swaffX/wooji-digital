@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import SiteLayout from '@/components/SiteLayout'
 import ServiceFaqSection from '@/components/ServiceFaqSection'
+import ServiceCard3D from '@/components/ServiceCard3D'
+import AnimatedStat from '@/components/AnimatedStat'
 import styles from './page.module.css'
 
 export const metadata: Metadata = {
@@ -74,8 +76,8 @@ export default function SeoHizmetleriPage() {
                 <span className={styles.serpPos}>3</span>
                 <div className={styles.serpText}>
                   <span className={styles.serpUrl}>diger.com › blog</span>
-                  <span className={styles.serpTitle}>Dijital Pazarlama Rehberi 2024</span>
-                  <span className={styles.serpSnippet}>2024 yılında dijital pazarlama stratejileri...</span>
+                  <span className={styles.serpTitle}>Dijital Pazarlama Rehberi 2026</span>
+                  <span className={styles.serpSnippet}>2026 yılında dijital pazarlama stratejileri...</span>
                 </div>
               </div>
             </div>
@@ -91,10 +93,14 @@ export default function SeoHizmetleriPage() {
               { v: 'Top 10', l: 'Hedef keyword sıralaması' },
               { v: '%68', l: 'Organik dönüşüm oranı' },
             ].map((st) => (
-              <div key={st.l} className={styles.statItem}>
-                <span className={styles.statVal}>{st.v}</span>
-                <span className={styles.statLabel}>{st.l}</span>
-              </div>
+              <AnimatedStat
+                key={st.l}
+                value={st.v}
+                label={st.l}
+                className={styles.statItem}
+                valClassName={styles.statVal}
+                labelClassName={styles.statLabel}
+              />
             ))}
           </div>
         </div>
@@ -107,7 +113,7 @@ export default function SeoHizmetleriPage() {
               <h2 className="s-title reveal d1">Ne Sunuyoruz?</h2>
             </div>
             <div className={styles.featGrid}>
-              <div className={`${styles.featBig} reveal`}>
+              <ServiceCard3D className={`${styles.featBig} reveal`}>
                 <div className={styles.featIcon}>
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
                 </div>
@@ -117,7 +123,7 @@ export default function SeoHizmetleriPage() {
                   <div className={styles.bigMetric}><span>+87%</span><span>Crawl verimliliği</span></div>
                   <div className={styles.bigMetric}><span>2.4x</span><span>Sayfa hızı artışı</span></div>
                 </div>
-              </div>
+              </ServiceCard3D>
 
               {[
                 { icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>, title: 'İçerik Stratejisi', desc: 'Hedef kitlenizin aradığı konularda, dönüştüren ve sıralanan içerikler üretiyoruz.' },
@@ -126,11 +132,11 @@ export default function SeoHizmetleriPage() {
                 { icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>, title: 'Performans Raporlama', desc: 'Aylık kapsamlı SEO raporları; sıralama, trafik ve dönüşüm trendleri şeffaf sunulur.' },
                 { icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>, title: 'Rakip Analizi', desc: 'Rakiplerinizin güçlü yanlarını analiz edip boşluklardan yararlanacak stratejiler geliştiriyoruz.' },
               ].map((f, i) => (
-                <div key={f.title} className={`${styles.featCard} reveal d${i + 1}`}>
+                <ServiceCard3D key={f.title} className={`${styles.featCard} reveal d${i + 1}`}>
                   <div className={styles.featIcon}>{f.icon}</div>
                   <h3 className={styles.featTitle}>{f.title}</h3>
                   <p className={styles.featDesc}>{f.desc}</p>
-                </div>
+                </ServiceCard3D>
               ))}
             </div>
           </div>

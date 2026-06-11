@@ -516,3 +516,69 @@
   .mockHeadline, .mockSub { animation: none; opacity: 1; }
   .floatBadge { animation: none; }
 }
+
+/* ── UPGRADES ── */
+
+/* Browser: stronger shadow + subtle float */
+.browser {
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.08),
+    0 32px 100px rgba(0, 0, 0, 0.2),
+    0 8px 32px rgba(8, 145, 178, 0.12) !important;
+  animation: browserFloat 9s ease-in-out infinite;
+}
+@keyframes browserFloat {
+  0%, 100% { transform: perspective(1200px) rotateX(6deg) translateY(0); }
+  50%       { transform: perspective(1200px) rotateX(4deg) translateY(-8px); }
+}
+.browserWrap:hover .browser {
+  transform: perspective(1200px) rotateX(1deg) !important;
+}
+
+/* Float badges: stronger look */
+.floatBadge {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(8, 145, 178, 0.15) !important;
+}
+
+/* Feat cards: enhanced hover + icon animation */
+.featCard {
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.4s ease,
+              box-shadow 0.4s ease !important;
+}
+.featCard:hover {
+  transform: translateY(-6px) !important;
+  box-shadow: 0 20px 56px color-mix(in srgb, var(--fc, #0891b2) 18%, transparent),
+              0 4px 16px rgba(0, 0, 0, 0.1) !important;
+}
+.featCard:hover .featAccentLine { opacity: 1; }
+.featAccentLine { transition: opacity 0.3s ease; opacity: 0.7; }
+.featIcon { transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease; }
+.featCard:hover .featIcon {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px color-mix(in srgb, var(--fc, #0891b2) 35%, transparent);
+}
+
+/* Build steps: hover glow */
+.buildStep { transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease !important; }
+.buildStep:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 36px rgba(8, 145, 178, 0.1) !important;
+}
+.buildIcon { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.buildStep:hover .buildIcon {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(8, 145, 178, 0.3);
+}
+
+/* CTA: pulsing glow */
+.ctaGlow { animation: ctaPulse 4.5s ease-in-out infinite; }
+@keyframes ctaPulse {
+  0%, 100% { opacity: 0.75; transform: translateX(-50%) scale(1); }
+  50%       { opacity: 1;    transform: translateX(-50%) scale(1.15); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .browser { animation: none; transform: perspective(1200px) rotateX(6deg) !important; }
+  .ctaGlow { animation: none; }
+}

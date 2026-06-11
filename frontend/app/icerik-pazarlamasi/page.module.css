@@ -526,3 +526,53 @@
   .heroCursor { animation: none; opacity: 1; }
   .ac1, .ac2, .ac3 { animation: none; }
 }
+
+/* ── UPGRADES ── */
+
+/* Article stack: stronger shadows */
+.ac1 {
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(217, 119, 6, 0.1) !important;
+}
+
+/* Wide feature card: elevated in dark mode */
+[data-theme="dark"] .wideCard {
+  background: linear-gradient(135deg, rgba(30, 18, 6, 0.9), rgba(20, 12, 4, 0.8)) !important;
+  border-color: rgba(217, 119, 6, 0.22) !important;
+}
+[data-theme="dark"] .wideTitle { color: var(--text) !important; }
+[data-theme="dark"] .wideDesc  { color: var(--text-2) !important; }
+
+/* Feat cards: enhanced hover */
+.featCard {
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.4s ease,
+              box-shadow 0.4s ease !important;
+}
+.featCard:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: 0 16px 48px rgba(217, 119, 6, 0.1), 0 4px 16px rgba(0, 0, 0, 0.08) !important;
+}
+.featIcon { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.featCard:hover .featIcon {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(217, 119, 6, 0.3);
+}
+
+/* Edit steps: hover lift */
+.editStep { transition: opacity 0.3s ease; }
+.editStep:hover .editIcon {
+  transform: scale(1.08);
+  box-shadow: 0 0 20px rgba(217, 119, 6, 0.3);
+}
+.editIcon { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+
+/* CTA: pulsing glow */
+.ctaGlow { animation: ctaPulse 4.5s ease-in-out infinite; }
+@keyframes ctaPulse {
+  0%, 100% { opacity: 0.75; transform: translateX(-50%) scale(1); }
+  50%       { opacity: 1;    transform: translateX(-50%) scale(1.15); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ctaGlow { animation: none; }
+}

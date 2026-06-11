@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import SiteLayout from '@/components/SiteLayout'
 import ServiceFaqSection from '@/components/ServiceFaqSection'
+import ServiceCard3D from '@/components/ServiceCard3D'
+import AnimatedStat from '@/components/AnimatedStat'
 import styles from './page.module.css'
 
 export const metadata: Metadata = {
@@ -78,10 +80,14 @@ export default function IcerikPazarlamasiPage() {
               { v: '4–8', l: 'Aylık makale sayısı' },
               { v: '%6+', l: 'Blog dönüşüm oranı' },
             ].map((st) => (
-              <div key={st.l} className={styles.statCol}>
-                <span className={styles.statVal}>{st.v}</span>
-                <span className={styles.statLabel}>{st.l}</span>
-              </div>
+              <AnimatedStat
+                key={st.l}
+                value={st.v}
+                label={st.l}
+                className={styles.statCol}
+                valClassName={styles.statVal}
+                labelClassName={styles.statLabel}
+              />
             ))}
           </div>
         </div>
@@ -120,11 +126,11 @@ export default function IcerikPazarlamasiPage() {
                 { icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>, title: 'Keyword Araştırması', desc: "Rekabeti düşük, dönüşüm potansiyeli yüksek keyword'leri tespit ederek içerik planı oluşturuyoruz." },
                 { icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>, title: 'İçerik Dağıtımı', desc: 'Üretilen içerikleri doğru kanallarda, doğru zamanda yayınlayarak maksimum erişim sağlıyoruz.' },
               ].map((f, i) => (
-                <div key={f.title} className={`${styles.featCard} reveal${i > 0 ? ` d${Math.min(i, 5)}` : ''}`}>
+                <ServiceCard3D key={f.title} className={`${styles.featCard} reveal${i > 0 ? ` d${Math.min(i, 5)}` : ''}`}>
                   <div className={styles.featIcon}>{f.icon}</div>
                   <h3 className={styles.featTitle}>{f.title}</h3>
                   <p className={styles.featDesc}>{f.desc}</p>
-                </div>
+                </ServiceCard3D>
               ))}
             </div>
           </div>
