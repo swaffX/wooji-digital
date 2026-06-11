@@ -10,17 +10,16 @@ git pull origin main
 cd frontend
 npm install --production=false
 
-# Clear stale build — keep server up during build
-rm -rf .next
-
-# Build first, then swap (prevents 502 on failed builds)
+# Build — do NOT remove .next first so the running server stays up during build
+# Next.js writes to .next atomically; old build stays available until this completes
 NODE_OPTIONS="--max-old-space-size=4096" npm run build
 
-# Stop only after successful build
+# Stop → start only after successful build (set -e aborts on build failure)
 pm2 stop wooji || true
 pm2 start wooji --node-args="--max-old-space-size=1024" --max-memory-restart 2G 2>/dev/null || \
   pm2 restart wooji --node-args="--max-old-space-size=1024" --max-memory-restart 2G
+pm2 save
 
 # Brief health check
-sleep 3
+sleep 4
 curl -sf http://127.0.0.1:3000/ -o /dev/null && echo "Deploy OK: $(date)" || echo "WARNING: Health check failed — check pm2 logs"
