@@ -323,8 +323,8 @@
 .featAccentLine {
   position: absolute;
   top: 0; left: 0; right: 0;
-  height: 3px;
-  background: var(--fc, #0891b2);
+  height: 1px;
+  background: linear-gradient(90deg, transparent 5%, #0891b2 40%, #2563eb 60%, transparent 95%);
   opacity: 0.7;
 }
 
@@ -542,17 +542,22 @@
 
 /* Feat cards: enhanced hover + icon animation */
 .featCard {
+  box-shadow: 0 2px 16px rgba(8,145,178,0.06), 0 1px 4px rgba(0,0,0,0.06);
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
               border-color 0.4s ease,
               box-shadow 0.4s ease !important;
 }
 .featCard:hover {
-  transform: translateY(-6px) !important;
-  box-shadow: 0 20px 56px color-mix(in srgb, var(--fc, #0891b2) 18%, transparent),
-              0 4px 16px rgba(0, 0, 0, 0.1) !important;
+  transform: translateY(-5px) !important;
+  box-shadow: 0 20px 64px rgba(8,145,178,0.14), 0 4px 16px rgba(0,0,0,0.08) !important;
 }
 .featCard:hover .featAccentLine { opacity: 1; }
-.featAccentLine { transition: opacity 0.3s ease; opacity: 0.7; }
+.featAccentLine {
+  transition: opacity 0.3s ease;
+  opacity: 0.7;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 5%, #0891b2 40%, #2563eb 60%, transparent 95%);
+}
 .featIcon { transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease; }
 .featCard:hover .featIcon {
   transform: scale(1.1);

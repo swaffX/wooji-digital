@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import SiteLayout from '@/components/SiteLayout'
 import ServiceFaqSection from '@/components/ServiceFaqSection'
 import ServiceCard3D from '@/components/ServiceCard3D'
+import AnimatedStat from '@/components/AnimatedStat'
 import styles from './page.module.css'
 
 export const metadata: Metadata = {
@@ -88,23 +89,24 @@ export default function DijitalReklamPage() {
           </div>
         </header>
 
-        {/* ── STATS — Ring cards ── */}
+        {/* ── STATS — Animated horizontal bar ── */}
         <div className={styles.statsBar}>
           <div className={`${styles.statsInner} wrap`}>
             {[
               { v: '3.2x', l: 'Ortalama ROAS', c: '#3b82f6' },
               { v: '%25', l: 'Düşük CPA', c: '#8b5cf6' },
-              { v: '1–2 hf', l: 'İlk sonuç süresi', c: '#0891b2' },
-              { v: '50+', l: 'Aktif kampanya', c: '#2563eb' },
+              { v: '1–2 hf', l: 'İlk Sonuç', c: '#0891b2' },
+              { v: '50+', l: 'Aktif Kampanya', c: '#2563eb' },
             ].map((st) => (
-              <div key={st.l} className={styles.statRing}>
-                <div className={styles.ringOuter} style={{ '--ring-col': st.c } as React.CSSProperties}>
-                  <div className={styles.ringInner}>
-                    <span className={styles.statVal} style={{ color: st.c }}>{st.v}</span>
-                  </div>
-                </div>
-                <span className={styles.statLabel}>{st.l}</span>
-              </div>
+              <AnimatedStat
+                key={st.l}
+                value={st.v}
+                label={st.l}
+                className={styles.statItem}
+                valClassName={styles.statVal}
+                labelClassName={styles.statLabel}
+                color={st.c}
+              />
             ))}
           </div>
         </div>

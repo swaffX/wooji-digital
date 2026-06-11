@@ -202,7 +202,7 @@
 .statVal {
   display: block;
   font-family: var(--font-d);
-  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
   font-weight: 800;
   letter-spacing: -0.04em;
   background: linear-gradient(125deg, #9b6ff5, #6d3fd4, #4f46e5);
@@ -216,7 +216,8 @@
 .statLabel {
   font-size: 0.8rem;
   color: rgba(148,163,184,0.7);
-  letter-spacing: 0.02em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 /* ── Features ── */
@@ -253,17 +254,46 @@
 
 /* small cards: col 2–3, rows 1–2 (auto placement) */
 .featCard {
+  position: relative;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--r);
   padding: 1.5rem;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 4px 20px rgba(0,0,0,0.25);
   transition: border-color var(--t), box-shadow var(--t), transform var(--t);
+  overflow: hidden;
+}
+
+.featCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 5%, var(--acc, #6d3fd4) 40%, #4f46e5 60%, transparent 95%);
+  pointer-events: none;
+}
+
+.featCard::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(109,63,212,0.06) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
 }
 
 .featCard:hover {
   transform: translateY(-3px);
   border-color: rgba(109,63,212,0.25);
-  box-shadow: 0 8px 32px rgba(109,63,212,0.08);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 20px 64px rgba(109,63,212,0.18), 0 4px 16px rgba(0,0,0,0.35);
+}
+
+.featCard:hover::after {
+  opacity: 1;
 }
 
 .featIcon {
@@ -481,8 +511,8 @@
 
 /* btn-line fix: dark hero bg */
 .heroCtas .btn-line {
-  color: rgba(232, 237, 245, 0.82);
-  border-color: rgba(255, 255, 255, 0.15);
+  color: rgba(232, 237, 245, 0.9);
+  border-color: rgba(255, 255, 255, 0.35);
 }
 .heroCtas .btn-line:hover {
   color: #fff;

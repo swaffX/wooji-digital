@@ -322,19 +322,38 @@
   position: relative;
   overflow: hidden;
   transition: transform var(--t), border-color var(--t), box-shadow var(--t);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 4px 20px rgba(0,0,0,0.25);
 }
 
 .featCard::before {
   content: '';
   position: absolute;
-  inset: 0;
-  background: var(--fg);
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 5%, #c02068 40%, #9333ea 60%, transparent 95%);
   opacity: 0;
-  transition: opacity 0.4s var(--ease);
+  transition: opacity 0.4s;
+  z-index: 2;
 }
 
-.featCard:hover { transform: translateY(-3px); }
-.featCard:hover::before { opacity: 0.04; }
+.featCard::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(192,32,104,0.07) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.featCard:hover {
+  transform: translateY(-5px);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 20px 64px rgba(192,32,104,0.16), 0 4px 16px rgba(0,0,0,0.35);
+}
+.featCard:hover::before { opacity: 1; }
+.featCard:hover::after  { opacity: 1; }
 
 .featIconWrap {
   display: inline-flex;
@@ -512,8 +531,8 @@
 
 /* btn-line fix: dark hero bg */
 .heroCtas .btn-line {
-  color: rgba(240, 232, 255, 0.82);
-  border-color: rgba(255, 255, 255, 0.15);
+  color: rgba(240, 232, 255, 0.9);
+  border-color: rgba(255, 255, 255, 0.35);
 }
 .heroCtas .btn-line:hover {
   color: #fff;
@@ -535,14 +554,10 @@
               border-color 0.4s ease,
               box-shadow 0.4s ease !important;
 }
-.featCard:hover {
-  transform: translateY(-6px) !important;
-  box-shadow: 0 20px 56px rgba(192, 32, 104, 0.12), 0 4px 16px rgba(0, 0, 0, 0.15) !important;
-}
 .featIconWrap { transition: transform 0.3s ease, box-shadow 0.3s ease; }
 .featCard:hover .featIconWrap {
   transform: scale(1.1);
-  box-shadow: 0 0 24px rgba(192, 32, 104, 0.3);
+  box-shadow: 0 0 28px rgba(192, 32, 104, 0.35);
 }
 
 /* Stat cards: stronger hover */
