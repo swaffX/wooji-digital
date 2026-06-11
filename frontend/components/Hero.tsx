@@ -10,14 +10,17 @@ function FloatingPaths({ position }: { position: number }) {
   if (!visible) return null
 
   // Reduced to 18 paths (from 36) — CSS-animated, no Framer Motion on paths
-  const paths = Array.from({ length: 18 }, (_, i) => ({
-    id: i,
-    d: `M-${380 - i * 10 * position} -${189 + i * 12}C-${380 - i * 10 * position} -${189 + i * 12} -${312 - i * 10 * position} ${216 - i * 12} ${152 - i * 10 * position} ${343 - i * 12}C${616 - i * 10 * position} ${470 - i * 12} ${684 - i * 10 * position} ${875 - i * 12} ${684 - i * 10 * position} ${875 - i * 12}`,
-    width: 0.5 + i * 0.05,
-    opacity: 0.06 + i * 0.025,
-    duration: 22 + (i % 5) * 4,
-    delay: i * 0.3,
-  }))
+  const paths = Array.from({ length: 18 }, (_, i) => {
+    const dur = 20 + (i % 5) * 4
+    return {
+      id: i,
+      d: `M-${380 - i * 10 * position} -${189 + i * 12}C-${380 - i * 10 * position} -${189 + i * 12} -${312 - i * 10 * position} ${216 - i * 12} ${152 - i * 10 * position} ${343 - i * 12}C${616 - i * 10 * position} ${470 - i * 12} ${684 - i * 10 * position} ${875 - i * 12} ${684 - i * 10 * position} ${875 - i * 12}`,
+      width: 0.5 + i * 0.05,
+      opacity: 0.07 + i * 0.022,
+      duration: dur,
+      delay: -(i * dur * 0.06),
+    }
+  })
   const gradId = `pg${position > 0 ? 'a' : 'b'}`
 
   return (
@@ -38,7 +41,7 @@ function FloatingPaths({ position }: { position: number }) {
             strokeWidth={p.width}
             strokeOpacity={p.opacity}
             fill="none"
-            strokeDasharray="300 700"
+            strokeDasharray="500 500"
             style={{
               animation: `pathFlow ${p.duration}s ${p.delay}s linear infinite`,
             } as React.CSSProperties}
@@ -68,12 +71,17 @@ export default function Hero() {
   const gridY    = useTransform(scrollY, [0, 700], [0, -40])
 
   useEffect(() => {
+    let timerId: ReturnType<typeof setTimeout>
+    let detach: (() => void) | null = null
+    const onScroll = ({ scroll }: { scroll: number }) => scrollY.set(scroll)
     const tryAttach = () => {
       const lenis = getLenisInstance()
-      if (!lenis) return setTimeout(tryAttach, 50)
-      lenis.on('scroll', ({ scroll }: { scroll: number }) => scrollY.set(scroll))
+      if (!lenis) { timerId = setTimeout(tryAttach, 50); return }
+      lenis.on('scroll', onScroll)
+      detach = () => lenis.off('scroll', onScroll)
     }
     tryAttach()
+    return () => { clearTimeout(timerId); detach?.() }
   }, [scrollY])
 
   return (
