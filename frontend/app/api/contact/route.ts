@@ -2,12 +2,16 @@ import { NextResponse } from 'next/server'
 import { z } from 'zod'
 import { rateLimit, getClientIp } from '@/lib/rateLimit'
 
+function esc(s: string): string {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')
+}
+
 const schema = z.object({
-  name:    z.string().min(2),
-  email:   z.string().email(),
-  phone:   z.string().optional(),
-  service: z.string().optional(),
-  message: z.string().min(10),
+  name:    z.string().min(2).max(100),
+  email:   z.string().email().max(254),
+  phone:   z.string().max(30).optional(),
+  service: z.string().max(100).optional(),
+  message: z.string().min(10).max(5000),
 })
 
 export async function POST(req: Request) {
@@ -68,38 +72,38 @@ export async function POST(req: Request) {
             <tr>
               <td style="padding-bottom:16px;border-bottom:1px solid #f1f5f9;">
                 <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#94a3b8;margin-bottom:4px;">Ad Soyad</div>
-                <div style="font-size:15px;font-weight:600;color:#0f172a;">${name}</div>
+                <div style="font-size:15px;font-weight:600;color:#0f172a;">${esc(name)}</div>
               </td>
             </tr>
             <tr>
               <td style="padding:16px 0;border-bottom:1px solid #f1f5f9;">
                 <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#94a3b8;margin-bottom:4px;">E-posta</div>
-                <div style="font-size:15px;color:#2563eb;">${email}</div>
+                <div style="font-size:15px;color:#2563eb;">${esc(email)}</div>
               </td>
             </tr>
             ${phone ? `<tr>
               <td style="padding:16px 0;border-bottom:1px solid #f1f5f9;">
                 <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#94a3b8;margin-bottom:4px;">Telefon</div>
-                <div style="font-size:15px;font-weight:600;color:#0f172a;">${phone}</div>
+                <div style="font-size:15px;font-weight:600;color:#0f172a;">${esc(phone)}</div>
               </td>
             </tr>` : ''}
             ${service ? `<tr>
               <td style="padding:16px 0;border-bottom:1px solid #f1f5f9;">
                 <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#94a3b8;margin-bottom:4px;">İlgilendiği Hizmet</div>
-                <div style="font-size:15px;font-weight:600;color:#7c3aed;">${service}</div>
+                <div style="font-size:15px;font-weight:600;color:#7c3aed;">${esc(service)}</div>
               </td>
             </tr>` : ''}
             <tr>
               <td style="padding-top:16px;">
                 <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#94a3b8;margin-bottom:8px;">Mesaj</div>
-                <div style="font-size:14px;line-height:1.75;color:#334155;background:#f8fafc;border-radius:8px;padding:16px;">${message.replace(/\n/g, '<br>')}</div>
+                <div style="font-size:14px;line-height:1.75;color:#334155;background:#f8fafc;border-radius:8px;padding:16px;">${esc(message).replace(/\n/g, '<br>')}</div>
               </td>
             </tr>
           </table>
 
           <!-- CTA -->
           <div style="margin-top:28px;text-align:center;">
-            <a href="mailto:${email}" style="display:inline-block;background:#7c3aed;color:#ffffff;font-size:14px;font-weight:700;text-decoration:none;padding:12px 28px;border-radius:8px;">Müşteriyi Yanıtla</a>
+            <a href="mailto:${esc(email)}" style="display:inline-block;background:#7c3aed;color:#ffffff;font-size:14px;font-weight:700;text-decoration:none;padding:12px 28px;border-radius:8px;">Müşteriyi Yanıtla</a>
           </div>
 
         </td></tr>

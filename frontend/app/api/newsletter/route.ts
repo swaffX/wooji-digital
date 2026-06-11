@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { rateLimit, getClientIp } from '@/lib/rateLimit'
 
 const schema = z.object({
-  email: z.string().email(),
+  email: z.string().email().max(254),
 })
 
 export async function POST(req: Request) {

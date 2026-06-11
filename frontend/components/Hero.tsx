@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useMotionValue, useTransform } from 'framer-motion'
+import { getLenisInstance } from '@/lib/lenis'
 import styles from './Hero.module.css'
 
 function FloatingPaths({ position }: { position: number }) {
@@ -55,11 +56,21 @@ export default function Hero() {
   const [isMobile, setIsMobile] = useState(false)
   useEffect(() => { setIsMobile(window.innerWidth < 768) }, [])
 
-  const { scrollY } = useScroll()
+  const scrollY  = useMotionValue(0)
   const orb1Y    = useTransform(scrollY, [0, 700], [0, -140])
   const orb2Y    = useTransform(scrollY, [0, 700], [0, -90])
   const gridY    = useTransform(scrollY, [0, 700], [0, -50])
   const contentY = useTransform(scrollY, [0, 700], [0, -70])
+
+  useEffect(() => {
+    // Poll for Lenis instance — it mounts slightly after Hero
+    const tryAttach = () => {
+      const lenis = getLenisInstance()
+      if (!lenis) return setTimeout(tryAttach, 50)
+      lenis.on('scroll', ({ scroll }: { scroll: number }) => scrollY.set(scroll))
+    }
+    tryAttach()
+  }, [scrollY])
 
   return (
     <section id="hero" className={styles.hero} aria-labelledby="hero-h1">
