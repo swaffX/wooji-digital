@@ -39,10 +39,10 @@ export const metadata: Metadata = {
   robots: 'index, follow',
   icons: {
     icon: [
-      { url: '/logo.jpg', type: 'image/jpeg', sizes: 'any' },
       { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/logo.jpg', type: 'image/jpeg', sizes: 'any' },
     ],
-    shortcut: '/logo.jpg',
+    shortcut: '/favicon.svg',
     apple: '/logo.jpg',
   },
   metadataBase: new URL('https://woojidigital.com'),
