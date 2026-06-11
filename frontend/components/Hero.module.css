@@ -23,6 +23,11 @@
   height: 100%;
 }
 
+@keyframes pathFlow {
+  from { stroke-dashoffset: 0; }
+  to   { stroke-dashoffset: -1000; }
+}
+
 /* ── Background depth layers ── */
 .orb1 {
   position: absolute;

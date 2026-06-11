@@ -23,7 +23,6 @@ function FloatingPaths({ position }: { position: number }) {
   return (
     <div className={styles.pathsWrap} aria-hidden="true">
       <svg className={styles.pathsSvg} viewBox="0 0 696 316" fill="none" preserveAspectRatio="xMidYMid slice">
-        <style>{`@keyframes pathFlow{from{stroke-dashoffset:0}to{stroke-dashoffset:-1000}}`}</style>
         <defs>
           <linearGradient id={gradId} x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%"   stopColor="#7c3aed" />
@@ -41,12 +40,8 @@ function FloatingPaths({ position }: { position: number }) {
             fill="none"
             strokeDasharray="300 700"
             style={{
-              animationName: 'pathFlow',
-              animationDuration: `${p.duration}s`,
-              animationDelay: `${p.delay}s`,
-              animationTimingFunction: 'linear',
-              animationIterationCount: 'infinite',
-            }}
+              animation: `pathFlow ${p.duration}s ${p.delay}s linear infinite`,
+            } as React.CSSProperties}
           />
         ))}
       </svg>
