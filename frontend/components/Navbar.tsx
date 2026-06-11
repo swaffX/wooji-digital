@@ -204,102 +204,156 @@ export default function Navbar() {
       {/* Mobile overlay */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            className={styles.mobMenu}
-            initial={{ opacity: 0, x: '100%' }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: '100%' }}
-            transition={{ type: 'spring', damping: 26, stiffness: 280 }}
-            role="dialog"
-            aria-modal="true"
-            aria-label="Mobil navigasyon"
-          >
-            <motion.button
-              className={styles.mobClose}
-              onClick={close}
-              whileTap={{ scale: 0.9 }}
+          <>
+            {/* backdrop */}
+            <motion.div
+              className={styles.mobBackdrop}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.15 }}
-              aria-label="Menüyü kapat"
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              onClick={close}
+              aria-hidden="true"
+            />
+
+            <motion.div
+              className={styles.mobMenu}
+              initial={{ opacity: 0, x: '100%' }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: '100%' }}
+              transition={{ type: 'spring', damping: 28, stiffness: 300 }}
+              role="dialog"
+              aria-modal="true"
+              aria-label="Mobil navigasyon"
             >
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                <line x1="18" y1="6" x2="6" y2="18"/>
-                <line x1="6"  y1="6" x2="18" y2="18"/>
-              </svg>
-            </motion.button>
-
-            <div className={styles.mobLinks}>
-              {/* Hizmetler accordion */}
-              <motion.div
-                initial={{ opacity: 0, x: 24 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 24 }}
-                transition={{ delay: 0.1 }}
-              >
-                <button
-                  className={styles.mobDropBtn}
-                  onClick={() => setMobServices((v) => !v)}
-                  aria-expanded={mobServicesOpen}
-                >
-                  Hizmetler
-                  <svg
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    className={`${styles.mobChevron}${mobServicesOpen ? ` ${styles.chevronOpen}` : ''}`}
-                    aria-hidden="true"
+              {/* ── Header bar ── */}
+              <div className={styles.mobHeader}>
+                <span className={styles.mobBrand}>Wooji Digital</span>
+                <div className={styles.mobHeaderRight}>
+                  <ThemeToggle />
+                  <motion.button
+                    className={styles.mobClose}
+                    onClick={close}
+                    whileTap={{ scale: 0.9 }}
+                    aria-label="Menüyü kapat"
                   >
-                    <polyline points="6 9 12 15 18 9"/>
-                  </svg>
-                </button>
-                <AnimatePresence>
-                  {mobServicesOpen && (
-                    <motion.div
-                      className={styles.mobSubLinks}
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
-                    >
-                      {serviceLinks.map((s) => (
-                        <Link key={s.href} href={s.href} className={styles.mobSubLink} onClick={close}>
-                          {s.label}
-                        </Link>
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
+                      <line x1="18" y1="6" x2="6" y2="18"/>
+                      <line x1="6"  y1="6" x2="18" y2="18"/>
+                    </svg>
+                  </motion.button>
+                </div>
+              </div>
 
-              {navItems.map((item, i) => (
-                <motion.div
-                  key={item.key}
-                  initial={{ opacity: 0, x: 24 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 24 }}
-                  transition={{ delay: i * 0.08 + 0.18 }}
+              {/* ── Nav body ── */}
+              <div className={styles.mobBody}>
+
+                {/* Section label */}
+                <motion.p
+                  className={styles.mobSectionLabel}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.08 }}
                 >
-                  <Link href={href(item.key)} onClick={close}>{item.label}</Link>
-                </motion.div>
-              ))}
+                  Navigasyon
+                </motion.p>
 
+                {/* Hizmetler row */}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.12 }}
+                >
+                  <button
+                    className={styles.mobNavRow}
+                    onClick={() => setMobServices((v) => !v)}
+                    aria-expanded={mobServicesOpen}
+                  >
+                    <span className={styles.mobNavRowLeft}>
+                      <span className={styles.mobNavIcon} aria-hidden="true">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+                          <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+                        </svg>
+                      </span>
+                      <span className={styles.mobNavLabel}>Hizmetler</span>
+                    </span>
+                    <svg
+                      width="14" height="14" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" strokeWidth="2.5"
+                      className={`${styles.mobChevron}${mobServicesOpen ? ` ${styles.chevronOpen}` : ''}`}
+                      aria-hidden="true"
+                    >
+                      <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                  </button>
+
+                  <AnimatePresence>
+                    {mobServicesOpen && (
+                      <motion.div
+                        className={styles.mobServiceGrid}
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
+                      >
+                        <div className={styles.mobServiceInner}>
+                          {serviceLinks.map((s) => (
+                            <Link key={s.href} href={s.href} className={styles.mobServicePill} onClick={close}>
+                              {s.label}
+                              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                              </svg>
+                            </Link>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+
+                {/* Nav items */}
+                {navItems.map((item, i) => (
+                  <motion.div
+                    key={item.key}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.055 + 0.18 }}
+                  >
+                    <Link
+                      href={href(item.key)}
+                      onClick={close}
+                      className={`${styles.mobNavRow} ${styles.mobNavLink}${activeSection === item.key ? ` ${styles.mobNavActive}` : ''}`}
+                    >
+                      <span className={styles.mobNavRowLeft}>
+                        <span className={styles.mobNavNum} aria-hidden="true">0{i + 2}</span>
+                        <span className={styles.mobNavLabel}>{item.label}</span>
+                      </span>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                      </svg>
+                    </Link>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* ── Footer CTA ── */}
               <motion.div
-                initial={{ opacity: 0, y: 16 }}
+                className={styles.mobFooter}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 16 }}
-                transition={{ delay: 0.55 }}
-                className={styles.mobCtaWrap}
+                transition={{ delay: 0.48 }}
               >
+                <p className={styles.mobFooterTag}>Ücretsiz danışmanlık</p>
                 <Link href={contactHref} className={styles.mobCta} onClick={close}>
                   İletişim Al
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
                 </Link>
               </motion.div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </>

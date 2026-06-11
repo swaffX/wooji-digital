@@ -20,8 +20,9 @@ jobs:
             git pull origin main
             cd frontend
             npm install --production=false
-            pm2 stop wooji || true
+            rm -rf .next
             NODE_OPTIONS="--max-old-space-size=4096" npm run build
+            pm2 stop wooji || true
             pm2 start wooji 2>/dev/null || pm2 restart wooji
             echo "Deploy tamamlandi: $(date)"
-          command_timeout: 15m
+          command_timeout: 20m
