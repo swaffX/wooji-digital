@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server'
 import { z } from 'zod'
-import nodemailer from 'nodemailer'
 import { rateLimit, getClientIp } from '@/lib/rateLimit'
 
 const schema = z.object({
@@ -26,33 +25,39 @@ export async function POST(req: Request) {
 
   const { name, email, phone, service, message } = parsed.data
 
-  if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
-    console.error('SMTP env vars missing')
+  if (!process.env.RESEND_API_KEY) {
+    console.error('RESEND_API_KEY missing')
     return NextResponse.json({ error: 'Mail yapılandırması eksik' }, { status: 500 })
   }
 
-  const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: Number(process.env.SMTP_PORT ?? 587),
-    secure: Number(process.env.SMTP_PORT) === 465,
-    auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
+  const res = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      from: 'Wooji Digital Form <onboarding@resend.dev>',
+      to: [process.env.CONTACT_TO ?? 'info@woojidigital.com'],
+      reply_to: email,
+      subject: `Yeni İletişim: ${name}`,
+      html: `
+        <h2>Yeni İletişim Formu Mesajı</h2>
+        <p><b>Ad Soyad:</b> ${name}</p>
+        <p><b>E-posta:</b> ${email}</p>
+        ${phone ? `<p><b>Telefon:</b> ${phone}</p>` : ''}
+        ${service ? `<p><b>Hizmet:</b> ${service}</p>` : ''}
+        <p><b>Mesaj:</b></p>
+        <p>${message.replace(/\n/g, '<br>')}</p>
+      `,
+    }),
   })
 
-  await transporter.sendMail({
-    from: `"Wooji Digital Form" <${process.env.SMTP_USER}>`,
-    to: process.env.CONTACT_TO ?? 'info@woojidigital.com',
-    replyTo: email,
-    subject: `Yeni İletişim: ${name}`,
-    html: `
-      <h2>Yeni İletişim Formu Mesajı</h2>
-      <p><b>Ad Soyad:</b> ${name}</p>
-      <p><b>E-posta:</b> ${email}</p>
-      ${phone ? `<p><b>Telefon:</b> ${phone}</p>` : ''}
-      ${service ? `<p><b>Hizmet:</b> ${service}</p>` : ''}
-      <p><b>Mesaj:</b></p>
-      <p>${message.replace(/\n/g, '<br>')}</p>
-    `,
-  })
+  if (!res.ok) {
+    const err = await res.text()
+    console.error('Resend error:', err)
+    return NextResponse.json({ error: 'Mail gönderilemedi' }, { status: 500 })
+  }
 
   return NextResponse.json({ success: true })
 }
