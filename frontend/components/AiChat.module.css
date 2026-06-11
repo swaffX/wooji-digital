@@ -404,22 +404,18 @@
     bottom: 6rem;
   }
   .panel {
+    left: 0.75rem;
+    right: 0.75rem;
+    width: auto;
     bottom: 10rem;
+    border-radius: 20px;
+    transform-origin: bottom left;
   }
 }
 
 @media (max-width: 500px) {
   .panel {
-    right: 0.75rem;
-    left: 0.75rem;
-    width: auto;
     bottom: 5.5rem;
-    border-radius: 20px;
-  }
-  .trigger {
-    right: auto;
-    left: 1rem;
-    bottom: 6rem;
   }
 }
 
