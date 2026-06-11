@@ -18,7 +18,8 @@ NODE_OPTIONS="--max-old-space-size=4096" npm run build
 
 # Stop only after successful build
 pm2 stop wooji || true
-pm2 start wooji 2>/dev/null || pm2 restart wooji
+pm2 start wooji --node-args="--max-old-space-size=1024" --max-memory-restart 2G 2>/dev/null || \
+  pm2 restart wooji --node-args="--max-old-space-size=1024" --max-memory-restart 2G
 
 # Brief health check
 sleep 3
