@@ -4,55 +4,6 @@ import { motion, useMotionValue, useTransform } from 'framer-motion'
 import { getLenisInstance } from '@/lib/lenis'
 import styles from './Hero.module.css'
 
-function FloatingPaths({ position }: { position: number }) {
-  const [visible, setVisible] = useState(false)
-  useEffect(() => { if (window.innerWidth >= 768) setVisible(true) }, [])
-  if (!visible) return null
-
-  const paths = Array.from({ length: 36 }, (_, i) => ({
-    id: i,
-    d: `M-${380 - i * 5 * position} -${189 + i * 6}C-${380 - i * 5 * position} -${189 + i * 6} -${312 - i * 5 * position} ${216 - i * 6} ${152 - i * 5 * position} ${343 - i * 6}C${616 - i * 5 * position} ${470 - i * 6} ${684 - i * 5 * position} ${875 - i * 6} ${684 - i * 5 * position} ${875 - i * 6}`,
-    width: 0.5 + i * 0.03,
-    duration: 20 + (i % 5) * 2,
-    delay: -(i * 1.1),
-  }))
-  const gradId = `pg${position > 0 ? 'a' : 'b'}`
-
-  return (
-    <div className={styles.pathsWrap} aria-hidden="true">
-      <svg className={styles.pathsSvg} viewBox="0 0 696 316" fill="none" preserveAspectRatio="xMidYMid slice">
-        <defs>
-          <linearGradient id={gradId} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%"   stopColor="#7c3aed" />
-            <stop offset="50%"  stopColor="#2563eb" />
-            <stop offset="100%" stopColor="#0891b2" />
-          </linearGradient>
-        </defs>
-        {paths.map(p => (
-          <motion.path
-            key={p.id}
-            d={p.d}
-            stroke={`url(#${gradId})`}
-            strokeWidth={p.width}
-            fill="none"
-            initial={{ pathLength: 0.3, opacity: 0.6 }}
-            animate={{
-              pathLength: 1,
-              opacity: [0.3, 0.6, 0.3],
-              pathOffset: [0, 1, 0],
-            }}
-            transition={{
-              duration: p.duration,
-              delay: p.delay,
-              repeat: Infinity,
-              ease: 'linear',
-            }}
-          />
-        ))}
-      </svg>
-    </div>
-  )
-}
 
 const TICKER_ITEMS = [
   'Google Ads', 'Meta Ads', 'SEO & Organik', 'TikTok Ads',
@@ -88,9 +39,6 @@ export default function Hero() {
 
   return (
     <section id="hero" className={styles.hero} aria-labelledby="hero-h1">
-      <FloatingPaths position={1} />
-      <FloatingPaths position={-1} />
-
       {/* Parallax bg layers — GPU composited via will-change */}
       <motion.div className={styles.orb1} style={{ y: orb1Y }} aria-hidden="true" />
       <motion.div className={styles.orb2} style={{ y: orb2Y }} aria-hidden="true" />

@@ -9,20 +9,6 @@
   background: var(--bg);
 }
 
-/* ── Animated SVG paths — CSS-only, compositor thread ── */
-.pathsWrap {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-  will-change: auto;
-}
-
-.pathsSvg {
-  width: 100%;
-  height: 100%;
-}
-
 /* ── Background depth layers ── */
 .orb1 {
   position: absolute;
