@@ -79,6 +79,7 @@ export default function Contact() {
   const [form, setForm] = useState<FormState>({ name: '', phone: '', email: '', service: '', message: '' })
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [validationError, setValidationError] = useState<string | null>(null)
+  const [phoneSuffix, setPhoneSuffix] = useState('')
   const sectionRef = useRef<HTMLElement>(null)
   const inView = useInView(sectionRef, { once: true, amount: 0.12 })
 
@@ -97,10 +98,20 @@ export default function Contact() {
 
   const set = (field: keyof FormState) =>
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-      const value = field === 'phone' ? formatPhone(e.target.value) : e.target.value
       setValidationError(null)
-      setForm((prev) => ({ ...prev, [field]: value }))
+      setForm((prev) => ({ ...prev, [field]: e.target.value }))
     }
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValidationError(null)
+    const raw = e.target.value.replace(/\D/g, '').slice(0, 10)
+    let suffix = raw
+    if (raw.length > 8) suffix = `${raw.slice(0,3)}) ${raw.slice(3,6)} ${raw.slice(6,8)} ${raw.slice(8)}`
+    else if (raw.length > 6) suffix = `${raw.slice(0,3)}) ${raw.slice(3,6)} ${raw.slice(6)}`
+    else if (raw.length > 3) suffix = `${raw.slice(0,3)}) ${raw.slice(3)}`
+    setPhoneSuffix(suffix)
+    setForm((prev) => ({ ...prev, phone: raw ? `+90 (${suffix}` : '' }))
+  }
 
   const submit = async (e: FormEvent) => {
     e.preventDefault()
@@ -253,12 +264,18 @@ export default function Contact() {
                     </div>
                     <div className={styles.fGroup}>
                       <label htmlFor="cp">Telefon</label>
-                      <input
-                        type="tel" id="cp" name="phone"
-                        placeholder="+90 (5XX) XXX XX XX"
-                        autoComplete="tel"
-                        value={form.phone} onChange={set('phone')}
-                      />
+                      <div className={styles.phoneWrap}>
+                        <span className={styles.phonePrefix}>+90 (</span>
+                        <input
+                          type="tel" id="cp" name="phone"
+                          placeholder="5XX) XXX XX XX"
+                          autoComplete="tel"
+                          inputMode="numeric"
+                          value={phoneSuffix}
+                          onChange={handlePhoneChange}
+                          className={styles.phoneSuffixInput}
+                        />
+                      </div>
                     </div>
                   </div>
 
