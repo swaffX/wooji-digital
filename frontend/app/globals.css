@@ -262,6 +262,11 @@ section { padding: 6rem clamp(2rem, 8vw, 9rem); }
   to   { transform: translateX(-50%); }
 }
 
+@keyframes pathFlow {
+  from { stroke-dashoffset: 0; }
+  to   { stroke-dashoffset: -1000; }
+}
+
 /* =====================================================
    RESPONSIVE
 ===================================================== */
