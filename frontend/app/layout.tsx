@@ -3,6 +3,7 @@ import { Syne, Outfit, DM_Sans } from 'next/font/google'
 import Script from 'next/script'
 import CookieBanner from '@/components/CookieBanner'
 import { WebVitals } from '@/components/WebVitals'
+import SmoothScroll from '@/components/SmoothScroll'
 import './globals.css'
 
 const GA_ID = 'G-LLEW829CCH'
@@ -166,6 +167,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
+        <SmoothScroll />
         {children}
         <CookieBanner />
         <WebVitals />
