@@ -9,14 +9,17 @@ function FloatingPaths({ position }: { position: number }) {
   useEffect(() => { if (window.innerWidth >= 768) setVisible(true) }, [])
   if (!visible) return null
 
-  const paths = Array.from({ length: 36 }, (_, i) => ({
+  // Reduced to 18 paths (from 36) — CSS-animated, no Framer Motion on paths
+  const paths = Array.from({ length: 18 }, (_, i) => ({
     id: i,
-    d: `M-${380 - i * 5 * position} -${189 + i * 6}C-${380 - i * 5 * position} -${189 + i * 6} -${312 - i * 5 * position} ${216 - i * 6} ${152 - i * 5 * position} ${343 - i * 6}C${616 - i * 5 * position} ${470 - i * 6} ${684 - i * 5 * position} ${875 - i * 6} ${684 - i * 5 * position} ${875 - i * 6}`,
-    width: 0.5 + i * 0.03,
-    opacity: 0.07 + i * 0.018,
-    duration: 20 + (i % 6) * 3,
+    d: `M-${380 - i * 10 * position} -${189 + i * 12}C-${380 - i * 10 * position} -${189 + i * 12} -${312 - i * 10 * position} ${216 - i * 12} ${152 - i * 10 * position} ${343 - i * 12}C${616 - i * 10 * position} ${470 - i * 12} ${684 - i * 10 * position} ${875 - i * 12} ${684 - i * 10 * position} ${875 - i * 12}`,
+    width: 0.5 + i * 0.05,
+    opacity: 0.06 + i * 0.025,
+    duration: 22 + (i % 5) * 4,
+    delay: i * 0.3,
   }))
   const gradId = `pg${position > 0 ? 'a' : 'b'}`
+
   return (
     <div className={styles.pathsWrap} aria-hidden="true">
       <svg className={styles.pathsSvg} viewBox="0 0 696 316" fill="none" preserveAspectRatio="xMidYMid slice">
@@ -28,15 +31,17 @@ function FloatingPaths({ position }: { position: number }) {
           </linearGradient>
         </defs>
         {paths.map(p => (
-          <motion.path
+          <path
             key={p.id}
             d={p.d}
             stroke={`url(#${gradId})`}
             strokeWidth={p.width}
             strokeOpacity={p.opacity}
-            initial={{ pathLength: 0.3, opacity: 0.6 }}
-            animate={{ pathLength: 1, opacity: [0.3, 0.6, 0.3], pathOffset: [0, 1, 0] }}
-            transition={{ duration: p.duration, repeat: Infinity, ease: 'linear' }}
+            fill="none"
+            strokeDasharray="300 700"
+            style={{
+              animation: `pathFlow ${p.duration}s ${p.delay}s linear infinite`,
+            } as React.CSSProperties}
           />
         ))}
       </svg>
@@ -56,14 +61,13 @@ export default function Hero() {
   const [isMobile, setIsMobile] = useState(false)
   useEffect(() => { setIsMobile(window.innerWidth < 768) }, [])
 
+  // Lenis-synced parallax — only background layers, not content
   const scrollY  = useMotionValue(0)
-  const orb1Y    = useTransform(scrollY, [0, 700], [0, -140])
-  const orb2Y    = useTransform(scrollY, [0, 700], [0, -90])
-  const gridY    = useTransform(scrollY, [0, 700], [0, -50])
-  const contentY = useTransform(scrollY, [0, 700], [0, -70])
+  const orb1Y    = useTransform(scrollY, [0, 700], [0, -120])
+  const orb2Y    = useTransform(scrollY, [0, 700], [0, -80])
+  const gridY    = useTransform(scrollY, [0, 700], [0, -40])
 
   useEffect(() => {
-    // Poll for Lenis instance — it mounts slightly after Hero
     const tryAttach = () => {
       const lenis = getLenisInstance()
       if (!lenis) return setTimeout(tryAttach, 50)
@@ -77,11 +81,13 @@ export default function Hero() {
       <FloatingPaths position={1} />
       <FloatingPaths position={-1} />
 
+      {/* Parallax bg layers — GPU composited via will-change */}
       <motion.div className={styles.orb1} style={{ y: orb1Y }} aria-hidden="true" />
       <motion.div className={styles.orb2} style={{ y: orb2Y }} aria-hidden="true" />
       <motion.div className={styles.gridOverlay} style={{ y: gridY }} aria-hidden="true" />
 
-      <motion.div className={styles.content} style={{ y: contentY }}>
+      {/* Content — no parallax, stable for text rendering */}
+      <div className={styles.content}>
         <motion.div
           className={styles.badge}
           initial={{ opacity: 0, y: -14 }}
@@ -105,7 +111,7 @@ export default function Hero() {
               >
                 {line.split('').map((ch, ci) => (
                   <span key={ci} className={li === 1 ? styles.titleLetterGrad : styles.titleLetter}>
-                    {ch === ' ' ? ' ' : ch}
+                    {ch === ' ' ? ' ' : ch}
                   </span>
                 ))}
               </motion.span>
@@ -119,7 +125,7 @@ export default function Hero() {
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: li * 0.18 + ci * 0.028, type: 'spring', stiffness: 140, damping: 22 }}
                   >
-                    {ch === ' ' ? ' ' : ch}
+                    {ch === ' ' ? ' ' : ch}
                   </motion.span>
                 ))}
               </span>
@@ -159,7 +165,6 @@ export default function Hero() {
           </a>
         </motion.div>
 
-        {/* Platform ticker */}
         <motion.div
           className={styles.ticker}
           initial={{ opacity: 0 }}
@@ -176,7 +181,7 @@ export default function Hero() {
             ))}
           </div>
         </motion.div>
-      </motion.div>
+      </div>
 
       <a href="#hizmetler" className={styles.scrollHint} aria-label="Aşağı kaydır">
         <div className={styles.scrollGlow} aria-hidden="true" />
