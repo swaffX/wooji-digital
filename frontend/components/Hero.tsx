@@ -9,23 +9,26 @@ function FloatingPaths({ position }: { position: number }) {
   useEffect(() => { if (window.innerWidth >= 768) setVisible(true) }, [])
   if (!visible) return null
 
-  // Reduced to 18 paths (from 36) — CSS-animated, no Framer Motion on paths
   const paths = Array.from({ length: 18 }, (_, i) => {
-    const dur = 20 + (i % 5) * 4
+    const t = i / 17
+    const entryY = -60 + t * 920
+    const spread = (1 - t * 0.5) * 220
+    const exitY = entryY - spread * position
+    const dur = 18 + (i % 5) * 4
     return {
       id: i,
-      d: `M-${380 - i * 10 * position} -${189 + i * 12}C-${380 - i * 10 * position} -${189 + i * 12} -${312 - i * 10 * position} ${216 - i * 12} ${152 - i * 10 * position} ${343 - i * 12}C${616 - i * 10 * position} ${470 - i * 12} ${684 - i * 10 * position} ${875 - i * 12} ${684 - i * 10 * position} ${875 - i * 12}`,
-      width: 0.5 + i * 0.05,
-      opacity: 0.07 + i * 0.022,
+      d: `M-50 ${entryY} C480 ${entryY - spread * position * 0.3} 960 ${exitY + spread * position * 0.2} 1490 ${exitY}`,
+      width: 0.4 + (i % 9) * 0.09,
+      opacity: 0.04 + (i % 9) * 0.022,
       duration: dur,
-      delay: -(i * dur * 0.06),
+      delay: -(i * dur * 0.055),
     }
   })
   const gradId = `pg${position > 0 ? 'a' : 'b'}`
 
   return (
     <div className={styles.pathsWrap} aria-hidden="true">
-      <svg className={styles.pathsSvg} viewBox="-400 -200 1500 900" fill="none" preserveAspectRatio="xMidYMid slice">
+      <svg className={styles.pathsSvg} viewBox="0 0 1440 800" fill="none" preserveAspectRatio="xMidYMid slice">
         <defs>
           <linearGradient id={gradId} x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%"   stopColor="#7c3aed" />
