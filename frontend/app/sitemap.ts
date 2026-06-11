@@ -1,9 +1,17 @@
 import type { MetadataRoute } from 'next'
+import { posts } from './blog/data'
 
 const BASE = 'https://woojidigital.com'
 const now = new Date()
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const blogEntries: MetadataRoute.Sitemap = posts.map((post) => ({
+    url: `${BASE}/blog/${post.slug}`,
+    lastModified: now,
+    changeFrequency: 'monthly',
+    priority: 0.65,
+  }))
+
   return [
     { url: BASE,                             lastModified: now, changeFrequency: 'weekly',  priority: 1    },
     { url: `${BASE}/hizmetler`,              lastModified: now, changeFrequency: 'monthly', priority: 0.95 },
@@ -18,7 +26,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/surec`,                  lastModified: now, changeFrequency: 'monthly', priority: 0.7  },
     { url: `${BASE}/sss`,                    lastModified: now, changeFrequency: 'monthly', priority: 0.65 },
     { url: `${BASE}/iletisim`,               lastModified: now, changeFrequency: 'monthly', priority: 0.8  },
-    { url: `${BASE}/blog`,                   lastModified: now, changeFrequency: 'weekly',  priority: 0.6  },
+    { url: `${BASE}/blog`,                   lastModified: now, changeFrequency: 'weekly',  priority: 0.7  },
+    ...blogEntries,
     { url: `${BASE}/gizlilik-politikasi`,    lastModified: now, changeFrequency: 'yearly',  priority: 0.3  },
     { url: `${BASE}/kvkk`,                   lastModified: now, changeFrequency: 'yearly',  priority: 0.3  },
   ]

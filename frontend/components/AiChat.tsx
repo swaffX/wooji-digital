@@ -124,7 +124,7 @@ export default function AiChat() {
                 </svg>
               </div>
               <div className={styles.hMeta}>
-                <span className={styles.hTitle}>AI Asistan</span>
+                <span className={styles.hTitle}>Canlı Destek</span>
                 <span className={styles.hSub}>
                   <span className={styles.liveDot} aria-hidden="true" />
                   Çevrimiçi · Wooji Digital
@@ -236,7 +236,7 @@ export default function AiChat() {
       <motion.button
         className={styles.trigger}
         onClick={() => setOpen(v => !v)}
-        aria-label={open ? 'AI Asistanı kapat' : 'AI Asistanı aç'}
+        aria-label={open ? 'Canlı Destekı kapat' : 'Canlı Destekı aç'}
         aria-expanded={open}
         whileHover={{ scale: 1.04 }}
         whileTap={{ scale: 0.96 }}
@@ -272,7 +272,7 @@ export default function AiChat() {
             </motion.span>
           )}
         </AnimatePresence>
-        <span className={styles.triggerLabel}>{open ? 'Kapat' : 'AI Asistan'}</span>
+        <span className={styles.triggerLabel}>{open ? 'Kapat' : 'Canlı Destek'}</span>
       </motion.button>
     </>
   )
