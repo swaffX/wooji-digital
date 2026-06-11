@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import styles from './Hero.module.css'
 
 function FloatingPaths({ position }: { position: number }) {
@@ -55,16 +55,22 @@ export default function Hero() {
   const [isMobile, setIsMobile] = useState(false)
   useEffect(() => { setIsMobile(window.innerWidth < 768) }, [])
 
+  const { scrollY } = useScroll()
+  const orb1Y    = useTransform(scrollY, [0, 700], [0, -140])
+  const orb2Y    = useTransform(scrollY, [0, 700], [0, -90])
+  const gridY    = useTransform(scrollY, [0, 700], [0, -50])
+  const contentY = useTransform(scrollY, [0, 700], [0, -70])
+
   return (
     <section id="hero" className={styles.hero} aria-labelledby="hero-h1">
       <FloatingPaths position={1} />
       <FloatingPaths position={-1} />
 
-      <div className={styles.orb1} aria-hidden="true" />
-      <div className={styles.orb2} aria-hidden="true" />
-      <div className={styles.gridOverlay} aria-hidden="true" />
+      <motion.div className={styles.orb1} style={{ y: orb1Y }} aria-hidden="true" />
+      <motion.div className={styles.orb2} style={{ y: orb2Y }} aria-hidden="true" />
+      <motion.div className={styles.gridOverlay} style={{ y: gridY }} aria-hidden="true" />
 
-      <div className={styles.content}>
+      <motion.div className={styles.content} style={{ y: contentY }}>
         <motion.div
           className={styles.badge}
           initial={{ opacity: 0, y: -14 }}
@@ -159,7 +165,7 @@ export default function Hero() {
             ))}
           </div>
         </motion.div>
-      </div>
+      </motion.div>
 
       <a href="#hizmetler" className={styles.scrollHint} aria-label="Aşağı kaydır">
         <div className={styles.scrollGlow} aria-hidden="true" />
