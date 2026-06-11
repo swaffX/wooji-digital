@@ -1,5 +1,57 @@
 .section {
   background: var(--bg-2);
+  padding: 3rem 0 5rem;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.filterPill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 1.1rem;
+  border-radius: 9999px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-2);
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  text-decoration: none;
+  transition: color 200ms ease, background 200ms ease, border-color 200ms ease;
+  white-space: nowrap;
+}
+
+.filterPill:hover {
+  color: var(--text);
+  background: var(--bg-3);
+}
+
+.filterActive {
+  color: #7c3aed;
+  background: rgba(124, 58, 237, 0.08);
+  border-color: rgba(124, 58, 237, 0.3);
+}
+
+.resultCount {
+  font-size: 0.8125rem;
+  color: var(--text-3);
+  margin-bottom: 1.5rem;
+}
+
+.resultCount span {
+  font-weight: 700;
+  color: var(--text-2);
+}
+
+.empty {
+  text-align: center;
+  padding: 4rem 0;
+  color: var(--text-3);
+  font-size: 0.9375rem;
 }
 
 .grid {
