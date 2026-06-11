@@ -1,15 +1,26 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { getLenisInstance } from '@/lib/lenis'
 import styles from './ScrollToTop.module.css'
 
 export default function ScrollToTop() {
   const [visible, setVisible] = useState(false)
+  const visibleRef = useRef(false)
 
   useEffect(() => {
-    const onScroll = () => setVisible(window.scrollY > 420)
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    const tryAttach = () => {
+      const lenis = getLenisInstance()
+      if (!lenis) return setTimeout(tryAttach, 50)
+      const onScroll = ({ scroll }: { scroll: number }) => {
+        const next = scroll > 420
+        if (next !== visibleRef.current) { visibleRef.current = next; setVisible(next) }
+      }
+      lenis.on('scroll', onScroll)
+      return () => lenis.off('scroll', onScroll)
+    }
+    const cleanup = tryAttach()
+    return () => { if (typeof cleanup === 'function') cleanup() }
   }, [])
 
   return (

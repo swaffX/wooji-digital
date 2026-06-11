@@ -1,18 +1,25 @@
 'use client'
 import { useEffect } from 'react'
+import { getLenisInstance } from '@/lib/lenis'
 import styles from './ScrollBar.module.css'
 
 export default function ScrollBar() {
   useEffect(() => {
     const bar = document.getElementById('scroll-progress')
     if (!bar) return
-    const onScroll = () => {
-      const scrolled = window.scrollY
-      const total = document.body.scrollHeight - window.innerHeight
-      bar.style.width = (scrolled / total) * 100 + '%'
+
+    const tryAttach = () => {
+      const lenis = getLenisInstance()
+      if (!lenis) return setTimeout(tryAttach, 50)
+      const onScroll = ({ scroll, limit }: { scroll: number; limit: number }) => {
+        bar.style.width = (scroll / Math.max(limit, 1)) * 100 + '%'
+      }
+      lenis.on('scroll', onScroll)
+      return () => lenis.off('scroll', onScroll)
     }
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+
+    const cleanup = tryAttach()
+    return () => { if (typeof cleanup === 'function') cleanup() }
   }, [])
 
   return (
