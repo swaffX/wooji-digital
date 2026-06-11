@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect, useCallback, useRef } from 'react'
-import { motion, AnimatePresence, useMotionValue, useSpring, useInView, animate } from 'framer-motion'
+import { motion, AnimatePresence, useMotionValue, useSpring, useInView } from 'framer-motion'
 import styles from './References.module.css'
 
 const testimonials = [
@@ -45,38 +45,38 @@ const testimonials = [
 const COUNT = testimonials.length
 const INTERVAL = 6000
 
-const bigStats = [
-  { prefix: '',  num: 50,  dec: 0, suffix: '+', label: 'Büyüyen\nMarka',        icon: '◈' },
-  { prefix: '%', num: 98,  dec: 0, suffix: '',  label: 'Müşteri\nMemnuniyeti',  icon: '◉' },
-  { prefix: '',  num: 4.9, dec: 1, suffix: '★', label: 'Ortalama\nPuan',        icon: '◆' },
-  { prefix: '',  num: 3,   dec: 0, suffix: '×', label: 'Büyüme\nOrtalaması',    icon: '◇' },
+const valuePillars = [
+  {
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+      </svg>
+    ),
+    title: 'Veri Odaklı Strateji',
+    desc: 'Her karar analitik verilere dayanır. Tahmin değil, ölçüm.',
+    accent: 'purple' as const,
+  },
+  {
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+      </svg>
+    ),
+    title: 'Şeffaf Raporlama',
+    desc: 'Anlık dashboard erişimi, haftalık özetler, sıfır sürpriz.',
+    accent: 'cyan' as const,
+  },
+  {
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>
+      </svg>
+    ),
+    title: 'Sürekli Optimizasyon',
+    desc: 'Kampanyalar yayında kalırken sürekli iyileştirilir.',
+    accent: 'purple' as const,
+  },
 ]
-
-function AnimatedCounter({
-  num, dec, prefix, suffix,
-}: { num: number; dec: number; prefix: string; suffix: string }) {
-  const ref = useRef<HTMLSpanElement>(null)
-  const inView = useInView(ref, { once: true, amount: 0.6 })
-  const [display, setDisplay] = useState('0')
-
-  useEffect(() => {
-    if (!inView) return
-    const ctrl = animate(0, num, {
-      duration: 1.6,
-      ease: [0.16, 1, 0.3, 1],
-      onUpdate: (v) => setDisplay(dec > 0 ? v.toFixed(dec) : Math.round(v).toString()),
-    })
-    return ctrl.stop
-  }, [inView, num, dec])
-
-  return (
-    <span ref={ref}>
-      {prefix}
-      <span>{display}</span>
-      {suffix}
-    </span>
-  )
-}
 
 function StarIcon() {
   return (
@@ -157,30 +157,30 @@ export default function References() {
               Sonuçlar kendisi konuşuyor.
             </p>
 
-            {/* Stats card */}
+            {/* Value pillars */}
             <motion.div
-              className={styles.statsCard}
+              className={styles.valueCard}
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1], delay: 0.12 }}
-              aria-label="Başarı istatistikleri"
             >
-              <div className={styles.statsGrid}>
-                {bigStats.map((s, i) => (
-                  <motion.div
-                    key={i}
-                    className={styles.statItem}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={inView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.45, ease: [0.4, 0, 0.2, 1], delay: 0.22 + i * 0.09 }}
-                  >
-                    <span className={styles.statNum}>
-                      <AnimatedCounter num={s.num} dec={s.dec} prefix={s.prefix} suffix={s.suffix} />
-                    </span>
-                    <span className={styles.statLbl}>{s.label.replace('\\n', '\n')}</span>
-                  </motion.div>
-                ))}
-              </div>
+              {valuePillars.map((p, i) => (
+                <motion.div
+                  key={p.title}
+                  className={`${styles.valueRow} ${p.accent === 'cyan' ? styles.valueRowCyan : styles.valueRowPurple}`}
+                  initial={{ opacity: 0, x: -12 }}
+                  animate={inView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ duration: 0.45, ease: [0.4, 0, 0.2, 1], delay: 0.22 + i * 0.1 }}
+                >
+                  <div className={`${styles.valueIcon} ${p.accent === 'cyan' ? styles.valueIconCyan : styles.valueIconPurple}`}>
+                    {p.icon}
+                  </div>
+                  <div className={styles.valueText}>
+                    <span className={styles.valueTitle}>{p.title}</span>
+                    <span className={styles.valueDesc}>{p.desc}</span>
+                  </div>
+                </motion.div>
+              ))}
             </motion.div>
 
             {/* Divider + trust note */}
