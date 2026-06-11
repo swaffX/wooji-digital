@@ -9,6 +9,26 @@ interface FormState {
   name: string; phone: string; email: string; service: string; message: string
 }
 
+function formatPhone(raw: string): string {
+  const digits = raw.replace(/\D/g, '')
+  let local = digits
+  if (local.startsWith('90')) local = local.slice(2)
+  if (local.startsWith('0')) local = local.slice(1)
+  local = local.slice(0, 10)
+  if (local.length === 0) return ''
+  if (local.length <= 3) return `+90 (${local}`
+  if (local.length <= 6) return `+90 (${local.slice(0, 3)}) ${local.slice(3)}`
+  if (local.length <= 8) return `+90 (${local.slice(0, 3)}) ${local.slice(3, 6)} ${local.slice(6)}`
+  return `+90 (${local.slice(0, 3)}) ${local.slice(3, 6)} ${local.slice(6, 8)} ${local.slice(8)}`
+}
+
+function validate(form: FormState): string | null {
+  if (form.name.trim().length < 2) return 'Ad Soyad en az 2 karakter olmalı.'
+  if (!form.email.includes('@') || !form.email.includes('.')) return 'Geçerli bir e-posta adresi girin.'
+  if (form.message.trim().length < 10) return 'Mesajınız en az 10 karakter olmalı.'
+  return null
+}
+
 const serviceOptions = [
   'SEO & Organik Büyüme',
   'Dijital Reklam Yönetimi',
@@ -58,6 +78,7 @@ export default function Contact() {
   const router = useRouter()
   const [form, setForm] = useState<FormState>({ name: '', phone: '', email: '', service: '', message: '' })
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const [validationError, setValidationError] = useState<string | null>(null)
   const sectionRef = useRef<HTMLElement>(null)
   const inView = useInView(sectionRef, { once: true, amount: 0.12 })
 
@@ -75,11 +96,17 @@ export default function Contact() {
   const resetTilt = useCallback(() => { mx.set(0); my.set(0) }, [mx, my])
 
   const set = (field: keyof FormState) =>
-    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
-      setForm((prev) => ({ ...prev, [field]: e.target.value }))
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+      const value = field === 'phone' ? formatPhone(e.target.value) : e.target.value
+      setValidationError(null)
+      setForm((prev) => ({ ...prev, [field]: value }))
+    }
 
   const submit = async (e: FormEvent) => {
     e.preventDefault()
+    const err = validate(form)
+    if (err) { setValidationError(err); return }
+    setValidationError(null)
     setStatus('loading')
     try {
       const res = await fetch('/api/contact', {
@@ -267,6 +294,10 @@ export default function Contact() {
                       value={form.message} onChange={set('message')}
                     />
                   </div>
+
+                  {validationError && (
+                    <p className={styles.validationMsg} role="alert">{validationError}</p>
+                  )}
 
                   <motion.button
                     type="submit"

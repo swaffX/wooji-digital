@@ -416,6 +416,16 @@ a.contactItem:hover {
   color: var(--text-3);
 }
 
+.validationMsg {
+  font-size: 0.8125rem;
+  color: #f87171;
+  margin: 0 0 0.625rem;
+  padding: 0.5rem 0.75rem;
+  background: rgba(248, 113, 113, 0.08);
+  border: 1px solid rgba(248, 113, 113, 0.2);
+  border-radius: 8px;
+}
+
 /* submit button */
 .submitBtn {
   width: 100%;
