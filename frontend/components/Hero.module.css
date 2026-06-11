@@ -120,7 +120,7 @@
 
 .titleLetter {
   display: inline-block;
-  color: #0d1117;
+  color: var(--text);
 }
 
 .titleLetterGrad {

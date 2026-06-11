@@ -270,7 +270,7 @@ a.contactItem:hover {
 }
 
 .formCard {
-  background: #ffffff;
+  background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--r-xl);
   padding: 2.5rem;
@@ -370,7 +370,7 @@ a.contactItem:hover {
 .fGroup input:focus,
 .fGroup textarea:focus {
   border-color: rgba(124,58,237,0.5);
-  background: #ffffff;
+  background: var(--card-bg);
   box-shadow: 0 0 0 3.5px rgba(124,58,237,0.1);
 }
 
@@ -403,7 +403,7 @@ a.contactItem:hover {
 
 .selectWrap select:focus {
   border-color: rgba(124,58,237,0.5);
-  background: #ffffff;
+  background: var(--card-bg);
   box-shadow: 0 0 0 3.5px rgba(124,58,237,0.1);
 }
 
