@@ -9,6 +9,7 @@ export const metadata: Metadata = {
 
 const config: ServicePageConfig = {
   tag: 'İçerik Pazarlama',
+  accent: '#d97706',
   title: 'Otorite',
   highlight: 'İnşası',
   desc: 'SEO uyumlu, hedef kitlenizi bilgilendiren ve dönüştüren içeriklerle markanızı sektörünüzde düşünce lideri konumuna taşıyoruz.',

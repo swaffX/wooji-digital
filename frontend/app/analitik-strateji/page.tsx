@@ -9,6 +9,7 @@ export const metadata: Metadata = {
 
 const config: ServicePageConfig = {
   tag: 'Analitik & Strateji',
+  accent: '#059669',
   title: 'Veriye Dayalı',
   highlight: 'Büyüme',
   desc: 'Tahminlere değil verilere dayanan kararlarla büyüyün. Kapsamlı analitik kurulumu, raporlama ve dijital büyüme danışmanlığı sunuyoruz.',

@@ -9,6 +9,7 @@ export const metadata: Metadata = {
 
 const config: ServicePageConfig = {
   tag: 'SEO Hizmetleri',
+  accent: '#7c3aed',
   title: 'Organik',
   highlight: 'Büyüme',
   desc: 'Arama motorlarında kalıcı görünürlük kazanın. Teknik SEO, içerik stratejisi ve otorite inşasıyla rakiplerinizin önüne geçin.',

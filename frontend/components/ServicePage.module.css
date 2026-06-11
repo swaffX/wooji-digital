@@ -9,7 +9,7 @@
 .heroBg {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 70% 55% at 50% -5%, rgba(124, 58, 237, 0.1) 0%, transparent 65%);
+  background: radial-gradient(ellipse 70% 55% at 50% -5%, color-mix(in srgb, var(--svc, #7c3aed) 10%, transparent) 0%, transparent 65%);
   pointer-events: none;
 }
 
@@ -17,8 +17,8 @@
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(124, 58, 237, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(124, 58, 237, 0.035) 1px, transparent 1px);
+    linear-gradient(color-mix(in srgb, var(--svc, #7c3aed) 3.5%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--svc, #7c3aed) 3.5%, transparent) 1px, transparent 1px);
   background-size: 52px 52px;
   mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 72%);
   pointer-events: none;
@@ -39,8 +39,8 @@
   height: 72px;
   border-radius: var(--r-lg);
   background: var(--grad-subtle);
-  border: 1px solid rgba(124, 58, 237, 0.18);
-  color: var(--purple);
+  border: 1px solid color-mix(in srgb, var(--svc, #7c3aed) 18%, transparent);
+  color: var(--svc, #7c3aed);
   margin-bottom: 1.5rem;
 }
 
@@ -154,8 +154,8 @@
 
 .featCard:hover {
   transform: translateY(-4px);
-  border-color: rgba(124, 58, 237, 0.25);
-  box-shadow: 0 12px 40px rgba(124, 58, 237, 0.08);
+  border-color: color-mix(in srgb, var(--svc, #7c3aed) 25%, transparent);
+  box-shadow: 0 12px 40px color-mix(in srgb, var(--svc, #7c3aed) 8%, transparent);
 }
 
 .featIcon {
@@ -166,8 +166,8 @@
   height: 48px;
   border-radius: var(--r);
   background: var(--grad-subtle);
-  border: 1px solid rgba(124, 58, 237, 0.14);
-  color: var(--purple);
+  border: 1px solid color-mix(in srgb, var(--svc, #7c3aed) 14%, transparent);
+  color: var(--svc, #7c3aed);
   margin-bottom: 1rem;
 }
 
@@ -342,7 +342,7 @@
   width: 400px;
   height: 300px;
   border-radius: 50%;
-  background: radial-gradient(ellipse, rgba(124, 58, 237, 0.3) 0%, transparent 70%);
+  background: radial-gradient(ellipse, color-mix(in srgb, var(--svc, #7c3aed) 30%, transparent) 0%, transparent 70%);
   filter: blur(40px);
   pointer-events: none;
 }

@@ -14,6 +14,7 @@ export interface ServicePageConfig {
   highlight: string
   desc: string
   heroIcon: React.ReactNode
+  accent?: string
   stats: ServiceStat[]
   features: ServiceFeature[]
   process: ServiceStep[]
@@ -21,10 +22,11 @@ export interface ServicePageConfig {
 }
 
 export default function ServicePage({ config }: { config: ServicePageConfig }) {
-  const { tag, title, highlight, desc, heroIcon, stats, features, process, faqs } = config
+  const { tag, title, highlight, desc, heroIcon, accent = '#7c3aed', stats, features, process, faqs } = config
 
   return (
     <SiteLayout>
+      <div style={{ '--svc': accent } as React.CSSProperties}>
       {/* ── Hero ── */}
       <header className={styles.hero}>
         <div className={styles.heroBg} aria-hidden="true" />
@@ -122,6 +124,7 @@ export default function ServicePage({ config }: { config: ServicePageConfig }) {
           </a>
         </div>
       </section>
+      </div>
     </SiteLayout>
   )
 }

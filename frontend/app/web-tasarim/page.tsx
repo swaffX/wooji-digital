@@ -9,6 +9,7 @@ export const metadata: Metadata = {
 
 const config: ServicePageConfig = {
   tag: 'Web Tasarım',
+  accent: '#0891b2',
   title: 'Dönüşüm Odaklı',
   highlight: 'Web Siteleri',
   desc: 'Kullanıcı deneyimini, estetiği ve performansı bir arada sunan web siteleri tasarlıyor ve geliştiriyoruz. Siteniz yalnızca güzel değil, satar.',

@@ -9,6 +9,7 @@ export const metadata: Metadata = {
 
 const config: ServicePageConfig = {
   tag: 'Dijital Reklam',
+  accent: '#2563eb',
   title: 'Yüksek',
   highlight: 'Dönüşüm',
   desc: 'Google Ads, Meta ve diğer platformlarda hedef kitlenize ulaşan, ROI odaklı reklam kampanyaları planlıyor ve yönetiyoruz.',

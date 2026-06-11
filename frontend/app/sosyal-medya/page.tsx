@@ -9,6 +9,7 @@ export const metadata: Metadata = {
 
 const config: ServicePageConfig = {
   tag: 'Sosyal Medya',
+  accent: '#db2777',
   title: 'Büyüyen',
   highlight: 'Topluluk',
   desc: 'İnstagram, TikTok ve LinkedIn\'de tutarlı, etkileşimli ve büyüyen bir marka varlığı inşa ediyoruz.',
