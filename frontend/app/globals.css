@@ -267,6 +267,10 @@ section { padding: 6rem clamp(2rem, 8vw, 9rem); }
   to   { stroke-dashoffset: -1000; }
 }
 
+.pathFlowAnimate {
+  animation: pathFlow var(--flow-dur, 22s) var(--flow-delay, 0s) linear infinite;
+}
+
 /* =====================================================
    RESPONSIVE
 ===================================================== */

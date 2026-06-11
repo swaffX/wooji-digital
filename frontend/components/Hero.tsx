@@ -39,8 +39,10 @@ function FloatingPaths({ position }: { position: number }) {
             strokeOpacity={p.opacity}
             fill="none"
             strokeDasharray="300 700"
+            className="pathFlowAnimate"
             style={{
-              animation: `pathFlow ${p.duration}s ${p.delay}s linear infinite`,
+              '--flow-dur': `${p.duration}s`,
+              '--flow-delay': `${p.delay}s`,
             } as React.CSSProperties}
           />
         ))}
