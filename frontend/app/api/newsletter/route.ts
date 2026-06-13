@@ -2,6 +2,10 @@ import { NextResponse } from 'next/server'
 import { z } from 'zod'
 import { rateLimit, getClientIp } from '@/lib/rateLimit'
 
+function esc(s: string): string {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')
+}
+
 const schema = z.object({
   email: z.string().email().max(254),
 })
@@ -36,7 +40,7 @@ export async function POST(req: Request) {
       from: 'Wooji Digital <info@woojidigital.com>',
       to: [process.env.CONTACT_TO ?? 'info@woojidigital.com'],
       subject: 'Yeni Bülten Abonesi',
-      html: `<p>Yeni bülten abonesi: <b>${email}</b></p>`,
+      html: `<p>Yeni bülten abonesi: <b>${esc(email)}</b></p>`,
     }),
   })
 
