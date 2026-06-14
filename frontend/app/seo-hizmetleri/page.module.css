@@ -524,7 +524,11 @@
 }
 .stageElev {
   position: absolute;
-  inset: -7px;
+  top: -7px;
+  left: 50%;
+  width: 72px;
+  height: 72px;
+  transform: translateX(-50%);
   border-radius: 50%;
   border: 1px solid color-mix(in srgb, var(--acc) 28%, transparent);
   z-index: 1;
@@ -558,7 +562,9 @@
 .faqItemOpen .faqQ { color: var(--acc); }
 .faqQText { flex: 1; }
 .faqIco { flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 9px; background: color-mix(in srgb, var(--acc) 10%, transparent); border: 1px solid var(--br-strong); color: var(--acc); }
-.faqA { overflow: hidden; }
+.faqA { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.34s cubic-bezier(0.4, 0, 0.2, 1); }
+.faqAOpen { grid-template-rows: 1fr; }
+.faqAInner { overflow: hidden; min-height: 0; }
 .faqAText { padding: 0 1.4rem 1.35rem; font-family: var(--font-b); font-size: 0.94rem; color: var(--tx2); line-height: 1.78; margin: 0; }
 
 /* ───────────── CTA band ───────────── */
@@ -619,10 +625,23 @@
   .stageMarker { width: 52px; }
   .stageMarker::before { top: 24px; height: calc(100% - 24px + 1rem + 24px); }
   .stageNum { width: 48px; height: 48px; }
+  .stageElev { width: 60px; height: 60px; top: -6px; }
   .pathTrack { left: 34px; top: 24px; bottom: 24px; }
   .stageCard { padding: 1.25rem 1.35rem; }
   .faqQ { padding: 1.05rem 1.1rem; font-size: 0.96rem; }
   .faqAText { padding: 0 1.1rem 1.15rem; }
+}
+
+@media (max-width: 768px) {
+  .scene { filter: none; }
+  .resTop,
+  .resMuted:nth-of-type(2),
+  .resMuted:nth-of-type(3),
+  .rankBadge,
+  .floatChip,
+  .floatChip2 {
+    animation: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -637,4 +656,5 @@
     animation: none;
   }
   .rung { transform: none; }
+  .faqA { transition: none; }
 }

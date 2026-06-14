@@ -3,7 +3,6 @@
 import { useRef, useState } from 'react'
 import type { Variants } from 'framer-motion'
 import {
-  AnimatePresence,
   motion,
   useScroll,
   useSpring,
@@ -211,8 +210,8 @@ function WidgetVisual({ kind, reduce }: { kind: Widget['kind']; reduce: boolean 
           <motion.span
             key={i}
             className={styles.wBar}
-            initial={reduce ? { height: `${h}%` } : { height: '8%' }}
-            whileInView={{ height: `${h}%` }}
+            initial={reduce ? { scaleY: h / 100 } : { scaleY: 0.08 }}
+            whileInView={{ scaleY: h / 100 }}
             viewport={VIEWPORT}
             transition={{ duration: 0.5, delay: i * 0.05, ease: EASE }}
           />
@@ -575,13 +574,11 @@ export default function AnalitikContent() {
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
                   </motion.span>
                 </button>
-                <AnimatePresence initial={false}>
-                  {open && (
-                    <motion.div className={styles.faqA} initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.34, ease: EASE }}>
-                      <p className={styles.faqAText}>{f.a}</p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                <div className={`${styles.faqA}${open ? ' ' + styles.faqAOpen : ''}`}>
+                  <div className={styles.faqAInner}>
+                    <p className={styles.faqAText}>{f.a}</p>
+                  </div>
+                </div>
               </motion.div>
             )
           })}

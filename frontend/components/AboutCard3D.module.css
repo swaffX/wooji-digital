@@ -220,6 +220,8 @@
 @media (max-width: 768px) {
   .grid { grid-template-columns: 1fr; }
 
+  .scene { animation: none; }
+
   .card {
     transform: none !important;
     transition: none !important;

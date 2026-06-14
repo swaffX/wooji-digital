@@ -613,22 +613,14 @@ export default function SosyalContent() {
                     </svg>
                   </motion.span>
                 </button>
-                <AnimatePresence initial={false}>
-                  {open && (
-                    <motion.div
-                      className={styles.bubbleInWrap}
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.36, ease: EASE }}
-                    >
-                      <div className={styles.bubbleIn}>
-                        <span className={styles.bubbleAvatar} aria-hidden="true">W</span>
-                        <p className={styles.bubbleInText}>{f.a}</p>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                <div className={`${styles.bubbleInWrap}${open ? ' ' + styles.bubbleInWrapOpen : ''}`}>
+                  <div className={styles.bubbleInInner}>
+                    <div className={styles.bubbleIn}>
+                      <span className={styles.bubbleAvatar} aria-hidden="true">W</span>
+                      <p className={styles.bubbleInText}>{f.a}</p>
+                    </div>
+                  </div>
+                </div>
               </motion.div>
             )
           })}

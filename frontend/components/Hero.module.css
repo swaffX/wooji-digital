@@ -311,6 +311,18 @@
     width: 100%;
     margin-top: 1.25rem;
   }
+
+  /* Mobile perf: pause secondary decorative scroll-hint loops to free the
+     compositor while scrolling; elements stay visible and styled. The small
+     .badgeDot pulse is kept as a cheap tasteful accent, and the .tickerTrack
+     marquee is transform-only so it stays. */
+  .scrollGlow {
+    animation: none;
+    filter: none;
+  }
+  .scrollPulse {
+    animation: none;
+  }
 }
 
 @media (max-width: 540px) {

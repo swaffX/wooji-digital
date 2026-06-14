@@ -468,6 +468,15 @@
   transform: translateY(-2px);
 }
 
+/* ── Mobile performance: pause secondary decorative loops ── */
+@media (max-width: 768px) {
+  .orb1, .orb2,
+  .cardOrb1, .cardOrb2,
+  .cardRing1, .cardRing2 {
+    animation: none;
+  }
+}
+
 /* ── Responsive ── */
 @media (max-width: 900px) {
   .inner {

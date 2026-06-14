@@ -1073,7 +1073,21 @@
   color: #fff;
 }
 .bubbleInWrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.34s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.bubbleInWrapOpen {
+  grid-template-rows: 1fr;
+}
+.bubbleInInner {
   overflow: hidden;
+  min-height: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .bubbleInWrap {
+    transition: none;
+  }
 }
 .bubbleIn {
   display: flex;
@@ -1153,6 +1167,25 @@
   line-height: 1.75;
   max-width: 470px;
   margin: 0 auto 2rem;
+}
+
+/* ── Mobile performance: stop continuous decorative scene loops ── */
+@media (max-width: 768px) {
+  .phone,
+  .feedReel,
+  .postShine,
+  .heart,
+  .platBadgeA,
+  .platBadgeB,
+  .platBadgeC {
+    animation: none;
+  }
+  .phone {
+    transform: translateZ(48px);
+  }
+  .loopArc {
+    filter: none;
+  }
 }
 
 /* ───────────── RESPONSIVE ───────────── */

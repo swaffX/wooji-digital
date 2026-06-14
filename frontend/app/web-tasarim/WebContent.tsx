@@ -451,13 +451,11 @@ export default function WebContent() {
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
                   </motion.span>
                 </button>
-                <AnimatePresence initial={false}>
-                  {open && (
-                    <motion.div className={styles.faqA} initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.34, ease: EASE }}>
-                      <p className={styles.faqAText}>{f.a}</p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                <div className={`${styles.faqA}${open ? ' ' + styles.faqAOpen : ''}`}>
+                  <div className={styles.faqAInner}>
+                    <p className={styles.faqAText}>{f.a}</p>
+                  </div>
+                </div>
               </motion.div>
             )
           })}

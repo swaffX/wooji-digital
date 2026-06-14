@@ -296,7 +296,7 @@
 .wSparkDot { filter: drop-shadow(0 0 5px var(--acc2)); }
 .wGauge { width: 72px; height: 72px; margin: 0 auto; }
 .wBars { display: flex; align-items: flex-end; gap: 5px; height: 48px; width: 100%; }
-.wBar { flex: 1; min-height: 4px; border-radius: 3px 3px 0 0; background: linear-gradient(180deg, var(--acc2), color-mix(in srgb, var(--acc) 50%, transparent)); }
+.wBar { flex: 1; height: 100%; transform-origin: bottom; border-radius: 3px 3px 0 0; background: linear-gradient(180deg, var(--acc2), color-mix(in srgb, var(--acc) 50%, transparent)); }
 .wList { display: flex; flex-direction: column; gap: 0.5rem; width: 100%; }
 .wListRow { display: flex; align-items: center; gap: 0.55rem; }
 .wListDot { width: 7px; height: 7px; border-radius: 50%; background: var(--acc2); flex-shrink: 0; box-shadow: 0 0 6px color-mix(in srgb, var(--acc2) 55%, transparent); }
@@ -353,8 +353,11 @@
   border-radius: 9px; background: color-mix(in srgb, var(--acc) 10%, transparent);
   border: 1px solid color-mix(in srgb, var(--acc) 25%, transparent); color: var(--acc);
 }
-.faqA { overflow: hidden; }
+.faqA { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.34s cubic-bezier(0.4, 0, 0.2, 1); }
+.faqAOpen { grid-template-rows: 1fr; }
+.faqAInner { overflow: hidden; min-height: 0; }
 .faqAText { padding: 0 1.4rem 1.3rem 3.4rem; font-family: var(--font-b); font-size: 0.92rem; color: var(--tx2); line-height: 1.78; margin: 0; }
+@media (prefers-reduced-motion: reduce) { .faqA { transition: none; } }
 
 /* ───────────── CTA ───────────── */
 .ctaSection { padding: 6rem clamp(1.25rem, 5vw, 5rem); }
@@ -410,6 +413,24 @@
   .ctaCard { padding: 3rem 1.5rem; }
   .pipe { padding-left: 2.2rem; }
   .faqAText { padding-left: 1.4rem; }
+}
+
+/* Mobile performance: stop secondary decorative loops + heavy filters so the
+   compositor stays idle during scroll. Scene stays fully visible and styled.
+   One small accent loop (.tagDot pulse) is kept as a cheap signal of life. */
+@media (max-width: 768px) {
+  .console,
+  .chartDot,
+  .chip .chipInner,
+  .chip2 .chipInner,
+  .tickerStatus,
+  .wStatPulse,
+  .nodePing { animation: none; }
+
+  .console { transform: translateZ(38px); }
+
+  .chartDot,
+  .wSparkDot { filter: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {

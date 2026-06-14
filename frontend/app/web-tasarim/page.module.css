@@ -375,8 +375,11 @@
   border-radius: 9px; color: var(--acc);
   background: color-mix(in srgb, var(--acc) 10%, transparent); border: 1px solid color-mix(in srgb, var(--acc) 24%, transparent);
 }
-.faqA { overflow: hidden; }
+.faqA { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.34s cubic-bezier(0.4, 0, 0.2, 1); }
+.faqAOpen { grid-template-rows: 1fr; }
+.faqAInner { overflow: hidden; min-height: 0; }
 .faqAText { padding: 0 1.4rem 1.3rem 3.2rem; font-size: 0.92rem; color: var(--tx2); line-height: 1.78; margin: 0; }
+@media (prefers-reduced-motion: reduce) { .faqA { transition: none; } }
 
 /* ───────────── CTA ───────────── */
 .ctaSection { padding: clamp(4rem, 8vw, 6rem) clamp(1.25rem, 5vw, 5rem); }
@@ -432,6 +435,13 @@
   .stepNode { width: 48px; height: 48px; margin-bottom: 0; }
   .specHead { flex-direction: column; }
   .faqAText { padding-left: 1.4rem; }
+}
+
+@media (max-width: 768px) {
+  .browser, .deviceFrame, .floatChip, .floatChip2 {
+    animation: none;
+  }
+  .browserWrap { will-change: auto; }
 }
 
 @media (prefers-reduced-motion: reduce) {
