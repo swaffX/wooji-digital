@@ -10,17 +10,33 @@
 }
 
 .card {
+  position: relative;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--r-lg);
   padding: 2rem;
-  transition: transform var(--t), border-color var(--t), box-shadow var(--t);
+  transition: transform var(--t), border-color var(--t);
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+  opacity: 0;
+  transition: opacity var(--t);
+  pointer-events: none;
+  z-index: -1;
 }
 
 .card:hover {
   transform: translateY(-5px);
   border-color: rgba(124,58,237,0.3);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+}
+
+.card:hover::before {
+  opacity: 1;
 }
 
 .cardTop {

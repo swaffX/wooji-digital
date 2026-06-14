@@ -1,17 +1,12 @@
 /* ── Keyframes ── */
-@keyframes iconFloat {
-  0%, 100% { transform: translateY(0) scale(1); }
-  50%       { transform: translateY(-4px) scale(1.05); }
+@keyframes shineSweep {
+  0%   { transform: translateX(-120%) skewX(-18deg); }
+  100% { transform: translateX(320%) skewX(-18deg); }
 }
 
-@keyframes shimmer {
-  0%   { background-position: -200% center; }
-  100% { background-position:  200% center; }
-}
-
-@keyframes iconGlow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(124,58,237,0); }
-  50%       { box-shadow: 0 0 20px 4px rgba(124,58,237,0.18); }
+@keyframes iconGlowPulse {
+  0%, 100% { opacity: 0; }
+  50%       { opacity: 1; }
 }
 
 @keyframes featuredPulse {
@@ -194,6 +189,7 @@
 }
 
 .featured .icon {
+  position: relative;
   color: var(--purple-light);
   background: linear-gradient(135deg, rgba(124,58,237,0.15), rgba(8,145,178,0.1));
   border-color: rgba(124,58,237,0.25);
@@ -201,8 +197,18 @@
   height: 56px;
 }
 
-.featured:hover .icon {
-  animation: iconGlow 1.6s ease-in-out infinite;
+.featured .icon::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 0 20px 4px rgba(124,58,237,0.18);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.featured:hover .icon::after {
+  animation: iconGlowPulse 1.6s ease-in-out infinite;
 }
 
 /* ── Card content wrapper ── */
@@ -266,6 +272,8 @@
 
 /* ── CTA button with shimmer ── */
 .ghostBtn {
+  position: relative;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -279,6 +287,7 @@
     var(--purple) 100%
   );
   background-size: 200% auto;
+  background-position: left center;
   border: none;
   border-radius: 50px;
   padding: 0.5rem 1.2rem;
@@ -286,18 +295,37 @@
   text-decoration: none;
   align-self: flex-start;
   transition:
-    background-position 400ms ease,
     transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1),
     box-shadow 300ms ease;
 }
 
+.ghostBtn > * {
+  position: relative;
+  z-index: 1;
+}
+
+.ghostBtn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.28), transparent);
+  transform: translateX(-120%) skewX(-18deg);
+  pointer-events: none;
+  z-index: 0;
+}
+
 .ghostBtn:hover {
-  background-position: right center;
   transform: translateY(-2px) scale(1.03);
   box-shadow:
     0 6px 24px rgba(124,58,237,0.45),
     0 2px 8px rgba(8,145,178,0.2);
-  animation: shimmer 1.8s linear infinite;
+}
+
+.ghostBtn:hover::before {
+  animation: shineSweep 1.8s linear infinite;
 }
 
 .arrow {
@@ -395,4 +423,12 @@
   .grid     { grid-template-columns: 1fr; }
   .featured { grid-column: span 1; }
   .cardFull { grid-column: span 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .featuredTag,
+  .ghostBtn:hover::before,
+  .featured:hover .icon::after {
+    animation: none;
+  }
 }

@@ -1,6 +1,6 @@
 'use client'
 import { useState, useRef } from 'react'
-import { motion, AnimatePresence, useInView } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
 import styles from './Faq.module.css'
 
 export const faqs = [
@@ -132,20 +132,15 @@ export default function Faq() {
                   </motion.div>
                 </button>
 
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      id={`faq-a-${i}`}
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.34, ease: [0.4, 0, 0.2, 1] }}
-                      style={{ overflow: 'hidden' }}
-                    >
-                      <p className={styles.answer}>{faq.a}</p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                <div
+                  id={`faq-a-${i}`}
+                  className={`${styles.answerWrap} ${isOpen ? styles.answerWrapOpen : ''}`}
+                  role="region"
+                >
+                  <div className={styles.answerInner}>
+                    <p className={styles.answer}>{faq.a}</p>
+                  </div>
+                </div>
               </motion.div>
             )
           })}

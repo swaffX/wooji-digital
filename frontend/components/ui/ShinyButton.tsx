@@ -16,6 +16,13 @@ export function ShinyButton({ children, className, href, onClick }: ShinyButtonP
   const router = useRouter()
 
   useEffect(() => {
+    if (
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) {
+      x.set('0%')
+      return
+    }
     const controls = animate(x, '-100%', {
       repeat: Infinity,
       repeatType: 'loop',

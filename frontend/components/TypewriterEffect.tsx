@@ -1,5 +1,5 @@
 'use client'
-import { motion, stagger, useAnimate, useInView } from 'framer-motion'
+import { motion, stagger, useAnimate, useInView, useReducedMotion } from 'framer-motion'
 import { useEffect } from 'react'
 import styles from './TypewriterEffect.module.css'
 
@@ -17,6 +17,7 @@ export function TypewriterEffect({ words }: Props) {
 
   const [scope, animate] = useAnimate()
   const isInView = useInView(scope)
+  const reduceMotion = useReducedMotion()
 
   useEffect(() => {
     if (isInView) {
@@ -49,9 +50,13 @@ export function TypewriterEffect({ words }: Props) {
       </motion.div>
       <motion.span
         className={styles.cursor}
-        initial={{ opacity: 0 }}
+        initial={{ opacity: reduceMotion ? 1 : 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.7, repeat: Infinity, repeatType: 'reverse' }}
+        transition={
+          reduceMotion
+            ? { duration: 0 }
+            : { duration: 0.7, repeat: Infinity, repeatType: 'reverse' }
+        }
         aria-hidden="true"
       />
     </div>

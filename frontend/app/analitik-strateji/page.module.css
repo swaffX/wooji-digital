@@ -23,7 +23,7 @@
   --console-mono: rgba(126, 196, 156, 0.62);
   --fill: rgba(11, 38, 24, 0.05);
   --fill2: rgba(11, 38, 24, 0.1);
-  --glass: rgba(251, 253, 252, 0.86);
+  --chip-solid: rgba(251, 253, 252, 0.96);
   --glow: color-mix(in srgb, var(--acc) 18%, transparent);
   --cta-bg: linear-gradient(155deg, color-mix(in srgb, var(--acc) 12%, var(--panel)), var(--surface2));
 
@@ -57,7 +57,7 @@
   --console-mono: rgba(74, 222, 128, 0.6);
   --fill: rgba(255, 255, 255, 0.05);
   --fill2: rgba(255, 255, 255, 0.09);
-  --glass: rgba(10, 22, 15, 0.82);
+  --chip-solid: rgba(14, 28, 19, 0.94);
   --glow: color-mix(in srgb, var(--acc) 26%, transparent);
   --cta-bg: linear-gradient(155deg, #0b2014 0%, #07100b 100%);
 }
@@ -163,8 +163,7 @@
 .chipInner {
   display: inline-flex; align-items: center; gap: 0.38rem;
   padding: 0.46rem 0.82rem; border-radius: 50px;
-  background: var(--glass); border: 1px solid color-mix(in srgb, var(--acc) 38%, transparent);
-  backdrop-filter: blur(9px); -webkit-backdrop-filter: blur(9px);
+  background: var(--chip-solid); border: 1px solid color-mix(in srgb, var(--acc) 38%, transparent);
   font-family: var(--font-d); font-size: 0.74rem; font-weight: 700;
   box-shadow: 0 12px 34px var(--glow);
 }

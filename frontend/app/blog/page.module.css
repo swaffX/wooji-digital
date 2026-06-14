@@ -61,19 +61,35 @@
 }
 
 .card {
+  position: relative;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--r-lg);
   padding: 1.875rem;
   display: flex;
   flex-direction: column;
-  transition: transform 300ms ease, box-shadow 300ms ease, border-color 300ms ease;
+  transition: transform 300ms ease, border-color 300ms ease;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+  opacity: 0;
+  transition: opacity 300ms ease;
+  pointer-events: none;
+  z-index: -1;
 }
 
 .card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
   border-color: rgba(124, 58, 237, 0.2);
+}
+
+.card:hover::before {
+  opacity: 1;
 }
 
 .cardMeta {
@@ -132,12 +148,19 @@
   font-weight: 600;
   color: var(--purple);
   text-decoration: none;
-  transition: gap 250ms ease, color 250ms ease;
+  transition: color 250ms ease;
+}
+
+.readMore svg {
+  transition: transform 250ms ease;
 }
 
 .readMore:hover {
-  gap: 0.65rem;
   color: #6d28d9;
+}
+
+.readMore:hover svg {
+  transform: translateX(0.25rem);
 }
 
 @media (max-width: 1024px) { .grid { grid-template-columns: repeat(2, 1fr); } }

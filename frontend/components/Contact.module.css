@@ -1,16 +1,4 @@
 /* ── Keyframes ── */
-@keyframes orbFloat1 {
-  0%,100% { transform: translate(0,0) scale(1); }
-  40%     { transform: translate(30px,-35px) scale(1.08); }
-  75%     { transform: translate(-20px,18px) scale(0.94); }
-}
-
-@keyframes orbFloat2 {
-  0%,100% { transform: translate(0,0) scale(1); }
-  35%     { transform: translate(-25px,28px) scale(1.05); }
-  70%     { transform: translate(18px,-20px) scale(0.96); }
-}
-
 @keyframes ring1Anim {
   0%,100% { transform: perspective(600px) rotateX(62deg) rotateZ(22deg) scale(1); opacity: 0.55; }
   50%     { transform: perspective(600px) rotateX(62deg) rotateZ(38deg) scale(1.06); opacity: 0.85; }
@@ -81,18 +69,16 @@
 .panelOrb1 {
   position: absolute; top: -80px; right: -60px;
   width: 320px; height: 320px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(124,58,237,0.22) 0%, transparent 70%);
-  filter: blur(50px);
-  animation: orbFloat1 9s ease-in-out infinite;
+  background: radial-gradient(circle, rgba(124,58,237,0.26) 0%, rgba(124,58,237,0.1) 45%, transparent 72%);
+  filter: blur(28px);
   pointer-events: none;
 }
 
 .panelOrb2 {
   position: absolute; bottom: -60px; left: -40px;
   width: 260px; height: 260px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(8,145,178,0.18) 0%, transparent 70%);
-  filter: blur(44px);
-  animation: orbFloat2 11s ease-in-out infinite;
+  background: radial-gradient(circle, rgba(8,145,178,0.22) 0%, rgba(8,145,178,0.08) 45%, transparent 72%);
+  filter: blur(26px);
   pointer-events: none;
 }
 
@@ -279,13 +265,23 @@ a.contactItem:hover {
     0 1px 4px rgba(0,0,0,0.04);
   position: relative;
   cursor: default;
-  transition: box-shadow 300ms ease;
 }
 
-.formCard:hover {
+.formCard::after {
+  content: '';
+  position: absolute; inset: 0;
+  border-radius: var(--r-xl);
   box-shadow:
     0 20px 60px rgba(124,58,237,0.1),
     0 4px 16px rgba(0,0,0,0.06);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 300ms ease;
+  z-index: -1;
+}
+
+.formCard:hover::after {
+  opacity: 1;
 }
 
 /* subtle glare overlay */
@@ -484,9 +480,8 @@ a.contactItem:hover {
   border-radius: 12px;
   cursor: pointer;
   background: linear-gradient(135deg, #7c3aed 0%, #2563eb 55%, #0891b2 100%);
-  background-size: 200% auto;
+  box-shadow: 0 4px 16px rgba(124,58,237,0.18);
   transition:
-    background-position 400ms ease,
     box-shadow 300ms ease,
     opacity 200ms ease;
   position: relative;
@@ -500,10 +495,26 @@ a.contactItem:hover {
   pointer-events: none;
 }
 
+.submitBtn::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(8,145,178,0.55) 0%, rgba(37,99,235,0.25) 45%, transparent 100%);
+  opacity: 0;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  transition: opacity 400ms ease;
+}
+
 .submitBtn:hover:not(:disabled) {
-  background-position: right center;
   box-shadow: 0 10px 40px rgba(124,58,237,0.38);
 }
+
+.submitBtn:hover:not(:disabled)::after {
+  opacity: 1;
+}
+
+.success::after,
+.error::after { display: none; }
 
 .submitBtn:disabled { opacity: 0.7; cursor: not-allowed; }
 
@@ -539,5 +550,6 @@ a.contactItem:hover {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .panelOrb1, .panelOrb2, .ring1, .ring2, .ring3, .responseDot { animation: none; }
+  .ring1, .ring2, .ring3, .responseDot { animation: none; }
+  .submitBtn::after { transition: none; }
 }

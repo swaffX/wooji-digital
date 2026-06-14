@@ -20,7 +20,7 @@
   border: none;
   cursor: pointer;
   box-shadow: 0 6px 28px rgba(0,0,0,0.45);
-  transition: transform var(--t), box-shadow var(--t);
+  transition: transform var(--t);
 }
 
 .fab:hover { transform: scale(1.12); }

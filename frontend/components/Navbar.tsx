@@ -318,28 +318,27 @@ export default function Navbar() {
                     </svg>
                   </button>
 
-                  <AnimatePresence>
-                    {mobServicesOpen && (
-                      <motion.div
-                        className={styles.mobServiceGrid}
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
-                      >
-                        <div className={styles.mobServiceInner}>
-                          {serviceLinks.map((s) => (
-                            <Link key={s.href} href={s.href} className={styles.mobServicePill} onClick={close}>
-                              {s.label}
-                              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
-                                <path d="M5 12h14M12 5l7 7-7 7"/>
-                              </svg>
-                            </Link>
-                          ))}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                  <div
+                    className={`${styles.mobServiceGrid}${mobServicesOpen ? ` ${styles.mobServiceGridOpen}` : ''}`}
+                    aria-hidden={!mobServicesOpen}
+                  >
+                    <div className={styles.mobServiceInner}>
+                      {serviceLinks.map((s) => (
+                        <Link
+                          key={s.href}
+                          href={s.href}
+                          className={styles.mobServicePill}
+                          onClick={close}
+                          tabIndex={mobServicesOpen ? 0 : -1}
+                        >
+                          {s.label}
+                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                          </svg>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
                 </motion.div>
 
                 {/* Nav items */}

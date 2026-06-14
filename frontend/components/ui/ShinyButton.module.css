@@ -18,9 +18,8 @@
   cursor: pointer;
   border: none;
   background: #0d1117;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  transition: background 300ms ease, box-shadow 300ms ease;
+  box-shadow: 0 0 0 rgba(13, 17, 23, 0);
+  transition: background 300ms ease;
   outline: none;
 }
 

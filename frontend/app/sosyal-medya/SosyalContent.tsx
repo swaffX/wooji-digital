@@ -207,10 +207,6 @@ export default function SosyalContent() {
   const sy = useSpring(py, { stiffness: 110, damping: 18 })
   const rotX = useTransform(sy, [-0.5, 0.5], [10, -10])
   const rotY = useTransform(sx, [-0.5, 0.5], [-14, 14])
-  const orbX = useTransform(sx, [-0.5, 0.5], [-28, 28])
-  const orbY = useTransform(sy, [-0.5, 0.5], [-20, 20])
-  const orb2X = useTransform(orbX, (v) => -v * 0.7)
-  const orb2Y = useTransform(orbY, (v) => -v * 0.7)
 
   const onHeroMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (reduce) return
@@ -242,8 +238,8 @@ export default function SosyalContent() {
       <header className={styles.hero} onMouseMove={onHeroMove} onMouseLeave={onHeroLeave}>
         <div className={styles.heroBg} aria-hidden="true" />
         <div className={styles.heroGrid} aria-hidden="true" />
-        <motion.div className={styles.orb1} style={{ x: orbX, y: orbY }} aria-hidden="true" />
-        <motion.div className={styles.orb2} style={{ x: orb2X, y: orb2Y }} aria-hidden="true" />
+        <div className={styles.orb1} aria-hidden="true" />
+        <div className={styles.orb2} aria-hidden="true" />
 
         <div className={styles.heroInner}>
           <motion.div className={styles.heroLeft} initial="hidden" animate="show" variants={fadeUp}>

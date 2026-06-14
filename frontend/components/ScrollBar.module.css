@@ -3,8 +3,11 @@
   top: 0;
   left: 0;
   height: 2px;
-  width: 0%;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+  will-change: transform;
   background: var(--grad);
   z-index: 9999;
-  transition: width 0.08s linear;
+  transition: transform 0.08s linear;
 }

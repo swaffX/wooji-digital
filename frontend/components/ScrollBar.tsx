@@ -12,7 +12,8 @@ export default function ScrollBar() {
       const lenis = getLenisInstance()
       if (!lenis) return setTimeout(tryAttach, 50)
       const onScroll = ({ scroll, limit }: { scroll: number; limit: number }) => {
-        bar.style.width = (scroll / Math.max(limit, 1)) * 100 + '%'
+        const ratio = Math.min(Math.max(scroll / Math.max(limit, 1), 0), 1)
+        bar.style.transform = `scaleX(${ratio})`
       }
       lenis.on('scroll', onScroll)
       return () => lenis.off('scroll', onScroll)

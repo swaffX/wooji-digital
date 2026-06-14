@@ -158,9 +158,6 @@ export default function WebContent() {
   const sy = useSpring(py, { stiffness: 120, damping: 20 })
   const rotX = useTransform(sy, [-0.5, 0.5], [10, -10])
   const rotY = useTransform(sx, [-0.5, 0.5], [-14, 14])
-  const chipX = useTransform(sx, [-0.5, 0.5], [-22, 22])
-  const chipY = useTransform(sy, [-0.5, 0.5], [-16, 16])
-  const chip2X = useTransform(chipX, (v) => -v * 0.8)
 
   const onHeroMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (reduce) return
@@ -191,8 +188,8 @@ export default function WebContent() {
       <header className={styles.hero} onMouseMove={onHeroMove} onMouseLeave={onHeroLeave}>
         <div className={styles.heroBg} aria-hidden="true" />
         <div className={styles.heroGrid} aria-hidden="true" />
-        <motion.div className={styles.orb1} style={{ x: chipX, y: chipY }} aria-hidden="true" />
-        <motion.div className={styles.orb2} style={{ x: chip2X, y: chipY }} aria-hidden="true" />
+        <div className={styles.orb1} aria-hidden="true" />
+        <div className={styles.orb2} aria-hidden="true" />
 
         <div className={styles.heroInner}>
           <motion.div className={styles.heroLeft} initial="hidden" animate="show">

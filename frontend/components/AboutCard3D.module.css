@@ -142,7 +142,6 @@
   border-radius: 12px;
   padding: 1.125rem;
   position: relative;
-  will-change: transform;
   overflow: hidden;
   transition:
     border-color 300ms ease,
@@ -232,4 +231,8 @@
   }
 
   .shadow { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene { animation: none; }
 }

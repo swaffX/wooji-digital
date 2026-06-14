@@ -19,8 +19,9 @@
   background: var(--bg-2);
   border-radius: var(--r-xl);
   overflow: hidden;
-  transition: transform var(--t), box-shadow var(--t);
+  transition: transform var(--t);
   cursor: default;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.18);
 }
 
 .stat::before {
@@ -44,8 +45,8 @@
   bottom: -40px;
   left: 50%;
   transform: translateX(-50%);
-  width: 80px; height: 80px;
-  background: radial-gradient(circle, rgba(124,58,237,0.35), transparent 70%);
+  width: 140px; height: 110px;
+  background: radial-gradient(ellipse at center, rgba(124,58,237,0.4), transparent 70%);
   opacity: 0;
   transition: opacity var(--t);
   pointer-events: none;
@@ -53,7 +54,6 @@
 
 .stat:hover {
   transform: translateY(-6px);
-  box-shadow: 0 24px 60px rgba(0,0,0,0.45), 0 0 0 1px rgba(124,58,237,0.2);
 }
 
 .stat:hover::before { opacity: 1; }

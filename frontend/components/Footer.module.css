@@ -25,13 +25,11 @@
 
 .glow {
   position: absolute;
-  top: 0;
-  right: -1rem;
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  background: rgba(124, 58, 237, 0.12);
-  filter: blur(48px);
+  top: -2rem;
+  right: -3rem;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.16) 0%, transparent 68%);
   pointer-events: none;
 }
 

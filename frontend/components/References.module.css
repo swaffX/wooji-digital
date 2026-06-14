@@ -1,23 +1,3 @@
-@property --ba {
-  syntax: '<angle>';
-  initial-value: 0deg;
-  inherits: false;
-}
-
-@keyframes spinBorder { to { --ba: 360deg; } }
-
-@keyframes floatOrb1 {
-  0%,100% { transform: translate(0,0) scale(1); }
-  35%     { transform: translate(40px,-50px) scale(1.06); }
-  70%     { transform: translate(-30px,25px) scale(0.96); }
-}
-
-@keyframes floatOrb2 {
-  0%,100% { transform: translate(0,0) scale(1); }
-  40%     { transform: translate(-45px,35px) scale(1.07); }
-  75%     { transform: translate(25px,-30px) scale(0.94); }
-}
-
 /* ── Section ── */
 .section {
   position: relative;
@@ -29,8 +9,7 @@
   position: absolute; top: -60px; left: -120px;
   width: 520px; height: 520px; border-radius: 50%;
   background: radial-gradient(circle, rgba(124,58,237,0.14) 0%, transparent 70%);
-  filter: blur(52px);
-  animation: floatOrb1 9s ease-in-out infinite;
+  filter: blur(28px);
   pointer-events: none; z-index: 0;
 }
 
@@ -38,8 +17,7 @@
   position: absolute; bottom: 0; right: -80px;
   width: 460px; height: 460px; border-radius: 50%;
   background: radial-gradient(circle, rgba(8,145,178,0.12) 0%, transparent 70%);
-  filter: blur(44px);
-  animation: floatOrb2 11s ease-in-out infinite;
+  filter: blur(28px);
   pointer-events: none; z-index: 0;
 }
 
@@ -203,37 +181,31 @@
   padding: 2.5rem 2.625rem 2.25rem;
   position: relative;
   cursor: default;
+  border: 1.5px solid transparent;
+  background:
+    linear-gradient(var(--card-bg), var(--card-bg)) padding-box,
+    var(--card-border-grad) border-box;
   box-shadow: 0 32px 80px rgba(0,0,0,0.22), 0 8px 24px rgba(0,0,0,0.1);
 }
 
 .cardPurple {
-  --ba: 0deg;
-  border: 1.5px solid transparent;
-  background:
-    linear-gradient(var(--card-bg), var(--card-bg)) padding-box,
-    conic-gradient(from var(--ba),
-      rgba(124,58,237,0.9) 0deg,
-      rgba(8,145,178,0.5)  90deg,
-      rgba(124,58,237,0.1) 180deg,
-      rgba(8,145,178,0.1)  270deg,
-      rgba(124,58,237,0.9) 360deg
-    ) border-box;
-  animation: spinBorder 5s linear infinite;
+  --card-border-grad: conic-gradient(from 220deg,
+    rgba(124,58,237,0.9) 0deg,
+    rgba(8,145,178,0.5)  90deg,
+    rgba(124,58,237,0.1) 180deg,
+    rgba(8,145,178,0.1)  270deg,
+    rgba(124,58,237,0.9) 360deg
+  );
 }
 
 .cardCyan {
-  --ba: 0deg;
-  border: 1.5px solid transparent;
-  background:
-    linear-gradient(var(--card-bg), var(--card-bg)) padding-box,
-    conic-gradient(from var(--ba),
-      rgba(8,145,178,0.9)  0deg,
-      rgba(124,58,237,0.5) 90deg,
-      rgba(8,145,178,0.1)  180deg,
-      rgba(124,58,237,0.1) 270deg,
-      rgba(8,145,178,0.9)  360deg
-    ) border-box;
-  animation: spinBorder 5s linear infinite;
+  --card-border-grad: conic-gradient(from 220deg,
+    rgba(8,145,178,0.9)  0deg,
+    rgba(124,58,237,0.5) 90deg,
+    rgba(8,145,178,0.1)  180deg,
+    rgba(124,58,237,0.1) 270deg,
+    rgba(8,145,178,0.9)  360deg
+  );
 }
 
 .glare {
@@ -302,17 +274,29 @@
 }
 
 .arrow {
+  position: relative;
   display: flex; align-items: center; justify-content: center;
   width: 40px; height: 40px; border-radius: 50%;
   background: var(--card-bg); border: 1px solid var(--border);
   color: var(--text-2); cursor: pointer;
-  transition: color 200ms, border-color 200ms, transform 200ms, box-shadow 200ms;
+  transition: color 200ms, border-color 200ms, transform 200ms;
+}
+
+.arrow::before {
+  content: '';
+  position: absolute; inset: -4px; border-radius: 50%;
+  box-shadow: 0 0 16px rgba(124,58,237,0.15);
+  opacity: 0;
+  transition: opacity 200ms;
+  pointer-events: none;
 }
 
 .arrow:hover {
   color: var(--text); border-color: rgba(124,58,237,0.38);
-  transform: scale(1.1); box-shadow: 0 0 16px rgba(124,58,237,0.15);
+  transform: scale(1.1);
 }
+
+.arrow:hover::before { opacity: 1; }
 
 .arrow:active { transform: scale(0.94); }
 
@@ -351,11 +335,6 @@
   .bigQuote { font-size: 5rem; }
 }
 
-@media (max-width: 768px) {
-  .cardPurple, .cardCyan { animation: none; }
-  .orb1, .orb2 { animation: none; }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .orb1, .orb2, .cardPurple, .cardCyan { animation: none; }
+  .arrow, .arrow::before, .dot, .dotFill { transition: none; }
 }

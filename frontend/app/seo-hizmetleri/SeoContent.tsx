@@ -183,9 +183,6 @@ export default function SeoContent() {
   const sy = useSpring(py, { stiffness: 110, damping: 18 })
   const rotX = useTransform(sy, [-0.5, 0.5], [10, -10])
   const rotY = useTransform(sx, [-0.5, 0.5], [-14, 14])
-  const orbX = useTransform(sx, [-0.5, 0.5], [-30, 30])
-  const orbY = useTransform(sy, [-0.5, 0.5], [-22, 22])
-  const orb2X = useTransform(orbX, (v) => -v)
 
   const onHeroMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (reduce) return
@@ -217,8 +214,8 @@ export default function SeoContent() {
       <header className={styles.hero} onMouseMove={onHeroMove} onMouseLeave={onHeroLeave}>
         <div className={styles.heroBg} aria-hidden="true" />
         <div className={styles.heroGrid} aria-hidden="true" />
-        <motion.div className={styles.orb1} style={{ x: orbX, y: orbY }} aria-hidden="true" />
-        <motion.div className={styles.orb2} style={{ x: orb2X, y: orbY }} aria-hidden="true" />
+        <div className={styles.orb1} aria-hidden="true" />
+        <div className={styles.orb2} aria-hidden="true" />
 
         <div className={styles.heroInner}>
           <motion.div className={styles.heroLeft} initial="hidden" animate="show" variants={fadeUp}>

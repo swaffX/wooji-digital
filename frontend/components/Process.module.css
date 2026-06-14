@@ -308,3 +308,7 @@
   .cardLeft::after  { display: none; }
   .cardRight::before { display: none; }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .nodeRing { animation: none; }
+}

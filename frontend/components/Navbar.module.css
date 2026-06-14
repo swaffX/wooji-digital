@@ -23,8 +23,6 @@
   max-width: 1060px;
   width: 100%;
   pointer-events: all;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   box-shadow: var(--pill-shadow);
   transition: background 0.3s ease, box-shadow 0.3s ease;
 }
@@ -142,9 +140,7 @@
 .mobBackdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.55);
   z-index: 998;
 }
 
@@ -311,7 +307,13 @@
 
 /* ── Service pill grid ── */
 .mobServiceGrid {
-  overflow: hidden;
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobServiceGridOpen {
+  grid-template-rows: 1fr;
 }
 
 .mobServiceInner {
@@ -319,6 +321,12 @@
   grid-template-columns: 1fr 1fr;
   gap: 0.5rem;
   padding: 0.5rem 0.25rem 0.75rem;
+  min-height: 0;
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobServiceGrid { transition: none; }
 }
 
 .mobServicePill {

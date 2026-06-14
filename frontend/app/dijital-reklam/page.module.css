@@ -17,6 +17,7 @@
   --scene-card: #ffffff;
   --fill: rgba(20, 32, 64, 0.05);
   --glass: rgba(255, 255, 255, 0.9);
+  --chip-solid: rgba(255, 255, 255, 0.96);
   --shadow-card: 0 18px 50px color-mix(in srgb, var(--acc) 14%, transparent);
   --cta-bg: linear-gradient(160deg, color-mix(in srgb, var(--acc) 11%, #ffffff), #e9effb);
 
@@ -43,6 +44,7 @@
   --scene-card: rgba(15, 20, 40, 0.92);
   --fill: rgba(255, 255, 255, 0.06);
   --glass: rgba(12, 18, 38, 0.82);
+  --chip-solid: rgba(18, 25, 48, 0.96);
   --shadow-card: 0 22px 60px rgba(0, 0, 0, 0.5);
   --cta-bg: linear-gradient(160deg, #0d1430 0%, #070912 100%);
 }
@@ -67,7 +69,7 @@
   background-size: 54px 54px;
   mask-image: radial-gradient(ellipse 92% 82% at 62% 42%, black 0%, transparent 72%);
 }
-.orb1, .orb2 { position: absolute; border-radius: 50%; filter: blur(92px); pointer-events: none; z-index: 0; }
+.orb1, .orb2 { position: absolute; border-radius: 50%; filter: blur(28px); pointer-events: none; z-index: 0; }
 .orb1 { width: 360px; height: 360px; background: color-mix(in srgb, var(--acc) 24%, transparent); top: -60px; right: 6%; }
 .orb2 { width: 280px; height: 280px; background: color-mix(in srgb, var(--acc3) 18%, transparent); bottom: -40px; left: 4%; }
 
@@ -83,7 +85,6 @@
   background: var(--panel); border: 1px solid var(--br);
   font-size: 0.74rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
   color: var(--acc); margin-bottom: 1.5rem;
-  backdrop-filter: blur(8px);
 }
 .tagDot { width: 7px; height: 7px; border-radius: 50%; background: var(--acc); box-shadow: 0 0 10px var(--acc); animation: pulseDot 2.2s ease-in-out infinite; }
 @keyframes pulseDot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.45; transform: scale(0.7); } }
@@ -155,8 +156,8 @@
 .floatChip, .floatChip2 {
   position: absolute; display: inline-flex; align-items: center; gap: 0.35rem;
   padding: 0.45rem 0.8rem; border-radius: 50px;
-  background: var(--glass); border: 1px solid color-mix(in srgb, var(--acc2) 35%, transparent);
-  backdrop-filter: blur(8px); font-size: 0.74rem; font-weight: 800; font-family: var(--font-d);
+  background: var(--chip-solid); border: 1px solid color-mix(in srgb, var(--acc2) 35%, transparent);
+  font-size: 0.74rem; font-weight: 800; font-family: var(--font-d);
   box-shadow: 0 10px 30px rgba(14, 23, 48, 0.2);
 }
 .floatChip { top: 8%; right: 0%; color: var(--acc); transform: translateZ(88px); animation: chipFloat 5s ease-in-out infinite; }
@@ -259,7 +260,7 @@
 /* ── end-to-end big card ── */
 .bigCard { position: relative; max-width: 1100px; margin: 1.5rem auto 0; background: linear-gradient(150deg, color-mix(in srgb, var(--acc) 10%, transparent), var(--panel)); border: 1px solid color-mix(in srgb, var(--acc) 24%, transparent); border-radius: var(--r-xl); padding: 2.25rem; overflow: hidden; transition: border-color var(--t), box-shadow var(--t); }
 .bigCard:hover { border-color: color-mix(in srgb, var(--acc) 42%, transparent); box-shadow: 0 24px 70px color-mix(in srgb, var(--acc) 20%, transparent); }
-.bigGlow { position: absolute; top: -80px; right: -60px; width: 280px; height: 280px; border-radius: 50%; background: color-mix(in srgb, var(--acc) 16%, transparent); filter: blur(60px); pointer-events: none; }
+.bigGlow { position: absolute; top: -120px; right: -100px; width: 360px; height: 360px; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--acc) 18%, transparent) 0%, transparent 70%); pointer-events: none; }
 .bigHead { position: relative; display: flex; align-items: flex-start; gap: 1.25rem; margin-bottom: 1.5rem; }
 .bigIcon { flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 56px; border-radius: 16px; background: linear-gradient(135deg, var(--acc), var(--acc3)); color: #fff; box-shadow: 0 10px 28px color-mix(in srgb, var(--acc) 40%, transparent); }
 .bigTitle { font-family: var(--font-d); font-size: clamp(1.3rem, 2.4vw, 1.65rem); font-weight: 800; color: var(--tx); letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 0.5rem; padding-bottom: 0.06em; }
@@ -325,6 +326,7 @@
   .pipeNode:last-child { padding-bottom: 0; }
 }
 @media (max-width: 760px) {
+  .orb1, .orb2 { display: none; }
   .ring3 { display: none; }
   .sweep { display: none; }
   .floatChip, .floatChip2 { font-size: 0.68rem; padding: 0.4rem 0.7rem; }

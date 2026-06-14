@@ -85,7 +85,7 @@
 .orb2 {
   position: absolute;
   border-radius: 50%;
-  filter: blur(94px);
+  filter: blur(28px);
   pointer-events: none;
   z-index: 0;
 }
@@ -125,7 +125,6 @@
   border-radius: 50px;
   background: var(--panel);
   border: 1px solid var(--br);
-  backdrop-filter: blur(8px);
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -193,7 +192,6 @@
   color: var(--tx);
   background: var(--panel);
   border: 1px solid var(--br);
-  backdrop-filter: blur(8px);
   transition: transform var(--t), border-color var(--t), background var(--t);
 }
 .btnGhost:hover {
@@ -415,9 +413,8 @@
   gap: 0.42rem;
   padding: 0.48rem 0.85rem;
   border-radius: 50px;
-  background: var(--glass);
+  background: color-mix(in srgb, var(--panel-solid) 92%, transparent);
   border: 1px solid color-mix(in srgb, var(--acc2) 32%, transparent);
-  backdrop-filter: blur(10px);
   font-size: 0.74rem;
   font-weight: 700;
   font-family: var(--font-d);
@@ -1201,6 +1198,10 @@
 }
 
 @media (max-width: 760px) {
+  .orb1,
+  .orb2 {
+    display: none;
+  }
   .platBadge {
     font-size: 0.66rem;
     padding: 0.4rem 0.7rem;

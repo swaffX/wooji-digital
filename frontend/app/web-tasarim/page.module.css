@@ -19,7 +19,6 @@
   --scene: #ffffff;
   --fill: rgba(13, 38, 48, 0.045);
   --fill2: rgba(13, 38, 48, 0.10);
-  --glass: rgba(255, 255, 255, 0.9);
   --shadow: 24px 60px;
   --shadow-c: rgba(13, 38, 48, 0.14);
   --mono: ui-monospace, SFMono-Regular, Menlo, "Cascadia Code", monospace;
@@ -49,7 +48,6 @@
   --scene: rgba(9, 16, 22, 0.94);
   --fill: rgba(255, 255, 255, 0.045);
   --fill2: rgba(255, 255, 255, 0.1);
-  --glass: rgba(9, 16, 22, 0.82);
   --shadow-c: rgba(0, 0, 0, 0.5);
   --cta-bg: linear-gradient(155deg, #0a1822 0%, #06090f 100%);
 }
@@ -86,7 +84,7 @@
   background-size: 52px 52px;
   mask-image: radial-gradient(ellipse 88% 78% at 62% 38%, black 0%, transparent 70%);
 }
-.orb1, .orb2 { position: absolute; border-radius: 50%; filter: blur(94px); pointer-events: none; z-index: 0; }
+.orb1, .orb2 { position: absolute; border-radius: 50%; filter: blur(28px); pointer-events: none; z-index: 0; }
 .orb1 { width: 360px; height: 360px; background: color-mix(in srgb, var(--acc) 22%, transparent); top: -70px; right: 5%; }
 .orb2 { width: 280px; height: 280px; background: color-mix(in srgb, var(--acc3) 16%, transparent); bottom: -50px; left: 3%; }
 
@@ -101,7 +99,6 @@
   background: var(--panel); border: 1px solid var(--br);
   font-family: var(--mono); font-size: 0.72rem; font-weight: 600;
   letter-spacing: 0.04em; color: var(--acc); margin-bottom: 1.5rem;
-  backdrop-filter: blur(8px);
 }
 .tagDot { width: 7px; height: 7px; border-radius: 50%; background: var(--acc); box-shadow: 0 0 10px var(--acc); animation: pulseDot 2.2s ease-in-out infinite; }
 @keyframes pulseDot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.42; transform: scale(0.7); } }
@@ -184,8 +181,9 @@
 .floatChip, .floatChip2 {
   position: absolute; display: inline-flex; align-items: center; gap: 0.35rem;
   padding: 0.45rem 0.8rem; border-radius: 50px;
-  background: var(--glass); border: 1px solid color-mix(in srgb, var(--acc2) 34%, transparent);
-  backdrop-filter: blur(10px); font-family: var(--mono); font-size: 0.72rem; font-weight: 600;
+  background: color-mix(in srgb, var(--ink2) 86%, var(--panel2));
+  border: 1px solid color-mix(in srgb, var(--acc2) 34%, transparent);
+  font-family: var(--mono); font-size: 0.72rem; font-weight: 600;
   box-shadow: 0 12px 30px var(--shadow-c);
 }
 .floatChip { top: 4%; right: -4%; color: var(--acc); transform: translateZ(90px); animation: chipFloat 5s ease-in-out infinite; }
@@ -416,6 +414,7 @@
   .stepperTrack { display: none; }
 }
 @media (max-width: 760px) {
+  .orb1, .orb2 { display: none; }
   .deviceFrame { display: none; }
   .floatChip, .floatChip2 { font-size: 0.68rem; padding: 0.4rem 0.7rem; }
   .preview { padding: 1.8rem; }
