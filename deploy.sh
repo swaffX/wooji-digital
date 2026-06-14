@@ -39,21 +39,24 @@ curl -sf http://127.0.0.1:3000/ -o /dev/null && echo "Deploy OK: $(date)" || ech
 # from ever aborting the (already-successful) app deploy because of this block.
 apply_caddy_cf_lock() {
   local CF="/etc/caddy/Caddyfile"
-  local SNIP="/root/wooji-digital/deploy/cloudflare-allowlist.caddy"
   command -v caddy >/dev/null 2>&1 || { echo "Caddy: binary not found — skip"; return 0; }
   [ -f "$CF" ]   || { echo "Caddy: $CF not found — skip"; return 0; }
-  [ -f "$SNIP" ] || { echo "Caddy: snippet not found — skip"; return 0; }
-  grep -q 'cloudflare_only' "$CF" && { echo "Caddy: CF lock already applied — skip"; return 0; }
+  grep -q '@not_cloudflare' "$CF" && { echo "Caddy: CF lock already applied — skip"; return 0; }
 
   local TMP BAK VERR
   TMP="$(mktemp)" || return 0
   BAK="${CF}.bak.$(date +%s)"
-  # APPEND the snippet definition at the END (a leading global-options block, if
-  # any, must stay first; Caddy resolves snippet imports regardless of order).
-  { cat "$CF"; echo; cat "$SNIP"; } > "$TMP"
-  # Insert `import cloudflare_only` as the first line inside the woojidigital.com site block
-  sed -i -E '0,/^[[:space:]]*[^#].*woojidigital\.com[^{]*\{[[:space:]]*$/s//&\n\timport cloudflare_only/' "$TMP"
-  if ! grep -q 'import cloudflare_only' "$TMP"; then
+  # Inline a Cloudflare-only matcher as the first lines INSIDE the woojidigital.com
+  # site block (no snippet/import — avoids import-resolution issues entirely).
+  awk '
+    { print }
+    !done && /woojidigital\.com/ && /\{[ \t]*$/ {
+      print "\t@not_cloudflare not remote_ip 173.245.48.0/20 103.21.244.0/22 103.22.200.0/22 103.31.4.0/22 141.101.64.0/18 108.162.192.0/18 190.93.240.0/20 188.114.96.0/20 197.234.240.0/22 198.41.128.0/17 162.158.0.0/15 104.16.0.0/13 104.24.0.0/14 172.64.0.0/13 131.0.72.0/22 2400:cb00::/32 2606:4700::/32 2803:f800::/32 2405:b500::/32 2405:8100::/32 2a06:98c0::/29 2c0f:f248::/32"
+      print "\trespond @not_cloudflare 403"
+      done=1
+    }
+  ' "$CF" > "$TMP"
+  if ! grep -q '@not_cloudflare' "$TMP"; then
     echo "Caddy: woojidigital.com site block not matched — leaving config unchanged (no-op)"
     rm -f "$TMP"; return 0
   fi
