@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: 'Hakkımızda | Wooji Digital',
   description:
     'Wooji Digital ekibi, markalar için dijital büyüme stratejileri geliştiren tutkulu profesyonellerden oluşur.',
+  alternates: { canonical: '/hakkimizda' },
 }
 
 const values = [

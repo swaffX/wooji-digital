@@ -11,7 +11,7 @@ export interface BlogPost {
 
 export const posts: BlogPost[] = [
   {
-    slug: 'seo-nin-gelecegi-2024',
+    slug: 'seo-nin-gelecegi-2025',
     category: 'SEO',
     date: '12 Ocak 2025',
     readTime: '6 dk',

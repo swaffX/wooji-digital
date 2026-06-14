@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import SiteLayout from '@/components/SiteLayout'
 import PageHeader from '@/components/PageHeader'
 import { posts } from './data'
 import styles from './page.module.css'
@@ -7,6 +8,7 @@ import styles from './page.module.css'
 export const metadata: Metadata = {
   title: 'Blog | Wooji Digital',
   description: 'Dijital pazarlama, SEO, reklam yönetimi ve marka büyütme hakkında ipuçları ve stratejiler.',
+  alternates: { canonical: '/blog' },
 }
 
 interface Props {
@@ -20,7 +22,7 @@ export default async function BlogPage({ searchParams }: Props) {
   const filtered = active === 'Tümü' ? posts : posts.filter((p) => p.category === active)
 
   return (
-    <>
+    <SiteLayout>
       <PageHeader
         tag="İçgörüler & Stratejiler"
         title="Dijital Pazarlama"
@@ -79,6 +81,6 @@ export default async function BlogPage({ searchParams }: Props) {
           )}
         </div>
       </section>
-    </>
+    </SiteLayout>
   )
 }

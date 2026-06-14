@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   title: 'Hizmetlerimiz | Wooji Digital',
   description:
     'SEO, dijital reklam, web tasarım, sosyal medya yönetimi ve içerik pazarlaması hizmetleriyle markanızı büyütüyoruz.',
+  alternates: { canonical: '/hizmetler' },
 }
 
 const highlights = [

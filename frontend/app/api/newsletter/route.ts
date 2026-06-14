@@ -16,7 +16,13 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Çok fazla istek.' }, { status: 429 })
   }
 
-  const body = await req.json()
+  let body: unknown
+  try {
+    body = await req.json()
+  } catch {
+    return NextResponse.json({ error: 'Geçersiz istek' }, { status: 400 })
+  }
+
   const parsed = schema.safeParse(body)
 
   if (!parsed.success) {

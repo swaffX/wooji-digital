@@ -297,7 +297,7 @@ export default function IcerikContent() {
                 <motion.li
                   key={c}
                   className={styles.contentsItem}
-                  initial={{ opacity: 0, x: -12 }}
+                  initial={reduce ? { opacity: 1, x: 0 } : { opacity: 0, x: -12 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={VIEWPORT}
                   transition={{ duration: 0.45, delay: 0.12 + i * 0.08, ease: EASE }}
@@ -327,7 +327,7 @@ export default function IcerikContent() {
             <motion.div
               key={s.n}
               className={styles.procStep}
-              initial={{ opacity: 0, y: 26 }}
+              initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 26 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={VIEWPORT}
               transition={{ duration: 0.6, delay: i * 0.05, ease: EASE }}
@@ -359,7 +359,7 @@ export default function IcerikContent() {
               <motion.div
                 key={f.q}
                 className={`${styles.faqItem} ${open ? styles.faqItemOpen : ''}`}
-                initial={{ opacity: 0, y: 16 }}
+                initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={VIEWPORT}
                 transition={{ duration: 0.5, delay: i * 0.06, ease: EASE }}
@@ -387,7 +387,7 @@ export default function IcerikContent() {
         <motion.div
           className={styles.ctaCard}
           onMouseMove={onCtaMove}
-          initial={{ opacity: 0, y: 40 }}
+          initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={VIEWPORT}
           transition={{ duration: 0.7, ease: EASE }}

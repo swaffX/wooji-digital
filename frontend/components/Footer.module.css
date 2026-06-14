@@ -73,7 +73,7 @@
   color: #f0f6ff;
   font-size: 0.875rem;
   outline: none;
-  transition: border-color 300ms ease, background 300ms ease;
+  transition: border-color 300ms ease, background 300ms ease, box-shadow 300ms ease;
 }
 
 .emailInput::placeholder { color: #4b6280; }
@@ -81,6 +81,7 @@
 .emailInput:focus {
   border-color: rgba(124, 58, 237, 0.5);
   background: rgba(124, 58, 237, 0.06);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.28);
 }
 
 .sendBtn {

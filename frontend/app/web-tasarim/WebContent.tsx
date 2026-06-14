@@ -302,7 +302,7 @@ export default function WebContent() {
           <motion.p className={styles.secSub} variants={fadeUp} custom={2}>Fikirden lansmana, web projenizin her aşamasını tek ekiple yönetiyoruz.</motion.p>
         </motion.div>
 
-        <motion.div className={styles.editor} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={VIEWPORT} transition={{ duration: 0.7, ease: EASE }}>
+        <motion.div className={styles.editor} initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={VIEWPORT} transition={{ duration: 0.7, ease: EASE }}>
           <div className={styles.editorBar} aria-hidden="true">
             <div className={styles.editorDots}><span /><span /><span /></div>
             <span className={styles.editorPath}>wooji / src / yetkinlikler</span>
@@ -352,7 +352,7 @@ export default function WebContent() {
           </div>
         </motion.div>
 
-        <motion.div className={styles.spec} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={VIEWPORT} transition={{ duration: 0.7, ease: EASE }}>
+        <motion.div className={styles.spec} initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={VIEWPORT} transition={{ duration: 0.7, ease: EASE }}>
           <div className={styles.specBar} aria-hidden="true">
             <span className={styles.specDot} />
             build-spec.md
@@ -372,7 +372,7 @@ export default function WebContent() {
                 <motion.li
                   key={c}
                   className={styles.checkItem}
-                  initial={{ opacity: 0, x: -12 }}
+                  initial={reduce ? { opacity: 1, x: 0 } : { opacity: 0, x: -12 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={VIEWPORT}
                   transition={{ duration: 0.42, delay: 0.12 + i * 0.08, ease: EASE }}
@@ -403,7 +403,7 @@ export default function WebContent() {
               <motion.div
                 key={s.n}
                 className={styles.step}
-                initial={{ opacity: 0, y: 26 }}
+                initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 26 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={VIEWPORT}
                 transition={{ duration: 0.55, delay: i * 0.1, ease: EASE }}
@@ -439,7 +439,7 @@ export default function WebContent() {
               <motion.div
                 key={f.q}
                 className={`${styles.faqItem} ${open ? styles.faqItemOpen : ''}`}
-                initial={{ opacity: 0, y: 16 }}
+                initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={VIEWPORT}
                 transition={{ duration: 0.5, delay: i * 0.06, ease: EASE }}
@@ -463,7 +463,7 @@ export default function WebContent() {
       </section>
 
       <section className={styles.ctaSection}>
-        <motion.div className={styles.ctaCard} onMouseMove={onCtaMove} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={VIEWPORT} transition={{ duration: 0.7, ease: EASE }}>
+        <motion.div className={styles.ctaCard} onMouseMove={onCtaMove} initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={VIEWPORT} transition={{ duration: 0.7, ease: EASE }}>
           <motion.div className={styles.ctaGlow} style={{ background: ctaGlow }} aria-hidden="true" />
           <div className={styles.ctaGrid} aria-hidden="true" />
           <span className={styles.secTag}>Projenizi Konuşalım</span>

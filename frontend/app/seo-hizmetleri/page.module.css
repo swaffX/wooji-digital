@@ -633,7 +633,7 @@
 }
 
 @media (max-width: 768px) {
-  .scene { filter: none; }
+  .scene { filter: none; will-change: auto; }
   .resTop,
   .resMuted:nth-of-type(2),
   .resMuted:nth-of-type(3),

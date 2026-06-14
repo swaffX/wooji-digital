@@ -956,6 +956,7 @@
   .ac1,
   .acHeadline { animation: none; }
   .ac1 { transform: translate(-50%, -50%) translateZ(58px); }
+  .scene { will-change: auto; }
 }
 
 @media (prefers-reduced-motion: reduce) {

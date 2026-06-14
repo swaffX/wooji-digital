@@ -1,5 +1,13 @@
 'use client'
 import { useRef, useState, useCallback } from 'react'
+import {
+  motion,
+  useMotionValue,
+  useSpring,
+  useTransform,
+  useMotionTemplate,
+  useReducedMotion,
+} from 'framer-motion'
 import styles from './AboutCard3D.module.css'
 
 interface Pillar {
@@ -15,71 +23,84 @@ interface Props {
   tag: string
 }
 
-const IDLE_TILT = { x: 0, y: 0 }
+const SPRING = { stiffness: 320, damping: 30, mass: 0.6 }
 
 export default function AboutCard3D({ pillars, introText, tag }: Props) {
-  const cardRef  = useRef<HTMLDivElement>(null)
-  const frameRef = useRef<number | undefined>(undefined)
-  const [tilt, setTilt]     = useState(IDLE_TILT)
-  const [glare, setGlare]   = useState({ x: 30, y: 30, active: false })
+  const reduce = useReducedMotion()
+  const cardRef = useRef<HTMLDivElement>(null)
   const [active, setActive] = useState(false)
+  const [glareOn, setGlareOn] = useState(false)
+
+  const tiltX = useMotionValue(0)
+  const tiltY = useMotionValue(0)
+  const glareX = useMotionValue(30)
+  const glareY = useMotionValue(30)
+
+  const rotX = useSpring(tiltX, SPRING)
+  const rotY = useSpring(tiltY, SPRING)
+
+  const cardTransform = useMotionTemplate`perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg)`
+  const glareBg = useMotionTemplate`radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255,255,255,0.18) 0%, transparent 55%)`
+
+  const orb1X = useTransform(rotY, (v) => v * 3)
+  const orb1Y = useTransform(rotX, (v) => -v * 3)
+  const orb2X = useTransform(rotY, (v) => -v * 4)
+  const orb2Y = useTransform(rotX, (v) => v * 4)
+
+  const pillarX = useTransform(rotY, (v) => v * 0.5)
+  const pillarY = useTransform(rotX, (v) => -v * 0.5)
+
+  const shadowX = useTransform(rotY, (v) => v * 4)
+  const shadowY = useTransform(rotX, (v) => v * 2)
 
   const onMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    if (reduce) return
     if (!cardRef.current) return
-    if (frameRef.current) cancelAnimationFrame(frameRef.current)
-    frameRef.current = requestAnimationFrame(() => {
-      const r  = cardRef.current!.getBoundingClientRect()
-      const dx = (e.clientX - r.left - r.width  / 2) / (r.width  / 2)
-      const dy = (e.clientY - r.top  - r.height / 2) / (r.height / 2)
-      setActive(true)
-      setTilt({ x: -dy * 11, y: dx * 11 })
-      setGlare({
-        x: ((e.clientX - r.left) / r.width)  * 100,
-        y: ((e.clientY - r.top)  / r.height) * 100,
-        active: true,
-      })
-    })
-  }, [])
+    const r = cardRef.current.getBoundingClientRect()
+    const dx = (e.clientX - r.left - r.width / 2) / (r.width / 2)
+    const dy = (e.clientY - r.top - r.height / 2) / (r.height / 2)
+    tiltX.set(-dy * 11)
+    tiltY.set(dx * 11)
+    glareX.set(((e.clientX - r.left) / r.width) * 100)
+    glareY.set(((e.clientY - r.top) / r.height) * 100)
+    setActive(true)
+    setGlareOn(true)
+  }, [reduce, tiltX, tiltY, glareX, glareY])
 
   const onLeave = useCallback(() => {
-    if (frameRef.current) cancelAnimationFrame(frameRef.current)
+    tiltX.set(0)
+    tiltY.set(0)
     setActive(false)
-    setTilt(IDLE_TILT)
-    setGlare((g) => ({ ...g, active: false }))
-  }, [])
+    setGlareOn(false)
+  }, [tiltX, tiltY])
 
   return (
     <div className={`${styles.scene}${active ? ` ${styles.sceneActive}` : ''}`}>
-      <div
+      <motion.div
         ref={cardRef}
         className={styles.card}
-        style={{
-          transform: `perspective(900px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
-          transition: active
-            ? 'transform 60ms linear'
-            : 'transform 700ms cubic-bezier(0.23, 1, 0.32, 1)',
-        }}
+        style={reduce ? undefined : { transform: cardTransform }}
         onMouseMove={onMove}
         onMouseLeave={onLeave}
       >
         {/* specular glare */}
-        <div
+        <motion.div
           className={styles.glare}
           style={{
-            background: `radial-gradient(circle at ${glare.x}% ${glare.y}%, rgba(255,255,255,0.18) 0%, transparent 55%)`,
-            opacity: glare.active ? 1 : 0,
-            transition: glare.active ? 'opacity 80ms' : 'opacity 400ms',
+            background: glareBg,
+            opacity: glareOn ? 1 : 0,
+            transition: glareOn ? 'opacity 80ms' : 'opacity 400ms',
           }}
         />
 
         {/* ambient orbs */}
-        <div
+        <motion.div
           className={styles.orb1}
-          style={{ transform: `translate(${tilt.y * 3}px, ${-tilt.x * 3}px)` }}
+          style={reduce ? undefined : { x: orb1X, y: orb1Y }}
         />
-        <div
+        <motion.div
           className={styles.orb2}
-          style={{ transform: `translate(${-tilt.y * 4}px, ${tilt.x * 4}px)` }}
+          style={reduce ? undefined : { x: orb2X, y: orb2Y }}
         />
 
         {/* content */}
@@ -89,35 +110,32 @@ export default function AboutCard3D({ pillars, introText, tag }: Props) {
 
           <div className={styles.grid}>
             {pillars.map((p, i) => (
-              <div
+              <motion.div
                 key={p.title}
                 className={styles.pillar}
-                style={{
-                  transform: `translateZ(${10 + i * 6}px) translate(${tilt.y * 0.5}px, ${-tilt.x * 0.5}px)`,
-                  transition: active
-                    ? 'transform 60ms linear'
-                    : 'transform 700ms cubic-bezier(0.23, 1, 0.32, 1)',
-                }}
+                style={
+                  reduce
+                    ? undefined
+                    : { z: 10 + i * 6, x: pillarX, y: pillarY }
+                }
               >
                 <span className={styles.num}>{p.num}</span>
                 <div className={styles.iconWrap}>{p.icon}</div>
                 <h4>{p.title}</h4>
                 <p>{p.desc}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* dynamic shadow */}
-      <div
+      <motion.div
         className={styles.shadow}
         style={{
-          transform: `translateX(${tilt.y * 4}px) translateY(${tilt.x * 2}px)`,
+          ...(reduce ? {} : { x: shadowX, y: shadowY }),
           opacity: active ? 0.55 : 0.38,
-          transition: active
-            ? 'transform 60ms linear, opacity 60ms'
-            : 'transform 700ms cubic-bezier(0.23,1,0.32,1), opacity 400ms',
+          transition: active ? 'opacity 60ms' : 'opacity 400ms',
         }}
       />
     </div>

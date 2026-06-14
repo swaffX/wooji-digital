@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: 'İletişim | Wooji Digital',
   description:
     'Wooji Digital ile iletişime geçin. Ücretsiz danışmanlık için formu doldurun veya doğrudan ulaşın.',
+  alternates: { canonical: '/iletisim' },
 }
 
 export default function IletisimPage() {

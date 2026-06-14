@@ -359,6 +359,7 @@
   .adCard,
   .adImg,
   .floatChip, .floatChip2 { animation: none; }
+  .scene { will-change: auto; }
 }
 
 @media (prefers-reduced-motion: reduce) {

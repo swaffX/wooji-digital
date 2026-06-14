@@ -442,6 +442,7 @@
     animation: none;
   }
   .browserWrap { will-change: auto; }
+  .scene { will-change: auto; }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -10,7 +10,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
     <>
       <ScrollBar />
       <Navbar />
-      <main>{children}</main>
+      <main id="icerik" tabIndex={-1}>{children}</main>
       <Footer />
       <AiChat />
       <StickyMobileCta />

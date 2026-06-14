@@ -50,9 +50,13 @@ export default function Newsletter() {
             type="submit"
             className={`btn btn-fill ${status === 'success' ? styles.success : status === 'error' ? styles.error : ''}`}
             disabled={status === 'loading'}
+            aria-busy={status === 'loading'}
           >
             {status === 'loading' ? 'Gönderiliyor...' : status === 'success' ? 'Abone Oldunuz!' : status === 'error' ? 'Hata!' : 'Abone Ol'}
           </button>
+          <p className="sr-only" role="status" aria-live="polite">
+            {status === 'loading' ? 'Abone olunuyor' : status === 'success' ? 'Abone oldunuz' : status === 'error' ? 'Hata oluştu, tekrar deneyin' : ''}
+          </p>
         </form>
       </div>
     </section>

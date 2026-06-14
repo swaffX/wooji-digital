@@ -320,6 +320,7 @@ export default function Contact() {
                     type="submit"
                     className={`${styles.submitBtn} ${status === 'success' ? styles.success : status === 'error' ? styles.error : ''}`}
                     disabled={status === 'loading'}
+                    aria-busy={status === 'loading'}
                     whileHover={{ scale: status === 'idle' ? 1.015 : 1 }}
                     whileTap={{ scale: 0.98 }}
                     transition={{ duration: 0.18 }}
@@ -351,6 +352,10 @@ export default function Contact() {
                       </>
                     )}
                   </motion.button>
+
+                  <p className="sr-only" role="status" aria-live="polite">
+                    {status === 'loading' ? 'Mesajınız gönderiliyor' : status === 'error' ? 'Hata oluştu, tekrar deneyin' : status === 'success' ? 'Mesajınız iletildi' : ''}
+                  </p>
                 </form>
               </motion.div>
             </div>

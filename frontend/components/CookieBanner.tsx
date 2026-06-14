@@ -16,7 +16,7 @@ export default function CookieBanner() {
   return (
     <AnimatePresence>
       {visible && (
-        <div className={styles.banner} role="dialog" aria-label="Çerez bildirimi">
+        <div className={styles.banner} role="region" aria-label="Çerez bildirimi">
           <motion.div
             className={styles.inner}
             initial={{ y: 80, opacity: 0 }}

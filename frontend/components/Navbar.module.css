@@ -126,6 +126,10 @@
 /* ── Hamburger ── */
 .hamburger {
   display: none;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
   background: none;
   border: none;
   cursor: pointer;
@@ -481,7 +485,7 @@
 @media (max-width: 800px) {
   .navLinks  { display: none; }
   .ctaWrap   { display: none; }
-  .hamburger { display: block; }
+  .hamburger { display: flex; }
 
   .pill {
     padding: 0.5rem 0.5rem 0.5rem 0.875rem;

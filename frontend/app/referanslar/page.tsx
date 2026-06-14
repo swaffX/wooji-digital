@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: 'Referanslarımız | Wooji Digital',
   description:
     'Wooji Digital ile büyüyen markaların başarı hikayeleri. SEO, reklam ve sosyal medya projelerinde elde edilen somut sonuçlar.',
+  alternates: { canonical: '/referanslar' },
 }
 
 const caseStudies = [

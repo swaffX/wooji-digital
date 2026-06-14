@@ -331,7 +331,7 @@ export default function DijitalContent() {
           <motion.aside
             ref={funnelRef}
             className={styles.funnel}
-            initial={{ opacity: 0, y: 30 }}
+            initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={VIEWPORT}
             transition={{ duration: 0.7, ease: EASE }}
@@ -344,7 +344,7 @@ export default function DijitalContent() {
                   key={s.label}
                   className={styles.funnelRow}
                   style={{ width: `${s.width}%` }}
-                  initial={{ opacity: 0, scaleX: reduce ? 1 : 0.7 }}
+                  initial={reduce ? { opacity: 1, scaleX: 1 } : { opacity: 0, scaleX: 0.7 }}
                   whileInView={{ opacity: 1, scaleX: 1 }}
                   viewport={VIEWPORT}
                   transition={{ duration: 0.55, delay: 0.15 + i * 0.12, ease: EASE }}
@@ -381,7 +381,7 @@ export default function DijitalContent() {
               <motion.li
                 key={c}
                 className={styles.checkItem}
-                initial={{ opacity: 0, x: -12 }}
+                initial={reduce ? { opacity: 1, x: 0 } : { opacity: 0, x: -12 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={VIEWPORT}
                 transition={{ duration: 0.45, delay: 0.1 + i * 0.08, ease: EASE }}
@@ -408,7 +408,7 @@ export default function DijitalContent() {
             <motion.div
               key={s.n}
               className={styles.pipeNode}
-              initial={{ opacity: 0, y: 26 }}
+              initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 26 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={VIEWPORT}
               transition={{ duration: 0.55, delay: i * 0.1, ease: EASE }}
@@ -455,7 +455,7 @@ export default function DijitalContent() {
               <motion.div
                 key={f.q}
                 className={`${styles.faqItem} ${open ? styles.faqItemOpen : ''}`}
-                initial={{ opacity: 0, y: 16 }}
+                initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={VIEWPORT}
                 transition={{ duration: 0.5, delay: i * 0.06, ease: EASE }}
@@ -487,7 +487,7 @@ export default function DijitalContent() {
         <motion.div
           className={styles.ctaCard}
           onMouseMove={onCtaMove}
-          initial={{ opacity: 0, y: 40 }}
+          initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={VIEWPORT}
           transition={{ duration: 0.7, ease: EASE }}

@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -37,12 +37,62 @@ export default function Navbar() {
   const pathname = usePathname()
   const isHome   = pathname === '/'
 
+  const mobMenuRef    = useRef<HTMLDivElement>(null)
+  const mobCloseRef   = useRef<HTMLButtonElement>(null)
+  const servicesTriggerRef = useRef<HTMLAnchorElement>(null)
+
   const href        = (key: string) => isHome ? `#${key}` : `/${key}`
   const contactHref = isHome ? '#iletisim' : '/iletisim'
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
+  }, [isOpen])
+
+  useEffect(() => {
+    if (!isOpen) return
+
+    const previouslyFocused = document.activeElement as HTMLElement | null
+    const FOCUSABLE = 'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])'
+
+    const getFocusable = (): HTMLElement[] => {
+      const menu = mobMenuRef.current
+      if (!menu) return []
+      return Array.from(menu.querySelectorAll<HTMLElement>(FOCUSABLE)).filter(
+        (el) => el.offsetParent !== null || el === document.activeElement
+      )
+    }
+
+    mobCloseRef.current?.focus()
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        e.preventDefault()
+        close()
+        return
+      }
+      if (e.key !== 'Tab') return
+      const focusable = getFocusable()
+      if (focusable.length === 0) return
+      const first = focusable[0]
+      const last  = focusable[focusable.length - 1]
+      const active = document.activeElement as HTMLElement | null
+      if (e.shiftKey) {
+        if (active === first || !mobMenuRef.current?.contains(active)) {
+          e.preventDefault()
+          last.focus()
+        }
+      } else if (active === last || !mobMenuRef.current?.contains(active)) {
+        e.preventDefault()
+        first.focus()
+      }
+    }
+
+    document.addEventListener('keydown', onKeyDown)
+    return () => {
+      document.removeEventListener('keydown', onKeyDown)
+      previouslyFocused?.focus()
+    }
   }, [isOpen])
 
   useEffect(() => {
@@ -119,11 +169,25 @@ export default function Navbar() {
               className={styles.dropdownWrap}
               onMouseEnter={() => setServicesOpen(true)}
               onMouseLeave={() => setServicesOpen(false)}
+              onFocus={() => setServicesOpen(true)}
+              onBlur={(e) => {
+                if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setServicesOpen(false)
+              }}
+              onKeyDown={(e) => {
+                if (e.key === 'Escape' && servicesOpen) {
+                  setServicesOpen(false)
+                  servicesTriggerRef.current?.focus()
+                }
+              }}
             >
               <Link
+                ref={servicesTriggerRef}
                 href={href('hizmetler')}
                 onClick={close}
                 className={`${styles.dropdownTrigger}${activeSection === 'hizmetler' ? ` ${styles.activeLink}` : ''}`}
+                aria-haspopup="true"
+                aria-expanded={servicesOpen}
+                aria-controls="services-menu"
               >
                 Hizmetler
                 <svg
@@ -143,12 +207,12 @@ export default function Navbar() {
               <AnimatePresence>
                 {servicesOpen && (
                   <motion.div
+                    id="services-menu"
                     className={styles.dropdown}
                     initial={{ opacity: 0, y: -6, scale: 0.97, x: '-50%' }}
                     animate={{ opacity: 1, y: 0,  scale: 1,    x: '-50%' }}
                     exit={{ opacity: 0, y: -6, scale: 0.97, x: '-50%' }}
                     transition={{ duration: 0.12, ease: [0.4, 0, 0.2, 1] }}
-                    role="menu"
                   >
                     {serviceLinks.map((s) => (
                       <Link
@@ -156,7 +220,6 @@ export default function Navbar() {
                         href={s.href}
                         className={styles.dropdownItem}
                         onClick={close}
-                        role="menuitem"
                       >
                         {s.label}
                       </Link>
@@ -224,6 +287,7 @@ export default function Navbar() {
             />
 
             <motion.div
+              ref={mobMenuRef}
               className={styles.mobMenu}
               initial={{ opacity: 0, x: '100%' }}
               animate={{ opacity: 1, x: 0 }}
@@ -239,6 +303,7 @@ export default function Navbar() {
                 <div className={styles.mobHeaderRight}>
                   <ThemeToggle />
                   <motion.button
+                    ref={mobCloseRef}
                     className={styles.mobClose}
                     onClick={close}
                     whileTap={{ scale: 0.9 }}

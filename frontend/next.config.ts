@@ -52,6 +52,15 @@ const nextConfig: NextConfig = {
       },
     ]
   },
+  async redirects() {
+    return [
+      {
+        source: '/blog/seo-nin-gelecegi-2024',
+        destination: '/blog/seo-nin-gelecegi-2025',
+        permanent: true,
+      },
+    ]
+  },
 }
 
 export default withBundleAnalyzer(nextConfig)

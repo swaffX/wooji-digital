@@ -4,13 +4,13 @@ import SocialFeed from './SocialFeed'
 import styles from './Footer.module.css'
 
 const quickLinks = [
-  { label: 'Hizmetler',   href: '#hizmetler'   },
-  { label: 'Hakkımızda',  href: '#hakkimizda'  },
-  { label: 'Süreç',       href: '#surec'        },
-  { label: 'Referanslar', href: '#referanslar'  },
-  { label: 'SSS',         href: '#sss'          },
+  { label: 'Hizmetler',   href: '/#hizmetler'   },
+  { label: 'Hakkımızda',  href: '/#hakkimizda'  },
+  { label: 'Süreç',       href: '/#surec'        },
+  { label: 'Referanslar', href: '/#referanslar'  },
+  { label: 'SSS',         href: '/#sss'          },
   { label: 'Blog',        href: '/blog'         },
-  { label: 'İletişim',    href: '#iletisim'     },
+  { label: 'İletişim',    href: '/#iletisim'     },
 ]
 
 const services = [
@@ -29,6 +29,11 @@ export default function Footer() {
   const submit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!email) return
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setStatus('err')
+      setTimeout(() => setStatus('idle'), 4000)
+      return
+    }
     setStatus('loading')
     try {
       const res = await fetch('/api/newsletter', {
@@ -53,7 +58,7 @@ export default function Footer() {
           {/* ── Col 1: Newsletter ── */}
           <div className={styles.newsletter}>
             <div className={styles.glow} aria-hidden="true" />
-            <a href="#" className={styles.logo} aria-label="Wooji Digital Ana Sayfa">
+            <a href="/" className={styles.logo} aria-label="Wooji Digital Ana Sayfa">
               Wooji <span className={styles.logoAccent}>Digital</span>
             </a>
             <p className={styles.newsletterDesc}>
@@ -74,6 +79,7 @@ export default function Footer() {
                 type="submit"
                 className={`${styles.sendBtn} ${status === 'ok' ? styles.sendOk : ''}`}
                 disabled={status === 'loading' || status === 'ok'}
+                aria-busy={status === 'loading'}
                 aria-label="Abone ol"
               >
                 {status === 'ok' ? (
@@ -88,8 +94,8 @@ export default function Footer() {
                 )}
               </button>
             </form>
-            {status === 'ok'  && <p className={styles.msg}>Teşekkürler! Abone oldunuz.</p>}
-            {status === 'err' && <p className={`${styles.msg} ${styles.msgErr}`}>Bir hata oluştu. Tekrar deneyin.</p>}
+            {status === 'ok'  && <p className={styles.msg} role="status" aria-live="polite">Teşekkürler! Abone oldunuz.</p>}
+            {status === 'err' && <p className={`${styles.msg} ${styles.msgErr}`} role="status" aria-live="polite">Bir hata oluştu. Tekrar deneyin.</p>}
           </div>
 
           {/* ── Col 2: Hizmetler ── */}
@@ -119,7 +125,7 @@ export default function Footer() {
               <a href="tel:+905XXXXXXXXX">+90 (XXX) XXX XX XX</a>
               <a href="mailto:info@woojidigital.com">info@woojidigital.com</a>
               <span>İstanbul, Türkiye</span>
-              <a href="#iletisim" className={styles.consultLink}>Ücretsiz Danışmanlık →</a>
+              <a href="/#iletisim" className={styles.consultLink}>Ücretsiz Danışmanlık →</a>
             </address>
 
             <h4 className={`${styles.colHead} ${styles.colHeadSoc}`}>Bizi Takip Edin</h4>

@@ -330,7 +330,7 @@ export default function SeoContent() {
         <div className={styles.featLayout}>
           <motion.div
             className={styles.auditCard}
-            initial={{ opacity: 0, y: 36 }}
+            initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 36 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={VIEWPORT}
             transition={{ duration: 0.7, ease: EASE }}
@@ -349,7 +349,7 @@ export default function SeoContent() {
                 <motion.li
                   key={c}
                   className={styles.checkItem}
-                  initial={{ opacity: 0, x: -14 }}
+                  initial={reduce ? { opacity: 1, x: 0 } : { opacity: 0, x: -14 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={VIEWPORT}
                   transition={{ duration: 0.45, delay: 0.2 + i * 0.09, ease: EASE }}
@@ -372,7 +372,7 @@ export default function SeoContent() {
                 key={f.title}
                 className={styles.rung}
                 style={{ ['--rung' as string]: String(i) }}
-                initial={{ opacity: 0, y: 30 }}
+                initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={VIEWPORT}
                 transition={{ duration: 0.6, delay: i * 0.09, ease: EASE }}
@@ -395,7 +395,7 @@ export default function SeoContent() {
         <div className={styles.pillarLayout}>
           <motion.div
             className={styles.pillarSticky}
-            initial={{ opacity: 0, y: 28 }}
+            initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 28 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={VIEWPORT}
             transition={{ duration: 0.7, ease: EASE }}
@@ -411,7 +411,7 @@ export default function SeoContent() {
               <motion.article
                 key={p.t}
                 className={styles.pillar}
-                initial={{ opacity: 0, y: 40 }}
+                initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={VIEWPORT}
                 transition={{ duration: 0.65, delay: i * 0.08, ease: EASE }}
@@ -443,7 +443,7 @@ export default function SeoContent() {
               key={s.n}
               className={styles.stage}
               style={{ ['--stage' as string]: String(STEPS.length - 1 - i) }}
-              initial={{ opacity: 0, y: 28 }}
+              initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={VIEWPORT}
               transition={{ duration: 0.6, ease: EASE }}
@@ -466,7 +466,7 @@ export default function SeoContent() {
         <div className={styles.faqLayout}>
           <motion.div
             className={styles.faqHead}
-            initial={{ opacity: 0, y: 28 }}
+            initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 28 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={VIEWPORT}
             transition={{ duration: 0.7, ease: EASE }}
@@ -483,7 +483,7 @@ export default function SeoContent() {
                 <motion.div
                   key={f.q}
                   className={`${styles.faqItem} ${open ? styles.faqItemOpen : ''}`}
-                  initial={{ opacity: 0, y: 16 }}
+                  initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={VIEWPORT}
                   transition={{ duration: 0.5, delay: i * 0.06, ease: EASE }}
@@ -518,7 +518,7 @@ export default function SeoContent() {
         <motion.div
           className={styles.ctaCard}
           onMouseMove={onCtaMove}
-          initial={{ opacity: 0, y: 40 }}
+          initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={VIEWPORT}
           transition={{ duration: 0.7, ease: EASE }}

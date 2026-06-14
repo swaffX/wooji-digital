@@ -426,7 +426,7 @@ export default function SosyalContent() {
                 <motion.li
                   key={c}
                   className={styles.checkItem}
-                  initial={{ opacity: 0, x: -12 }}
+                  initial={reduce ? { opacity: 1, x: 0 } : { opacity: 0, x: -12 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={VIEWPORT}
                   transition={{ duration: 0.45, delay: 0.18 + i * 0.09, ease: EASE }}
@@ -518,7 +518,7 @@ export default function SosyalContent() {
                   onMouseEnter={() => setActiveNode(i)}
                   onFocus={() => setActiveNode(i)}
                   onClick={() => setActiveNode(i)}
-                  initial={{ opacity: 0, scale: 0.6 }}
+                  initial={reduce ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.6 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={VIEWPORT}
                   transition={{ duration: 0.5, delay: 0.15 + i * 0.12, ease: EASE }}
@@ -590,7 +590,7 @@ export default function SosyalContent() {
               <motion.div
                 key={f.q}
                 className={styles.chatRow}
-                initial={{ opacity: 0, y: 18 }}
+                initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={VIEWPORT}
                 transition={{ duration: 0.5, delay: i * 0.06, ease: EASE }}
@@ -631,7 +631,7 @@ export default function SosyalContent() {
         <motion.div
           className={styles.ctaCard}
           onMouseMove={onCtaMove}
-          initial={{ opacity: 0, y: 40 }}
+          initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={VIEWPORT}
           transition={{ duration: 0.7, ease: EASE }}

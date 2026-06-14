@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: 'Sıkça Sorulan Sorular | Wooji Digital',
   description:
     'Wooji Digital hizmetleri hakkında sıkça sorulan sorular ve yanıtları. Fiyatlandırma, süreç ve sonuçlar hakkında merak ettikleriniz.',
+  alternates: { canonical: '/sss' },
 }
 
 export default function SSSPage() {

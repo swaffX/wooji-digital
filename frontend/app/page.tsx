@@ -16,7 +16,7 @@ export default function Home() {
     <>
       <ScrollBar />
       <Navbar />
-      <main>
+      <main id="icerik" tabIndex={-1}>
         <Hero />
         <Services />
         <About />

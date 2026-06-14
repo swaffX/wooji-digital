@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: 'Çalışma Modelimiz | Wooji Digital',
   description:
     'Wooji Digital ile nasıl çalışılır? Analiz, strateji, uygulama ve raporlama adımlarından oluşan şeffaf metodolojimizi keşfedin.',
+  alternates: { canonical: '/surec' },
 }
 
 const commitments = [

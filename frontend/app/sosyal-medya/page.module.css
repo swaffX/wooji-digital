@@ -427,16 +427,19 @@
 .platBadgeA {
   top: 7%;
   right: -2%;
+  transform: translateZ(140px);
   animation: chipFloatA 5.5s ease-in-out infinite;
 }
 .platBadgeB {
   top: 46%;
   left: -8%;
+  transform: translateZ(96px);
   animation: chipFloatB 6.5s 0.7s ease-in-out infinite;
 }
 .platBadgeC {
   bottom: 6%;
   right: 4%;
+  transform: translateZ(110px);
   animation: chipFloatC 7.5s 1.4s ease-in-out infinite;
 }
 @keyframes chipFloatA {
@@ -1182,6 +1185,9 @@
   }
   .phone {
     transform: translateZ(48px);
+  }
+  .scene {
+    will-change: auto;
   }
   .loopArc {
     filter: none;

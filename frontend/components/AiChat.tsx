@@ -231,7 +231,7 @@ export default function AiChat() {
       <motion.button
         className={styles.trigger}
         onClick={() => setOpen(v => !v)}
-        aria-label={open ? 'Canlı Destekı kapat' : 'Canlı Destekı aç'}
+        aria-label={open ? 'Canlı Desteği kapat' : 'Canlı Desteği aç'}
         aria-expanded={open}
         whileHover={{ scale: 1.04 }}
         whileTap={{ scale: 0.96 }}

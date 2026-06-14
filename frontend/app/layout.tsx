@@ -47,16 +47,12 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL('https://woojidigital.com'),
   alternates: { canonical: '/' },
-  verification: {
-    google: 'GOOGLE_SEARCH_CONSOLE_TOKEN', // TODO: replace with token from Search Console → Settings → Ownership verification → HTML tag
-  },
   openGraph: {
     type: 'website',
     url: 'https://woojidigital.com/',
     title: 'Wooji Digital | Dijital Pazarlama & Marka Büyütme Ajansı',
     description:
       'SEO, reklam yönetimi, web tasarım ve dijital strateji hizmetleriyle markanızı büyütüyoruz. Ücretsiz danışmanlık için iletişime geçin.',
-    images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'Wooji Digital — Dijital Pazarlama Ajansı' }],
     locale: 'tr_TR',
     siteName: 'Wooji Digital',
   },
@@ -67,7 +63,6 @@ export const metadata: Metadata = {
     title: 'Wooji Digital | Dijital Pazarlama Ajansı',
     description:
       'SEO, reklam yönetimi, web tasarım ve dijital strateji hizmetleriyle markanızı büyütüyoruz.',
-    images: [{ url: '/og-image.jpg', alt: 'Wooji Digital' }],
   },
 }
 
@@ -85,7 +80,7 @@ const schemaGraph = {
         width: 200,
         height: 60,
       },
-      image: 'https://woojidigital.com/og-image.jpg',
+      image: 'https://woojidigital.com/logo.jpg',
       description: 'Dijital pazarlama, SEO, reklam yönetimi, web tasarım ve marka büyütme hizmetleri sunan modern dijital ajans.',
       email: 'info@woojidigital.com',
       foundingDate: '2023',
@@ -110,7 +105,7 @@ const schemaGraph = {
       '@id': 'https://woojidigital.com/#business',
       name: 'Wooji Digital',
       url: 'https://woojidigital.com/',
-      image: 'https://woojidigital.com/og-image.jpg',
+      image: 'https://woojidigital.com/logo.jpg',
       priceRange: '$$',
       email: 'info@woojidigital.com',
       address: {
@@ -168,11 +163,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
+        <a href="#icerik" className="skip-link">İçeriğe geç</a>
         <SmoothScroll />
         {children}
         <CookieBanner />
         <WebVitals />
-        {/* Google Analytics — replace G-XXXXXXXXXX with real ID */}
+        {/* Google Analytics (GA4) */}
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
           strategy="afterInteractive"

@@ -1,5 +1,6 @@
 'use client'
 import { useRef, useCallback } from 'react'
+import Image from 'next/image'
 import { motion, useInView, useMotionValue, useSpring } from 'framer-motion'
 import styles from './SocialFeed.module.css'
 
@@ -67,9 +68,11 @@ export default function SocialFeed() {
             <div className={styles.cardContent}>
               {/* Avatar */}
               <div className={styles.avatarWrap} style={{ transform: 'translateZ(24px)' }}>
-                <img
+                <Image
                   src="/logo.jpg"
                   alt="Wooji Digital profil fotoğrafı"
+                  width={64}
+                  height={64}
                   className={styles.avatar}
                 />
                 <div className={styles.avatarRing} aria-hidden="true" />

@@ -29,6 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       authors: ['Wooji Digital'],
       url: `https://woojidigital.com/blog/${post.slug}`,
     },
+    alternates: { canonical: `/blog/${post.slug}` },
   }
 }
 
@@ -105,6 +106,9 @@ function renderContent(raw: string) {
 
 function formatInline(text: string): string {
   return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
     .replace(/`(.+?)`/g, '<code>$1</code>')
 }
@@ -139,7 +143,7 @@ export default async function BlogPostPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
       <Navbar />
-      <main className={styles.main}>
+      <main id="icerik" tabIndex={-1} className={styles.main}>
         <div className={styles.heroWrap}>
           <div className={styles.heroBg} style={{ '--accent': post.color } as React.CSSProperties} />
           <div className={styles.heroInner}>
