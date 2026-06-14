@@ -57,7 +57,7 @@ apply_caddy_cf_lock() {
     echo "Caddy: woojidigital.com site block not matched — leaving config unchanged (no-op)"
     rm -f "$TMP"; return 0
   fi
-  if ! VERR="$(caddy validate --config "$TMP" 2>&1)"; then
+  if ! VERR="$(caddy validate --config "$TMP" --adapter caddyfile 2>&1)"; then
     echo "Caddy: candidate config invalid — no-op. validate output:"
     printf '%s\n' "$VERR" | head -25
     rm -f "$TMP"; return 0
@@ -65,12 +65,12 @@ apply_caddy_cf_lock() {
   cp "$CF" "$BAK"
   cp "$TMP" "$CF"
   rm -f "$TMP"
-  if systemctl reload caddy 2>/dev/null || caddy reload --config "$CF" 2>/dev/null; then
+  if systemctl reload caddy 2>/dev/null || caddy reload --config "$CF" --adapter caddyfile 2>/dev/null; then
     echo "Caddy: Cloudflare origin lock applied + reloaded (backup: $BAK)"
   else
     echo "Caddy: reload FAILED — restoring backup $BAK"
     cp "$BAK" "$CF"
-    systemctl reload caddy 2>/dev/null || caddy reload --config "$CF" 2>/dev/null || true
+    systemctl reload caddy 2>/dev/null || caddy reload --config "$CF" --adapter caddyfile 2>/dev/null || true
   fi
 }
 apply_caddy_cf_lock || true
