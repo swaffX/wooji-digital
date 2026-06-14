@@ -289,10 +289,10 @@ export default function Navbar() {
             <motion.div
               ref={mobMenuRef}
               className={styles.mobMenu}
-              initial={{ opacity: 0, x: '100%' }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: '100%' }}
-              transition={{ type: 'spring', damping: 28, stiffness: 300 }}
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'tween', duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
               role="dialog"
               aria-modal="true"
               aria-label="Mobil navigasyon"
@@ -321,21 +321,10 @@ export default function Navbar() {
               <div className={styles.mobBody}>
 
                 {/* Section label */}
-                <motion.p
-                  className={styles.mobSectionLabel}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.08 }}
-                >
-                  Navigasyon
-                </motion.p>
+                <p className={styles.mobSectionLabel}>Navigasyon</p>
 
                 {/* Ana Sayfa row */}
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 }}
-                >
+                <div>
                   <Link
                     href="/"
                     onClick={close}
@@ -351,14 +340,10 @@ export default function Navbar() {
                       <path d="M5 12h14M12 5l7 7-7 7"/>
                     </svg>
                   </Link>
-                </motion.div>
+                </div>
 
                 {/* Hizmetler row */}
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.12 }}
-                >
+                <div>
                   <button
                     className={styles.mobNavRow}
                     onClick={() => setMobServices((v) => !v)}
@@ -404,16 +389,11 @@ export default function Navbar() {
                       ))}
                     </div>
                   </div>
-                </motion.div>
+                </div>
 
                 {/* Nav items */}
                 {navItems.map((item, i) => (
-                  <motion.div
-                    key={item.key}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.055 + 0.18 }}
-                  >
+                  <div key={item.key}>
                     <Link
                       href={href(item.key)}
                       onClick={close}
@@ -427,17 +407,12 @@ export default function Navbar() {
                         <path d="M5 12h14M12 5l7 7-7 7"/>
                       </svg>
                     </Link>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
 
               {/* ── Footer CTA ── */}
-              <motion.div
-                className={styles.mobFooter}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.48 }}
-              >
+              <div className={styles.mobFooter}>
                 <p className={styles.mobFooterTag}>Ücretsiz danışmanlık</p>
                 <Link href={contactHref} className={styles.mobCta} onClick={close}>
                   İletişim Al
@@ -445,7 +420,7 @@ export default function Navbar() {
                     <path d="M5 12h14M12 5l7 7-7 7"/>
                   </svg>
                 </Link>
-              </motion.div>
+              </div>
             </motion.div>
           </>
         )}
