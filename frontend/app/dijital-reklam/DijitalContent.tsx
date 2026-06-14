@@ -33,6 +33,38 @@ const arrow = (
   </svg>
 )
 
+const PLATFORMS = [
+  {
+    name: 'Google Ads',
+    role: 'Arama, Display ve Shopping kampanyaları.',
+    icon: (
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden="true">
+        <circle cx="11" cy="11" r="8" />
+        <path d="m21 21-4.35-4.35" />
+        <path d="M11 7v8M7 11h8" />
+      </svg>
+    ),
+  },
+  {
+    name: 'Meta Reklam',
+    role: 'Facebook ve Instagram ekosisteminde güçlü hedefleme.',
+    icon: (
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden="true">
+        <rect x="2" y="2" width="20" height="20" rx="5.5" />
+        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+      </svg>
+    ),
+  },
+] as const
+
+const FUNNEL = [
+  { label: 'Erişim', width: 100 },
+  { label: 'Tıklama', width: 80 },
+  { label: 'İlgi', width: 58 },
+  { label: 'Dönüşüm', width: 34 },
+] as const
+
 const FEATURES = [
   {
     title: 'Google Ads',
@@ -107,16 +139,16 @@ export default function DijitalContent() {
   const reduce = useReducedMotion()
   const [openFaq, setOpenFaq] = useState<number | null>(0)
 
-  // Hero parallax
   const px = useMotionValue(0)
   const py = useMotionValue(0)
   const sx = useSpring(px, { stiffness: 110, damping: 18 })
   const sy = useSpring(py, { stiffness: 110, damping: 18 })
-  const rotX = useTransform(sy, [-0.5, 0.5], [9, -9])
-  const rotY = useTransform(sx, [-0.5, 0.5], [-13, 13])
-  const orbX = useTransform(sx, [-0.5, 0.5], [-26, 26])
-  const orbY = useTransform(sy, [-0.5, 0.5], [-18, 18])
+  const rotX = useTransform(sy, [-0.5, 0.5], [10, -10])
+  const rotY = useTransform(sx, [-0.5, 0.5], [-14, 14])
+  const orbX = useTransform(sx, [-0.5, 0.5], [-28, 28])
+  const orbY = useTransform(sy, [-0.5, 0.5], [-20, 20])
   const orb2X = useTransform(orbX, (v) => -v)
+  const sweepGlow = useMotionTemplate`drop-shadow(0 0 6px color-mix(in srgb, var(--acc2) 70%, transparent))`
 
   const onHeroMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (reduce) return
@@ -129,15 +161,14 @@ export default function DijitalContent() {
     py.set(0)
   }
 
-  // Process scroll-linked line
-  const timelineRef = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll({ target: timelineRef, offset: ['start 0.85', 'end 0.55'] })
-  const lineScale = useSpring(scrollYProgress, { stiffness: 90, damping: 24 })
+  const funnelRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({ target: funnelRef, offset: ['start 0.9', 'end 0.6'] })
+  const funnelFill = useSpring(scrollYProgress, { stiffness: 80, damping: 26 })
+  const funnelMarkerY = useTransform(funnelFill, [0, 1], ['2%', '92%'])
 
-  // CTA cursor glow
   const gx = useMotionValue(50)
   const gy = useMotionValue(40)
-  const ctaGlow = useMotionTemplate`radial-gradient(440px circle at ${gx}% ${gy}%, rgba(37,99,235,0.34), transparent 70%)`
+  const ctaGlow = useMotionTemplate`radial-gradient(440px circle at ${gx}% ${gy}%, color-mix(in srgb, var(--acc) 34%, transparent), transparent 70%)`
   const onCtaMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const r = e.currentTarget.getBoundingClientRect()
     gx.set(((e.clientX - r.left) / r.width) * 100)
@@ -146,7 +177,7 @@ export default function DijitalContent() {
 
   return (
     <div className={styles.page}>
-      {/* ───────────── HERO ───────────── */}
+      {/* ───────────── HERO — radar / bullseye targeting scene ───────────── */}
       <header className={styles.hero} onMouseMove={onHeroMove} onMouseLeave={onHeroLeave}>
         <div className={styles.heroBg} aria-hidden="true" />
         <div className={styles.heroGrid} aria-hidden="true" />
@@ -173,22 +204,27 @@ export default function DijitalContent() {
             </motion.div>
           </motion.div>
 
-          {/* 3D abstract targeting scene — no metrics */}
           <motion.div
             className={styles.scene}
-            style={{ rotateX: reduce ? 0 : rotX, rotateY: reduce ? 0 : rotY, transformPerspective: 1000 }}
+            style={{ rotateX: reduce ? 0 : rotX, rotateY: reduce ? 0 : rotY, transformPerspective: 1100 }}
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.2, ease: EASE }}
           >
-            <div className={styles.rings} aria-hidden="true">
+            <div className={styles.radar} aria-hidden="true">
               <span className={styles.ring1} />
               <span className={styles.ring2} />
               <span className={styles.ring3} />
+              <span className={styles.cross} />
+              <motion.span className={styles.sweep} style={{ filter: reduce ? 'none' : sweepGlow }} />
               <span className={styles.bull} />
             </div>
 
-            <div className={styles.adCard} style={{ transform: 'translateZ(55px)' }} aria-hidden="true">
+            <div className={styles.adCard} aria-hidden="true">
+              <div className={styles.adBar}>
+                <span className={styles.adTag}>Reklam</span>
+                <span className={styles.adDots}><i /><i /><i /></span>
+              </div>
               <div className={styles.adImg} />
               <div className={styles.adLines}>
                 <span className={styles.adLineWide} />
@@ -197,11 +233,11 @@ export default function DijitalContent() {
               <div className={styles.adBtn} />
             </div>
 
-            <div className={styles.floatChip} style={{ transform: 'translateZ(85px)' }} aria-hidden="true">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="3" /></svg>
+            <div className={styles.floatChip} aria-hidden="true">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="3" /><path d="M12 2v3M12 19v3M2 12h3M19 12h3" /></svg>
               Doğru Kitle
             </div>
-            <div className={styles.floatChip2} style={{ transform: 'translateZ(72px)' }} aria-hidden="true">
+            <div className={styles.floatChip2} aria-hidden="true">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M12 19V5M5 12l7-7 7 7" /></svg>
               Dönüşüm
             </div>
@@ -209,19 +245,33 @@ export default function DijitalContent() {
         </div>
       </header>
 
-      {/* ───────────── MARQUEE ───────────── */}
-      <div className={styles.marquee} aria-hidden="true">
-        <div className={styles.marqueeTrack}>
-          {[...KEYWORDS, ...KEYWORDS].map((k, i) => (
-            <span key={i} className={styles.kw}>
-              <span className={styles.kwDot} />
-              {k}
-            </span>
+      {/* ───────────── PLATFORMS — dual panel ───────────── */}
+      <section className={styles.platSection} aria-label="Reklam platformları">
+        <div className={styles.platGrid}>
+          {PLATFORMS.map((p, i) => (
+            <motion.article
+              key={p.name}
+              className={styles.platCard}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={VIEWPORT}
+              custom={i}
+              whileHover={reduce ? undefined : { y: -6 }}
+            >
+              <div className={styles.platGlyph}>{p.icon}</div>
+              <div className={styles.platBody}>
+                <span className={styles.platEyebrow}>Platform 0{i + 1}</span>
+                <h2 className={styles.platName}>{p.name}</h2>
+                <p className={styles.platRole}>{p.role}</p>
+              </div>
+              <span className={styles.platCorner} aria-hidden="true" />
+            </motion.article>
           ))}
         </div>
-      </div>
+      </section>
 
-      {/* ───────────── PILLARS ───────────── */}
+      {/* ───────────── PILLARS — scope motif ───────────── */}
       <section className={styles.pillarSection}>
         <motion.div className={styles.secHead} initial="hidden" whileInView="show" viewport={VIEWPORT}>
           <motion.span className={styles.secTag} variants={fadeUp} custom={0}>Yaklaşımımız</motion.span>
@@ -239,7 +289,11 @@ export default function DijitalContent() {
               custom={i}
               whileHover={reduce ? undefined : { y: -6 }}
             >
-              <div className={styles.pillarIcon}>{p.icon}</div>
+              <div className={styles.scopeWrap}>
+                <span className={styles.scopeRing} aria-hidden="true" />
+                <span className={styles.scopeReticle} aria-hidden="true" />
+                <div className={styles.pillarIcon}>{p.icon}</div>
+              </div>
               <h3 className={styles.pillarTitle}>{p.t}</h3>
               <p className={styles.pillarDesc}>{p.d}</p>
             </motion.article>
@@ -247,7 +301,7 @@ export default function DijitalContent() {
         </div>
       </section>
 
-      {/* ───────────── FEATURES — bento ───────────── */}
+      {/* ───────────── FEATURES + FUNNEL ───────────── */}
       <section className={styles.featSection}>
         <motion.div className={styles.secHead} initial="hidden" whileInView="show" viewport={VIEWPORT}>
           <motion.span className={styles.secTag} variants={fadeUp} custom={0}>Kapsam</motion.span>
@@ -255,88 +309,142 @@ export default function DijitalContent() {
           <motion.p className={styles.secSub} variants={fadeUp} custom={2}>Dönüşüm getiren her reklam bileşenini tek çatı altında yönetiyoruz.</motion.p>
         </motion.div>
 
-        <div className={styles.bento}>
-          {/* Big card — campaign management checklist */}
-          <motion.div
-            className={styles.bentoBig}
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="show"
-            viewport={VIEWPORT}
-            whileHover={reduce ? undefined : { y: -6 }}
-          >
-            <div className={styles.cardIcon}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden="true"><path d="M9 11l3 3L22 4" /><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" /></svg>
-            </div>
-            <h3 className={styles.cardTitle}>Uçtan Uca Kampanya Yönetimi</h3>
-            <p className={styles.cardDesc}>Strateji, kurulum, kreatif ve optimizasyon — reklamın tüm yaşam döngüsünü sizin için yönetiriz.</p>
-            <ul className={styles.checkList}>
-              {CHECKLIST.map((c, i) => (
-                <motion.li
-                  key={c}
-                  className={styles.checkItem}
-                  initial={{ opacity: 0, x: -12 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={VIEWPORT}
-                  transition={{ duration: 0.45, delay: 0.15 + i * 0.1, ease: EASE }}
-                >
-                  <span className={styles.checkBox}>
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5" aria-hidden="true"><polyline points="20 6 9 17 4 12" /></svg>
-                  </span>
-                  {c}
-                </motion.li>
-              ))}
-            </ul>
-          </motion.div>
+        <div className={styles.featLayout}>
+          {/* targeted feature cards */}
+          <div className={styles.featCards}>
+            {FEATURES.map((f, i) => (
+              <motion.article
+                key={f.title}
+                className={styles.featCard}
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="show"
+                viewport={VIEWPORT}
+                custom={i}
+                whileHover={reduce ? undefined : { y: -5 }}
+              >
+                <span className={styles.featTick} aria-hidden="true" />
+                <div className={styles.featIcon}>{f.icon}</div>
+                <h3 className={styles.featTitle}>{f.title}</h3>
+                <p className={styles.featDesc}>{f.desc}</p>
+              </motion.article>
+            ))}
+          </div>
 
-          {FEATURES.map((f, i) => (
-            <motion.article
-              key={f.title}
-              className={styles.bentoCard}
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="show"
-              viewport={VIEWPORT}
-              custom={i}
-              whileHover={reduce ? undefined : { y: -6, rotateX: 4, rotateY: -4 }}
-            >
-              <div className={styles.cardIcon}>{f.icon}</div>
-              <h3 className={styles.cardTitle}>{f.title}</h3>
-              <p className={styles.cardDesc}>{f.desc}</p>
-            </motion.article>
-          ))}
+          {/* conversion funnel */}
+          <motion.aside
+            ref={funnelRef}
+            className={styles.funnel}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={VIEWPORT}
+            transition={{ duration: 0.7, ease: EASE }}
+          >
+            <span className={styles.funnelTag}>Dönüşüm Hunisi</span>
+            <div className={styles.funnelStage}>
+              {!reduce && <motion.span className={styles.funnelMarker} style={{ top: funnelMarkerY }} aria-hidden="true" />}
+              {FUNNEL.map((s, i) => (
+                <motion.div
+                  key={s.label}
+                  className={styles.funnelRow}
+                  style={{ width: `${s.width}%` }}
+                  initial={{ opacity: 0, scaleX: reduce ? 1 : 0.7 }}
+                  whileInView={{ opacity: 1, scaleX: 1 }}
+                  viewport={VIEWPORT}
+                  transition={{ duration: 0.55, delay: 0.15 + i * 0.12, ease: EASE }}
+                >
+                  <span className={styles.funnelLabel}>{s.label}</span>
+                  <span className={styles.funnelCaret} aria-hidden="true" />
+                </motion.div>
+              ))}
+            </div>
+          </motion.aside>
         </div>
+
+        {/* end-to-end management big card */}
+        <motion.div
+          className={styles.bigCard}
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={VIEWPORT}
+          whileHover={reduce ? undefined : { y: -6 }}
+        >
+          <div className={styles.bigGlow} aria-hidden="true" />
+          <div className={styles.bigHead}>
+            <div className={styles.bigIcon}>
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden="true"><path d="M9 11l3 3L22 4" /><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" /></svg>
+            </div>
+            <div>
+              <h3 className={styles.bigTitle}>Uçtan Uca Kampanya Yönetimi</h3>
+              <p className={styles.bigDesc}>Strateji, kurulum, kreatif ve optimizasyon — reklamın tüm yaşam döngüsünü sizin için yönetiriz.</p>
+            </div>
+          </div>
+          <ul className={styles.checkList}>
+            {CHECKLIST.map((c, i) => (
+              <motion.li
+                key={c}
+                className={styles.checkItem}
+                initial={{ opacity: 0, x: -12 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={VIEWPORT}
+                transition={{ duration: 0.45, delay: 0.1 + i * 0.08, ease: EASE }}
+              >
+                <span className={styles.checkBox}>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5" aria-hidden="true"><polyline points="20 6 9 17 4 12" /></svg>
+                </span>
+                {c}
+              </motion.li>
+            ))}
+          </ul>
+        </motion.div>
       </section>
 
-      {/* ───────────── PROCESS — timeline ───────────── */}
+      {/* ───────────── PROCESS — horizontal pipeline ───────────── */}
       <section className={styles.procSection}>
         <motion.div className={styles.secHead} initial="hidden" whileInView="show" viewport={VIEWPORT}>
           <motion.span className={styles.secTag} variants={fadeUp} custom={0}>Akış</motion.span>
           <motion.h2 className={styles.secTitle} variants={fadeUp} custom={1}>Kampanya Yaşam Döngüsü</motion.h2>
         </motion.div>
 
-        <div className={styles.timeline} ref={timelineRef}>
-          <div className={styles.timelineTrack} aria-hidden="true">
-            <motion.div className={styles.timelineFill} style={{ scaleY: reduce ? 1 : lineScale }} />
-          </div>
-          {STEPS.map((s) => (
+        <div className={styles.pipeline}>
+          {STEPS.map((s, i) => (
             <motion.div
               key={s.n}
-              className={styles.step}
-              initial={{ opacity: 0, y: 24 }}
+              className={styles.pipeNode}
+              initial={{ opacity: 0, y: 26 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={VIEWPORT}
-              transition={{ duration: 0.55, ease: EASE }}
+              transition={{ duration: 0.55, delay: i * 0.1, ease: EASE }}
             >
-              <div className={styles.stepDot}><span className={styles.stepNum}>{s.n}</span></div>
-              <div className={styles.stepCard}>
-                <h3 className={styles.stepTitle}>{s.t}</h3>
-                <p className={styles.stepDesc}>{s.d}</p>
+              <div className={styles.pipeBadge}>
+                <span className={styles.pipeNum}>{s.n}</span>
               </div>
+              <div className={styles.pipeCard}>
+                <h3 className={styles.pipeTitle}>{s.t}</h3>
+                <p className={styles.pipeDesc}>{s.d}</p>
+              </div>
+              {i < STEPS.length - 1 && (
+                <span className={styles.pipeArrow} aria-hidden="true">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+                </span>
+              )}
             </motion.div>
           ))}
         </div>
       </section>
+
+      {/* ───────────── KEYWORDS marquee ───────────── */}
+      <div className={styles.marquee} aria-hidden="true">
+        <div className={styles.marqueeTrack}>
+          {[...KEYWORDS, ...KEYWORDS].map((k, i) => (
+            <span key={i} className={styles.kw}>
+              <span className={styles.kwDot} />
+              {k}
+            </span>
+          ))}
+        </div>
+      </div>
 
       {/* ───────────── FAQ ───────────── */}
       <section className={styles.faqSection}>
@@ -386,7 +494,7 @@ export default function DijitalContent() {
         </div>
       </section>
 
-      {/* ───────────── CTA ───────────── */}
+      {/* ───────────── CTA band ───────────── */}
       <section className={styles.ctaSection}>
         <motion.div
           className={styles.ctaCard}
