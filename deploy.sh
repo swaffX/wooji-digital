@@ -23,3 +23,44 @@ pm2 save
 # Brief health check
 sleep 4
 curl -sf http://127.0.0.1:3000/ -o /dev/null && echo "Deploy OK: $(date)" || echo "WARNING: Health check failed — check pm2 logs"
+
+# ── Caddy: lock origin to Cloudflare (idempotent + fail-safe) ──
+# Makes CF-Connecting-IP trustworthy by 403ing direct-to-origin (non-Cloudflare)
+# requests. Cannot break the live site: applies ONLY if caddy + Caddyfile + the
+# site block exist and the candidate passes `caddy validate`; otherwise no-op.
+# On reload failure it restores the backup. The `|| true` call site keeps `set -e`
+# from ever aborting the (already-successful) app deploy because of this block.
+apply_caddy_cf_lock() {
+  local CF="/etc/caddy/Caddyfile"
+  local SNIP="/root/wooji-digital/deploy/cloudflare-allowlist.caddy"
+  command -v caddy >/dev/null 2>&1 || { echo "Caddy: binary not found — skip"; return 0; }
+  [ -f "$CF" ]   || { echo "Caddy: $CF not found — skip"; return 0; }
+  [ -f "$SNIP" ] || { echo "Caddy: snippet not found — skip"; return 0; }
+  grep -q 'cloudflare_only' "$CF" && { echo "Caddy: CF lock already applied — skip"; return 0; }
+
+  local TMP BAK
+  TMP="$(mktemp)" || return 0
+  BAK="${CF}.bak.$(date +%s)"
+  { cat "$SNIP"; echo; cat "$CF"; } > "$TMP"
+  # Insert `import cloudflare_only` as the first line inside the woojidigital.com site block
+  sed -i -E '0,/^[[:space:]]*[^#].*woojidigital\.com[^{]*\{[[:space:]]*$/s//&\n\timport cloudflare_only/' "$TMP"
+  if ! grep -q 'import cloudflare_only' "$TMP"; then
+    echo "Caddy: woojidigital.com site block not matched — leaving config unchanged (no-op)"
+    rm -f "$TMP"; return 0
+  fi
+  if ! caddy validate --config "$TMP" >/dev/null 2>&1; then
+    echo "Caddy: candidate config invalid — leaving config unchanged (no-op)"
+    rm -f "$TMP"; return 0
+  fi
+  cp "$CF" "$BAK"
+  cp "$TMP" "$CF"
+  rm -f "$TMP"
+  if systemctl reload caddy 2>/dev/null || caddy reload --config "$CF" 2>/dev/null; then
+    echo "Caddy: Cloudflare origin lock applied + reloaded (backup: $BAK)"
+  else
+    echo "Caddy: reload FAILED — restoring backup $BAK"
+    cp "$BAK" "$CF"
+    systemctl reload caddy 2>/dev/null || caddy reload --config "$CF" 2>/dev/null || true
+  fi
+}
+apply_caddy_cf_lock || true
