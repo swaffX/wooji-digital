@@ -271,32 +271,21 @@ export default function Navbar() {
         </motion.div>
       </div>
 
-      {/* Mobile overlay */}
-      <AnimatePresence>
-        {isOpen && (
-          <>
-            {/* backdrop */}
-            <motion.div
-              className={styles.mobBackdrop}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.25 }}
-              onClick={close}
-              aria-hidden="true"
-            />
+      {/* Mobile overlay — always in DOM; CSS-transform slide (no per-frame JS, no mount cost) */}
+      <div
+        className={`${styles.mobBackdrop}${isOpen ? ` ${styles.mobBackdropOpen}` : ''}`}
+        onClick={close}
+        aria-hidden="true"
+      />
 
-            <motion.div
-              ref={mobMenuRef}
-              className={styles.mobMenu}
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: 'tween', duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-              role="dialog"
-              aria-modal="true"
-              aria-label="Mobil navigasyon"
-            >
+      <div
+        ref={mobMenuRef}
+        className={`${styles.mobMenu}${isOpen ? ` ${styles.mobMenuOpen}` : ''}`}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Mobil navigasyon"
+        aria-hidden={!isOpen}
+      >
               {/* ── Header bar ── */}
               <div className={styles.mobHeader}>
                 <span className={styles.mobBrand}>Wooji Digital</span>
@@ -421,10 +410,7 @@ export default function Navbar() {
                   </svg>
                 </Link>
               </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+            </div>
     </>
   )
 }
