@@ -303,6 +303,23 @@
   .section { padding: 4.5rem 0; }
 }
 
+/* ── Dark theme ── */
+[data-theme="dark"] .section {
+  background: linear-gradient(160deg, #0b0e16 0%, #0e1320 40%, #0a1420 100%);
+}
+[data-theme="dark"] .band1 {
+  background: linear-gradient(135deg, rgba(124,58,237,0.16) 0%, rgba(124,58,237,0.05) 55%, transparent 100%);
+}
+[data-theme="dark"] .band2 {
+  background: linear-gradient(135deg, rgba(8,145,178,0.13) 0%, rgba(37,99,235,0.07) 50%, transparent 100%);
+}
+[data-theme="dark"] .meshGrid {
+  background-image:
+    linear-gradient(rgba(168,85,247,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(168,85,247,0.05) 1px, transparent 1px);
+}
+[data-theme="dark"] .open { background: rgba(124,58,237,0.07); }
+
 @media (prefers-reduced-motion: reduce) {
   .band1, .trustDot { animation: none; }
 }

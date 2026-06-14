@@ -39,3 +39,8 @@ next-env.d.ts
 .agents/
 .claude/
 skills-lock.json
+
+# Local ops tooling — contains VPS credentials, never commit
+/vps-diag.mjs
+/package.json
+/package-lock.json

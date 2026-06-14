@@ -39,10 +39,10 @@ function getResponse(raw: string): string {
     return 'Wooji Digital 6 ana hizmet sunar:\n\n· SEO & Organik Büyüme\n· Dijital Reklam Yönetimi\n· Web Tasarım & Geliştirme\n· Sosyal Medya Yönetimi\n· İçerik Pazarlaması\n· Analitik & Strateji\n\nHangi hizmet hakkında detay almak istersiniz?'
 
   if (/fiyat|ücret|ne kadar|maliyet|bütçe|kaça/.test(t))
-    return 'Fiyatlandırmamız proje kapsamı ve hizmet kombinasyonuna göre belirleniyor. Her müşteri için özel teklif hazırlıyoruz.\n\nÜcretsiz danışmanlık görüşmesi için iletişim formunu doldurun veya WhatsApp\'tan yazın — 2 saat içinde yanıt veriyoruz.'
+    return 'Fiyatlandırmamız proje kapsamı ve hizmet kombinasyonuna göre belirleniyor. Her müşteri için özel teklif hazırlıyoruz.\n\nÜcretsiz danışmanlık görüşmesi için sayfadaki iletişim formunu doldurun — ortalama 2 saat içinde yanıt veriyoruz.'
 
   if (/iletişim|ulaş|mail|e-posta|whatsapp|telefon|nasıl ulaş/.test(t))
-    return 'Bize ulaşmak için:\n\n· E-posta: info@woojidigital.com\n· Sayfadaki iletişim formu\n· Aşağıdaki WhatsApp butonu\n\nOrtalama yanıt süremiz 2 saattir.'
+    return 'Bize ulaşmak için:\n\n· E-posta: info@woojidigital.com\n· Sayfadaki iletişim formu\n\nOrtalama yanıt süremiz 2 saattir.'
 
   if (/hakkında|kimsiniz|wooji|biz kimiz|kurucu|ekip|ne zaman kur/.test(t))
     return 'Wooji Digital, 2023\'te kurulan büyüme odaklı bir dijital pazarlama ajansıdır. 5+ yıllık sektör tecrübesiyle 50\'den fazla markaya hizmet verdik.\n\nVeriye dayalı yaklaşım ve ölçülebilir sonuçlar temel prensibimiz.'
@@ -54,7 +54,7 @@ function getResponse(raw: string): string {
     return 'Proje başlangıcı anlaşma sonrası 3-5 iş günüdür.\n\n· Web tasarım ilk taslak: 48 saat\n· SEO sonuçları: 3. aydan itibaren\n· Reklam aktivasyon: 1-2 gün'
 
   if (/teşekkür|sağol|eyw|süper|harika|güzel/.test(t))
-    return 'Rica ederim! Başka sorunuz olursa buradayım. Detaylı bilgi için WhatsApp\'tan da ulaşabilirsiniz.'
+    return 'Rica ederim! Başka sorunuz olursa buradayım. Detaylı bilgi için sayfadaki iletişim formundan da ulaşabilirsiniz.'
 
   return 'Sorunuzu daha iyi anlayabilmek için birkaç kelime daha ekleyebilir misiniz? Hizmetler, fiyatlar veya iletişim hakkında da doğrudan soru sorabilirsiniz.'
 }
@@ -217,6 +217,12 @@ export default function AiChat() {
                   </svg>
                 </button>
               </form>
+              <div className={styles.footerNote}>
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true">
+                  <path d="M13 2 3 14h7l-1 8 11-14h-8l1-6z"/>
+                </svg>
+                Wooji AI · genelde saniyeler içinde yanıtlar
+              </div>
             </div>
           </motion.div>
         )}

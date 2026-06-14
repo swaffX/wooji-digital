@@ -107,6 +107,13 @@ export default function Navbar() {
 
           {/* Desktop nav */}
           <nav className={styles.navLinks} aria-label="Ana navigasyon">
+            <Link
+              href="/"
+              onClick={close}
+              className={isHome && !activeSection ? styles.activeLink : undefined}
+            >
+              Ana Sayfa
+            </Link>
             {/* Hizmetler dropdown */}
             <div
               className={styles.dropdownWrap}
@@ -257,6 +264,29 @@ export default function Navbar() {
                 >
                   Navigasyon
                 </motion.p>
+
+                {/* Ana Sayfa row */}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 }}
+                >
+                  <Link
+                    href="/"
+                    onClick={close}
+                    className={`${styles.mobNavRow} ${styles.mobNavLink}${isHome && !activeSection ? ` ${styles.mobNavActive}` : ''}`}
+                  >
+                    <span className={styles.mobNavRowLeft}>
+                      <span className={styles.mobNavIcon} aria-hidden="true">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 9.5 12 3l9 6.5"/><path d="M5 10v10h14V10"/></svg>
+                      </span>
+                      <span className={styles.mobNavLabel}>Ana Sayfa</span>
+                    </span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
+                      <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                  </Link>
+                </motion.div>
 
                 {/* Hizmetler row */}
                 <motion.div

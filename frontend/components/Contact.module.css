@@ -525,6 +525,19 @@ a.contactItem:hover {
   .leftPanel { padding: 2rem 1.75rem; }
 }
 
+/* ── Dark theme ── */
+[data-theme="dark"] .section {
+  background: linear-gradient(160deg, #0b0e16 0%, #0e1320 45%, #0a1320 100%);
+}
+[data-theme="dark"] .bgMesh {
+  background-image:
+    linear-gradient(rgba(168,85,247,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(168,85,247,0.04) 1px, transparent 1px);
+}
+[data-theme="dark"] .glare {
+  background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 55%);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .panelOrb1, .panelOrb2, .ring1, .ring2, .ring3, .responseDot { animation: none; }
 }

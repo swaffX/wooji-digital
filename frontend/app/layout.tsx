@@ -157,6 +157,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="tr"
       className={`${syneVar.variable} ${outfitVar.variable} ${dmSansVar.variable}`}
+      suppressHydrationWarning
     >
       <head>
         {/* Prevent dark mode flash on load */}
