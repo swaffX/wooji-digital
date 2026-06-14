@@ -7,6 +7,13 @@ cd /root/wooji-digital
 git checkout -- .
 git pull origin main
 
+# Re-exec the freshly pulled copy so script/config changes take effect on the
+# SAME deploy (bash otherwise keeps executing the pre-pull version of this file).
+if [ "${DEPLOY_REEXEC:-}" != "1" ]; then
+  export DEPLOY_REEXEC=1
+  exec bash "$0"
+fi
+
 cd frontend
 npm install --production=false
 
@@ -38,18 +45,21 @@ apply_caddy_cf_lock() {
   [ -f "$SNIP" ] || { echo "Caddy: snippet not found — skip"; return 0; }
   grep -q 'cloudflare_only' "$CF" && { echo "Caddy: CF lock already applied — skip"; return 0; }
 
-  local TMP BAK
+  local TMP BAK VERR
   TMP="$(mktemp)" || return 0
   BAK="${CF}.bak.$(date +%s)"
-  { cat "$SNIP"; echo; cat "$CF"; } > "$TMP"
+  # APPEND the snippet definition at the END (a leading global-options block, if
+  # any, must stay first; Caddy resolves snippet imports regardless of order).
+  { cat "$CF"; echo; cat "$SNIP"; } > "$TMP"
   # Insert `import cloudflare_only` as the first line inside the woojidigital.com site block
   sed -i -E '0,/^[[:space:]]*[^#].*woojidigital\.com[^{]*\{[[:space:]]*$/s//&\n\timport cloudflare_only/' "$TMP"
   if ! grep -q 'import cloudflare_only' "$TMP"; then
     echo "Caddy: woojidigital.com site block not matched — leaving config unchanged (no-op)"
     rm -f "$TMP"; return 0
   fi
-  if ! caddy validate --config "$TMP" >/dev/null 2>&1; then
-    echo "Caddy: candidate config invalid — leaving config unchanged (no-op)"
+  if ! VERR="$(caddy validate --config "$TMP" 2>&1)"; then
+    echo "Caddy: candidate config invalid — no-op. validate output:"
+    printf '%s\n' "$VERR" | head -25
     rm -f "$TMP"; return 0
   fi
   cp "$CF" "$BAK"
